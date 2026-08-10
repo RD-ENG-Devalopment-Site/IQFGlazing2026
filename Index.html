@@ -1,0 +1,98 @@
+Exit code: 0
+Wall time: 0.2 seconds
+Output:
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IVQF Improvement | Main</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --ink: oklch(26% .028 252); --muted: oklch(49% .024 252); --line: oklch(88% .012 250); --page: oklch(97.7% .007 250); --surface: oklch(100% 0 0); --navy: oklch(32% .075 250); --blue: oklch(52% .125 247); --blue-soft: oklch(94.5% .024 247); --teal: oklch(50% .08 181); --amber-soft: oklch(95% .03 75); --radius: 14px; --motion: 180ms cubic-bezier(.22, 1, .36, 1); }
+    * { box-sizing: border-box; } html { scroll-behavior: smooth; } body { margin: 0; color: var(--ink); background: var(--page); font: 15px/1.55 "Noto Sans Thai", "Sarabun", "Segoe UI", system-ui, sans-serif; } a { color: inherit; }
+    .shell { min-height: 100vh; display: grid; grid-template-columns: 232px minmax(0, 1fr); }
+    .sidebar { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; padding: 25px 14px; color: white; background: var(--navy); }
+    .brand { padding: 0 10px 23px; border-bottom: 1px solid oklch(100% 0 0 / .16); }.brand-mark { display: grid; place-items: center; width: 38px; height: 38px; margin-bottom: 14px; border-radius: 10px; color: var(--navy); background: white; font-size: 14px; font-weight: 900; letter-spacing: -.05em; }.brand h1 { margin: 0; font-size: 17px; letter-spacing: -.025em; line-height: 1.2; }.brand p { margin: 5px 0 0; color: oklch(87% .015 250); font-size: 12px; }
+    nav { display: grid; gap: 4px; padding: 20px 0; } nav a { display: flex; align-items: center; gap: 10px; min-height: 42px; padding: 9px 10px; border-radius: 9px; color: oklch(87% .015 250); text-decoration: none; font-size: 13px; transition: color var(--motion), background var(--motion); } nav a:hover, nav a[aria-current="page"] { color: white; background: oklch(100% 0 0 / .13); }.nav-icon { width: 18px; text-align: center; font-size: 16px; }.side-status { margin-top: auto; padding: 13px; border-radius: 10px; background: oklch(100% 0 0 / .09); color: oklch(90% .014 250); font-size: 12px; }.side-status strong { display: block; color: white; font-size: 12px; }
+    main { min-width: 0; max-width: 1370px; padding: 42px clamp(22px, 5vw, 68px) 52px; }.topline { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 24px; }.date { color: var(--muted); font-size: 12px; }.status { display: inline-flex; align-items: center; gap: 7px; color: oklch(36% .06 181); font-size: 12px; font-weight: 700; }.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--teal); }.intro { max-width: 780px; margin: 0 0 38px; }.intro h2 { margin: 0; font-size: 34px; letter-spacing: -.035em; line-height: 1.18; text-wrap: balance; }.intro p { max-width: 66ch; margin: 12px 0 0; color: var(--muted); text-wrap: pretty; }
+    .workspace { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(260px, .75fr); gap: 18px; }.primary-link, .module, .notice { border-radius: var(--radius); background: var(--surface); }.primary-link { position: relative; display: block; min-height: 294px; padding: 30px; overflow: hidden; color: white; background: var(--navy); text-decoration: none; transition: transform var(--motion), background var(--motion); }.primary-link:hover { transform: translateY(-2px); background: oklch(28% .07 250); }.primary-link:focus-visible, .module a:focus-visible, nav a:focus-visible { outline: 3px solid oklch(72% .12 247); outline-offset: 3px; }.primary-link .label, .module .label { display: block; margin-bottom: 14px; font-size: 12px; font-weight: 750; }.primary-link .label { color: oklch(86% .03 247); }.primary-link h3 { max-width: 560px; margin: 0; font-size: 27px; letter-spacing: -.03em; line-height: 1.2; text-wrap: balance; }.primary-link p { max-width: 53ch; margin: 12px 0 0; color: oklch(87% .018 250); font-size: 14px; }.go { display: inline-flex; align-items: center; gap: 8px; margin-top: 28px; padding: 9px 12px; border-radius: 8px; color: var(--navy); background: white; font-size: 13px; font-weight: 800; }.primary-link::after { content: "2026"; position: absolute; right: 22px; bottom: -20px; color: oklch(100% 0 0 / .08); font-size: 130px; font-weight: 900; letter-spacing: -.09em; line-height: 1; }
+    .modules { display: grid; gap: 18px; }.module { display: flex; flex-direction: column; min-height: 138px; padding: 20px; border: 1px solid var(--line); }.module .label { margin-bottom: 7px; color: var(--muted); font-size: 11px; }.module h3 { margin: 0; font-size: 17px; letter-spacing: -.02em; line-height: 1.3; }.module p { margin: 7px 0 14px; color: var(--muted); font-size: 12px; }.module a { display: inline-flex; align-items: center; gap: 6px; width: fit-content; margin-top: auto; color: var(--blue); text-decoration: none; font-size: 12px; font-weight: 800; }.module a:hover { color: var(--navy); }
+    .lower { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(260px, .75fr); gap: 18px; margin-top: 18px; }.notice { padding: 22px; border: 1px solid var(--line); }.notice h3 { margin: 0; font-size: 16px; letter-spacing: -.015em; }.notice p { margin: 7px 0 0; color: var(--muted); font-size: 13px; }.path { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 18px; }.path span { padding: 7px 9px; border-radius: 7px; background: var(--blue-soft); color: oklch(35% .075 247); font-size: 12px; font-weight: 750; }.path i { color: var(--muted); font-style: normal; }.quick { padding: 20px 22px; border-radius: var(--radius); background: var(--amber-soft); }.quick h3 { margin: 0; color: oklch(34% .075 65); font-size: 15px; }.quick ul { margin: 9px 0 0; padding-left: 19px; color: oklch(39% .045 65); font-size: 12px; }.quick li + li { margin-top: 5px; }
+    .embedded-view { display: none; }.is-embedded #home-view { display: none; }.is-embedded .embedded-view { display: block; }.embed-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }.embed-header h2 { margin: 0; font-size: 18px; letter-spacing: -.025em; }.embed-header p { margin: 3px 0 0; color: var(--muted); font-size: 12px; }.back-home { height: 36px; padding: 0 12px; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); background: var(--surface); font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }.back-home:hover { border-color: var(--blue); color: var(--blue); }.embed-frame { display: block; width: 100%; min-height: 650px; height: calc(100vh - 150px); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+    @media (max-width: 920px) { .shell { display: block; }.sidebar { position: static; width: 100%; height: auto; padding: 16px 20px; }.brand { display: none; }nav { display: flex; overflow-x: auto; padding: 0; }nav a { flex: 0 0 auto; }.side-status { display: none; }main { padding-top: 28px; } } @media (max-width: 720px) { .workspace, .lower { grid-template-columns: 1fr; }.intro h2 { font-size: 28px; }.primary-link { min-height: 260px; padding: 24px; }.primary-link h3 { font-size: 23px; }.topline { margin-bottom: 18px; } } @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; } }
+  </style>
+  <style>
+    /* Shared dashboard visual system — based on order_ivqf_dashboard_2026_corrected.html */
+    :root { --page: #f3f4f6; --surface: #fff; --ink: #172033; --muted: #5f6878; --line: #dfe3e8; --navy: #171816; --blue: #185fa5; --blue-soft: #e7f0fa; --teal: #3b6d11; --amber-soft: #faeeda; --radius: 12px; }
+    body { font: 14px/1.5 Inter, "Noto Sans Thai", "Segoe UI", Tahoma, sans-serif; }
+    .shell { grid-template-columns: 205px minmax(0, 1fr); }.sidebar { width: 205px; padding: 0 12px; background: var(--navy); }.brand { min-height: 88px; padding: 28px 6px 18px; }.brand-mark { display: none; }.brand h1 { font-size: 15px; font-weight: 700; }.brand p { margin-top: 3px; font-size: 11px; }.sidebar nav { padding: 16px 0; }.sidebar nav a { gap: 12px; padding: 9px 10px; border-radius: 8px; font-size: 13px; }.side-status { margin: auto 0 16px; border-radius: 8px; }
+    .sidebar nav details { border-radius: 8px; }.sidebar nav summary { display: flex; align-items: center; gap: 12px; min-height: 42px; padding: 9px 10px; border-radius: 8px; color: rgb(255 255 255 / .8); cursor: pointer; font-size: 13px; list-style: none; transition: color var(--motion), background-color var(--motion); }.sidebar nav summary::-webkit-details-marker { display: none; }.sidebar nav summary:hover, .sidebar nav details[open] summary { color: white; background: rgb(255 255 255 / .1); }.sidebar nav summary::after { content: ""; width: 6px; height: 6px; margin-left: auto; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg) translateY(-2px); transition: transform var(--motion); }.sidebar nav details[open] summary::after { transform: rotate(225deg) translate(-2px, -2px); }.dashboard-submenu { display: grid; gap: 2px; padding: 5px 0 7px 0; }.sidebar nav .dashboard-submenu a { min-height: 38px; padding: 8px 10px 8px 14px; color: rgb(255 255 255 / .78); font-size: 13px; }.sidebar nav .dashboard-submenu a:hover { color: white; background: rgb(255 255 255 / .08); }.sidebar nav .dashboard-submenu .nav-icon { color: rgb(255 255 255 / .62); }.nav-icon svg { display: block; width: 16px; height: 16px; }
+    main { max-width: none; padding: 28px 32px 46px; }.topline { margin-bottom: 22px; }.intro { margin-bottom: 26px; }.intro h2 { font-size: 22px; font-weight: 700; letter-spacing: -.035em; }.intro p { margin-top: 4px; font-size: 12px; }.workspace, .lower { gap: 14px; }.primary-link, .module, .notice { box-shadow: 0 1px 3px rgb(17 24 39 / .09); }.primary-link { min-height: 236px; padding: 22px; background: var(--navy); }.primary-link:hover { transform: none; background: var(--navy); }.primary-link h3 { font-size: 21px; }.primary-link p { font-size: 13px; }.primary-link::after { font-size: 105px; }.go { margin-top: 20px; padding: 8px 10px; border-radius: 8px; }.modules { gap: 14px; }.module { min-height: 111px; padding: 16px 18px; }.module h3 { font-size: 15px; }.module p { margin: 4px 0 10px; font-size: 12px; }.notice { padding: 18px; }.notice h3 { font-size: 14px; }.notice p { font-size: 12px; }.quick { padding: 18px; }.status { color: var(--teal); }
+    @media (max-width: 1000px) { .shell { display: block; }.sidebar { width: 205px; height: 100vh; padding: 0 12px; }.brand { display: block; }.sidebar nav { display: grid; overflow: visible; }.side-status { display: block; }main { padding: 18px; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar" aria-label="เมนูหลัก">
+      <div class="brand"><div class="brand-mark">IV</div><h1>IVQF Improvement</h1><p>Workspace สำหรับข้อมูลและมาตรฐานการผลิต</p></div>
+      <nav>
+        <a href="Index.html" aria-current="page"><span class="nav-icon">⌂</span>หน้า Main</a>
+        <details>
+          <summary><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="6" height="6"/></svg></span>Order Dashboard</summary>
+          <div class="dashboard-submenu">
+            <a href="Order2026_Restored.html" data-embed data-view-title="ภาพรวม Dashboard"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="6" height="6"/></svg></span>ภาพรวม Dashboard</a>
+            <a href="#order-dashboard"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 19h16M7 16V9m5 7V5m5 11v-4"/></svg></span>Top 5 รายเดือน</a>
+            <a href="#order-dashboard"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 19h16M7 16V9m5 7V5m5 11v-4"/></svg></span>กราฟยอด Order</a>
+            <a href="#order-dashboard"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16"/><path d="M3.5 10h17M10 4v16"/></svg></span>ตารางสินค้า</a>
+          </div>
+        </details>
+        <details>
+          <summary><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 5v14M5 12h14"/></svg></span>Glazing</summary>
+          <div class="dashboard-submenu">
+            <a href="order_ivqf_dashboard_2026_corrected.html" data-embed data-view-title="Glazing Standard"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 5v14M5 12h14"/></svg></span>Glazing Standard</a>
+            <a href="#glazing-plan"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg></span>Glazing Plan</a>
+            <a href="#glazing-experiment"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 8a3 3 0 0 0 2.6 4h8.8a3 3 0 0 0 2.6-4l-5-8V3"/><path d="M8 16h8"/></svg></span>Glazing Experiment</a>
+          </div>
+        </details>
+      </nav>
+      <div class="side-status"><strong>IVQF Improvement</strong>เลือกโมดูลเพื่อเริ่มดูข้อมูลและมาตรฐานการทำงาน</div>
+    </aside>
+    <main id="workspace-main">
+      <div id="home-view">
+      <div class="topline"><span class="date">Main workspace · 2026</span><span class="status">พร้อมใช้งาน</span></div>
+      <section class="intro"><h2>ศูนย์กลางข้อมูลสำหรับการปรับปรุงงาน IVQF</h2><p>เข้าถึงข้อมูล Order และมาตรฐาน Glazing ได้จากจุดเดียว เพื่อให้ทีมใช้ข้อมูลชุดเดียวกันในการติดตามผลและตัดสินใจหน้างาน</p></section>
+      <section class="workspace" aria-label="โมดูลหลัก">
+        <article class="primary-link" id="order-dashboard"><span class="label">ข้อมูลการผลิตและคำสั่งซื้อ</span><h3>Order IVQF Dashboard</h3><p>ดูยอด Order รายเดือน แยกตามประเภทสินค้า หมวดสินค้า และรายละเอียดผลิตภัณฑ์</p><span class="go">โมดูลข้อมูล Order</span></article>
+        <div class="modules"><article class="module"><span class="label">มาตรฐานการทำงาน</span><h3>Glazing Standard</h3><p>เปรียบเทียบระบบ Glazing พร้อมค่าเป้าหมายสำหรับ BL, BB และ FL</p><a href="order_ivqf_dashboard_2026_corrected.html" data-embed data-view-title="Glazing Standard">เปิดมาตรฐาน <span aria-hidden="true">→</span></a></article><article class="module"><span class="label">การใช้งาน</span><h3>เริ่มจากข้อมูลที่ต้องใช้</h3><p>เลือก Dashboard เมื่อต้องการดูยอด หรือเลือก Standard เมื่อต้องการทบทวนวิธีทำงาน</p></article></div>
+      </section>
+      <section class="lower" aria-label="แนวทางการใช้งาน"><article class="notice"><h3>ลำดับการใช้งานที่แนะนำ</h3><p>ใช้ยอด Order เพื่อระบุสินค้าที่มีผลกระทบ แล้วตรวจสอบมาตรฐาน Glazing ก่อนวางแผนปรับปรุง</p><div class="path" aria-label="Order Dashboard ไปยัง Glazing Standard"><span>ดูยอด Order</span><i aria-hidden="true">→</i><span>ระบุจุดสำคัญ</span><i aria-hidden="true">→</i><span>ทบทวน Glazing</span></div></article><aside class="quick"><h3>ทางลัด</h3><ul><li>Order: ยอดรวมและรายการสินค้ารายเดือน</li><li>Glazing: ค่า Target และจุดควบคุม</li></ul></aside></section>
+      </div>
+      <section class="embedded-view" aria-live="polite">
+        <header class="embed-header"><div><h2 id="embed-title">Dashboard</h2><p>เนื้อหากำลังแสดงภายในพื้นที่ทำงาน</p></div><button class="back-home" id="back-home" type="button">← กลับหน้า Main</button></header>
+        <iframe class="embed-frame" id="embed-frame" title="Embedded workspace"></iframe>
+      </section>
+    </main>
+  </div>
+  <script>
+    (() => {
+      const main = document.getElementById('workspace-main');
+      const frame = document.getElementById('embed-frame');
+      const title = document.getElementById('embed-title');
+      const showHome = () => { main.classList.remove('is-embedded'); frame.removeAttribute('src'); };
+      document.querySelectorAll('[data-embed]').forEach(link => link.addEventListener('click', event => {
+        event.preventDefault();
+        title.textContent = link.dataset.viewTitle || link.textContent.trim();
+        frame.src = link.href;
+        main.classList.add('is-embedded');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }));
+      document.getElementById('back-home').addEventListener('click', showHome);
+      document.querySelector('a[aria-current="page"]').addEventListener('click', event => { event.preventDefault(); showHome(); });
+    })();
+  </script>
+</body>
+</html>
+
