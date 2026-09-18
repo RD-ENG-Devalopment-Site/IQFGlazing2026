@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>คู่มือการใช้งาน Line Balancing Simulator</title>
+<style>
+:root{--ink:#172033;--muted:#5f6878;--line:#dfe3e8;--blue:#185fa5;--blue-soft:#e7f0fa;--ok:#236710;--ok-soft:#edf6e9;--warn:#714c19;--warn-soft:#faeeda;--bad:#9f302a;--bad-soft:#fae8e6;--paper:#fff;--canvas:#f3f4f6}*{box-sizing:border-box}body{margin:0;background:var(--canvas);color:var(--ink);font:15px/1.65 Inter,"Noto Sans Thai","Segoe UI",Tahoma,sans-serif}.page{max-width:980px;margin:0 auto;padding:34px 28px 56px}.hero{background:var(--ink);color:#fff;border-radius:14px;padding:38px 40px;margin-bottom:22px}.eyebrow{display:inline-block;background:#ffffff1c;border:1px solid #ffffff35;border-radius:8px;padding:4px 9px;font-size:12px;font-weight:700}.hero h1{font-size:32px;line-height:1.25;margin:14px 0 8px;letter-spacing:-.02em}.hero p{margin:0;color:#d5dceb;max-width:62ch}.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;font-size:13px;color:#d5dceb}.meta span{padding:5px 9px;background:#ffffff14;border-radius:7px}.card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:26px;margin-top:18px}.card h2{font-size:22px;line-height:1.3;margin:0 0 8px;letter-spacing:-.015em}.card h3{font-size:16px;margin:22px 0 8px}.lead{color:var(--muted);margin:0}.toc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:18px}.toc a{display:block;color:var(--blue);text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-weight:700}.toc a:hover{background:var(--blue-soft)}.steps{counter-reset:step;display:grid;gap:12px;margin:18px 0 0;padding:0;list-style:none}.steps li{counter-increment:step;position:relative;padding:15px 16px 15px 58px;border:1px solid var(--line);border-radius:10px;background:#fff}.steps li::before{content:counter(step);position:absolute;left:16px;top:16px;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--blue-soft);color:var(--blue);font-weight:800}.steps strong{display:block}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}.callout{border-radius:10px;padding:14px 16px}.callout.info{background:var(--blue-soft)}.callout.ok{background:var(--ok-soft);color:var(--ok)}.callout.warn{background:var(--warn-soft);color:var(--warn)}.callout.bad{background:var(--bad-soft);color:var(--bad)}.callout strong{display:block;margin-bottom:3px}.flow{display:flex;align-items:stretch;gap:8px;margin-top:16px}.flow div{flex:1;padding:12px;border-radius:9px;background:var(--blue-soft);font-weight:700;text-align:center}.flow b{display:grid;place-items:center;color:var(--muted)}table{width:100%;border-collapse:collapse;margin-top:14px;font-size:14px}th,td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}th{background:var(--blue-soft);color:#163f69;font-size:12px}tr:last-child td{border-bottom:0}.tag{display:inline-block;border-radius:7px;padding:3px 7px;font-size:12px;font-weight:800}.tag.ok{background:var(--ok-soft);color:var(--ok)}.tag.warn{background:var(--warn-soft);color:var(--warn)}.tag.bad{background:var(--bad-soft);color:var(--bad)}.tag.info{background:var(--blue-soft);color:var(--blue)}.checklist{padding-left:20px;margin:12px 0}.checklist li{margin:7px 0}.small{font-size:13px;color:var(--muted)}.footer{padding:18px 0 0;color:var(--muted);font-size:12px;text-align:center}@media(max-width:680px){.page{padding:16px}.hero{padding:28px 22px}.hero h1{font-size:27px}.card{padding:20px}.toc,.grid{grid-template-columns:1fr}.flow{flex-direction:column}.flow b{height:18px;transform:rotate(90deg)}}@media print{@page{size:A4;margin:14mm}body{background:#fff;font-size:11pt}.page{max-width:none;padding:0}.hero{padding:24px 28px;border-radius:0;margin:0 0 12px}.hero h1{font-size:25pt}.card{break-inside:avoid;margin-top:10px;padding:18px;border-radius:0}.toc a{color:var(--ink)}.flow{break-inside:avoid}}
+</style>
+</head>
+<body>
+<main class="page">
+  <header class="hero">
+    <span class="eyebrow">LINE BALANCING SIMULATOR</span>
+    <h1>คู่มือการใช้งาน Web App</h1>
+    <p>สำหรับตั้งค่า Line, ตรวจ Bottleneck, ปรับ Manpower/Productivity, เก็บหลักฐาน และตัดสินใจนำ Recommendation ไปใช้จริงอย่างมีเงื่อนไข</p>
+    <div class="meta"><span>ภาษาไทย</span><span>อ้างอิง Simulator schema v3</span><span>อัปเดต 18 กันยายน 2026</span></div>
+  </header>
+
+  <section class="card">
+    <h2>เริ่มต้นอย่างรวดเร็ว</h2>
+    <p class="lead">ใช้เส้นทางนี้เมื่อเพิ่งเริ่มวิเคราะห์ผลิตภัณฑ์หรือ Line ใหม่</p>
+    <ol class="steps">
+      <li><strong>กำหนด Setup</strong>ระบุ Product name, Pack weight, Feed method, Baseline manpower, Target และ Safety Buffer</li>
+      <li><strong>ตรวจ Capacity ของแต่ละ Station</strong>เปิด Station ที่ต้องการ แล้วปรับ Manpower หรือ Productivity / Team</li>
+      <li><strong>อ่าน Live decision snapshot</strong>ดู Bottleneck, Output, ความเปลี่ยนแปลงจาก Scenario A และคำแนะนำถัดไป</li>
+      <li><strong>บันทึก Evidence</strong>กรอกแหล่งข้อมูล, วันที่วัด, จำนวนตัวอย่าง และผู้รับผิดชอบใน Station dropdown</li>
+      <li><strong>ทำ Trial readiness</strong>บันทึกผล Trial, วันที่, ผู้อนุมัติ และตรวจ WIP, Delay, Break, Ergonomics</li>
+      <li><strong>บันทึก Scenario</strong>เก็บ Current เป็น A และข้อเสนอ/ผลทดลองเป็น B แล้ว Export JSON หากต้องการส่งต่อ</li>
+    </ol>
+  </section>
+
+  <section class="card" id="setup">
+    <h2>1. Setup: ข้อมูลพื้นฐานของ Line</h2>
+    <div class="grid"><div class="callout info"><strong>Target / Machine Capacity</strong>เป้าหมายกำลังผลิตของทั้ง Line หน่วย kg/hr ต้องไม่น้อยกว่า 100</div><div class="callout info"><strong>Safety Buffer</strong>ส่วนเพิ่มเหนือ Target เพื่อให้ Auto Balance คำนวณ Safe Target เช่น Target 700 และ Buffer 10% จะได้ 770 kg/hr</div></div>
+    <table><thead><tr><th>ช่องข้อมูล</th><th>ใช้ทำอะไร</th><th>ข้อควรระวัง</th></tr></thead><tbody>
+      <tr><td>Pack weight</td><td>แปลง kg/hr เป็น ถุง/hr</td><td>ต้องมากกว่า 0</td></tr>
+      <tr><td>Feed method</td><td>กำหนด Feed Station เป็น kg/Team/hr หรือ ถาด/Team/hr</td><td>ถ้าใช้ถาด ต้องระบุน้ำหนักเฉลี่ยต่อถาด</td></tr>
+      <tr><td>Baseline manpower</td><td>ใช้เป็นค่าตั้งต้นสำหรับการเปรียบเทียบ</td><td>ต้องเป็นจำนวนเต็มตั้งแต่ 1 คน</td></tr>
+    </tbody></table>
+    <div class="callout bad" style="margin-top:14px"><strong>เมื่อข้อมูลไม่ถูกต้อง</strong>ระบบจะแสดงกรอบแดงและไม่ให้ Apply Recommendation หรือ Save Scenario โดยผลคำนวณจะยึดค่าล่าสุดที่ผ่าน Validation</div>
+  </section>
+
+  <section class="card" id="workbench">
+    <h2>2. Balance workbench: ปรับแต่ละ Station</h2>
+    <p class="lead">คลิกแถว Station เพื่อเปิด Dropdown แล้วปรับค่าการทำงานและเก็บหลักฐานของ Station นั้น</p>
+    <div class="flow"><div>Manpower</div><b>→</b><div>Productivity / Team</div><b>→</b><div>Capacity</div><b>→</b><div>Result</div></div>
+    <h3>ความหมายของข้อมูลในแถว</h3>
+    <table><thead><tr><th>รายการ</th><th>ความหมาย</th></tr></thead><tbody>
+      <tr><td>Current MP</td><td>จำนวนคนที่ใช้อยู่ใน Scenario ปัจจุบัน</td></tr>
+      <tr><td>Recommended</td><td>จำนวนคนที่ระบบเสนอจาก Productivity, Team size และโหมด Lean/Safe</td></tr>
+      <tr><td>Δ MP</td><td>เครื่องหมายบวกหมายถึงคนที่ควรเพิ่มตาม Recommendation, เครื่องหมายลบหมายถึงมีศักยภาพลด</td></tr>
+      <tr><td>Expected Capacity</td><td>กำลังผลิตที่คาดเมื่อใช้จำนวนคนตาม Recommendation</td></tr>
+    </tbody></table>
+    <h3>โหมด Auto Balance</h3>
+    <div class="grid"><div class="callout info"><strong>Lean - Target only</strong>คำนวณให้ถึง Target เหมาะสำหรับการวิเคราะห์เชิงทฤษฎี</div><div class="callout ok"><strong>Safe - + Buffer</strong>คำนวณให้ถึง Safe Target เหมาะเป็นค่าเริ่มต้นสำหรับการทดลองหน้างาน</div></div>
+    <div class="callout warn" style="margin-top:14px"><strong>Team size สำคัญ</strong>Capacity จะเกิดเมื่อจำนวนคนครบ Team เท่านั้น คนที่เหลือไม่ครบ Team จะถูกแจ้งเตือนและไม่เพิ่ม Capacity</div>
+  </section>
+
+  <section class="card" id="evidence">
+    <h2>3. Evidence &amp; data basis</h2>
+    <p class="lead">อยู่ใน Dropdown ของแต่ละ Station เพื่อบันทึกที่มาใกล้กับตัวเลขที่กำลังปรับ</p>
+    <table><thead><tr><th>Data type</th><th>สิ่งที่ต้องทำ</th><th>ผลต่อสถานะ</th></tr></thead><tbody>
+      <tr><td>Actual / Trial</td><td>เลือก Basis/source, Measured date, Sample count และ Owner ให้ครบ</td><td><span class="tag warn">Evidence needed</span> จนกว่าจะครบ</td></tr>
+      <tr><td>Assumption / Target</td><td>ใช้เพื่อวางแผนหรือจำลองก่อนมีข้อมูลวัดจริง</td><td><span class="tag warn">Planning only</span></td></tr>
+      <tr><td>Support Station</td><td>หากปิด Use in capacity จะไม่นำไปหา Bottleneck</td><td><span class="tag info">Optional</span> สำหรับ Evidence</td></tr>
+    </tbody></table>
+    <p class="small">Basis/source เลือกได้จาก Time study, Production report, Trial record, Standard work หรือ Other documented source</p>
+  </section>
+
+  <section class="card" id="decision">
+    <h2>4. อ่านสถานะตัดสินใจ</h2>
+    <p class="lead">คำว่า Ready จะปรากฏเมื่อทุกเงื่อนไขผ่าน ไม่ใช่เพียง Capacity ถึงเป้า</p>
+    <table><thead><tr><th>สถานะ</th><th>ความหมายและสิ่งที่ต้องทำ</th></tr></thead><tbody>
+      <tr><td><span class="tag bad">Check inputs</span></td><td>แก้ข้อมูลที่มีกรอบแดงก่อน ระบบจะคงผลจากค่าล่าสุดที่ถูกต้องไว้ชั่วคราว</td></tr>
+      <tr><td><span class="tag bad">Capacity not ready</span></td><td>ยังมี Station ต่ำกว่า Target ต้องแก้ Bottleneck ก่อน</td></tr>
+      <tr><td><span class="tag warn">Buffer not ready</span></td><td>ถึง Target แล้วแต่ยังไม่ถึง Safe Target; เพิ่ม Buffer หรือใช้ Lean mode พร้อมบันทึกเหตุผล</td></tr>
+      <tr><td><span class="tag warn">Planning only / Evidence needed / Trial required</span></td><td>Capacity อาจผ่านแล้ว แต่ยังไม่พร้อมนำไปใช้จริง</td></tr>
+      <tr><td><span class="tag ok">Ready</span></td><td>Input ถูกต้อง, ทุก Capacity Station ผ่าน Safe Target, Evidence ครบ และ Trial checks ผ่าน</td></tr>
+    </tbody></table>
+  </section>
+
+  <section class="card" id="trial">
+    <h2>5. Trial readiness และการนำไปใช้</h2>
+    <ul class="checklist"><li>เลือก Trial status เป็น <strong>Passed</strong></li><li>ระบุ Tested date และ Approved by</li><li>ทำเครื่องหมายว่าได้ตรวจ WIP, Delays, Breaks และ Ergonomics แล้ว</li><li>ทบทวน Live decision snapshot ก่อนเปลี่ยนกำลังคนถาวร</li></ul>
+    <div class="callout ok"><strong>แนวปฏิบัติที่แนะนำ</strong>เริ่มจาก Safe mode, ทดลองในช่วงเวลาที่กำหนด, เก็บผลจริง แล้วจึงลดคนถาวรเมื่อสถานะ Ready</div>
+  </section>
+
+  <section class="card" id="scenario">
+    <h2>6. Scenario, Autosave และการแลกเปลี่ยนข้อมูล</h2>
+    <table><thead><tr><th>คำสั่ง</th><th>ใช้เมื่อ</th></tr></thead><tbody>
+      <tr><td>Save Current → A</td><td>บันทึก Baseline หรือสภาพก่อนปรับ</td></tr>
+      <tr><td>Save Current → B</td><td>บันทึกข้อเสนอที่ปรับแล้วหรือผลหลัง Trial</td></tr>
+      <tr><td>Load A / Load B</td><td>เรียก Scenario กลับมา โดยระบบถามยืนยันและสามารถ Undo ได้</td></tr>
+      <tr><td>Undo</td><td>ย้อนกลับการ Apply, Reset, Load, Remove หรือการบันทึกทับ Scenario ล่าสุด</td></tr>
+      <tr><td>Export JSON</td><td>ส่งข้อมูลไปเก็บสำรองหรือส่งให้ทีมอื่น</td></tr>
+      <tr><td>Import JSON</td><td>นำข้อมูลกลับเข้า App; ระบบตรวจ Schema และ Station ID ก่อน Import</td></tr>
+    </tbody></table>
+    <div class="callout info" style="margin-top:14px"><strong>Autosave</strong>ข้อมูลจะบันทึกอัตโนมัติใน Browser และบันทึกทันทีเมื่อซ่อนหรือออกจากหน้า ควร Export JSON ก่อนเปลี่ยนเครื่องหรือส่งต่อให้ผู้อื่น</div>
+  </section>
+
+  <section class="card" id="troubleshoot">
+    <h2>คำถามที่พบบ่อย</h2>
+    <h3>ทำไม Output ไม่ขยับหลังกรอกข้อมูล?</h3><p>ตรวจว่าค่าเป็นตัวเลขที่ผ่าน Validation, Station เปิด Use in capacity และจำนวนคนครบ Team หรือไม่</p>
+    <h3>ทำไม Apply Recommendation ใช้ไม่ได้?</h3><p>มีข้อมูลที่ไม่ผ่าน Validation อยู่ ระบบจะเปิดใช้งานปุ่มเมื่อแก้ข้อมูลครบแล้ว</p>
+    <h3>ทำไมยังไม่ขึ้น Ready ทั้งที่ Capacity ผ่าน?</h3><p>ตรวจ Evidence ใน Station ที่เป็น Actual/Trial และตรวจ Trial status, วันที่, ผู้อนุมัติ และ checklist ทั้ง 4 ข้อ</p>
+    <h3>Import JSON ไม่ผ่าน?</h3><p>ตรวจว่าไฟล์เป็น JSON จาก Simulator, มี Station ID ไม่ซ้ำ และไม่ได้สร้างจาก schema ที่ใหม่กว่าระบบปัจจุบัน</p>
+  </section>
+  <footer class="footer">Line Balancing Simulator - คู่มือการใช้งานสำหรับการวิเคราะห์และตัดสินใจหน้างาน</footer>
+</main>
+</body>
+</html>
+
