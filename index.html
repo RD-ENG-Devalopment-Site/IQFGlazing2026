@@ -19,7 +19,7 @@
     .modules { display: grid; gap: 18px; }.module { display: flex; flex-direction: column; min-height: 138px; padding: 20px; border: 1px solid var(--line); }.module .label { margin-bottom: 7px; color: var(--muted); font-size: 11px; }.module h3 { margin: 0; font-size: 17px; letter-spacing: -.02em; line-height: 1.3; }.module p { margin: 7px 0 14px; color: var(--muted); font-size: 12px; }.module a { display: inline-flex; align-items: center; gap: 6px; width: fit-content; margin-top: auto; color: var(--blue); text-decoration: none; font-size: 12px; font-weight: 800; }.module a:hover { color: var(--navy); }
     .lower { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(260px, .75fr); gap: 18px; margin-top: 18px; }.notice { padding: 22px; border: 1px solid var(--line); }.notice h3 { margin: 0; font-size: 16px; letter-spacing: -.015em; }.notice p { margin: 7px 0 0; color: var(--muted); font-size: 13px; }.path { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 18px; }.path span { padding: 7px 9px; border-radius: 7px; background: var(--blue-soft); color: oklch(35% .075 247); font-size: 12px; font-weight: 750; }.path i { color: var(--muted); font-style: normal; }.quick { padding: 20px 22px; border-radius: var(--radius); background: var(--amber-soft); }.quick h3 { margin: 0; color: oklch(34% .075 65); font-size: 15px; }.quick ul { margin: 9px 0 0; padding-left: 19px; color: oklch(39% .045 65); font-size: 12px; }.quick li + li { margin-top: 5px; }
     .embedded-view { display: none; }.is-embedded #home-view { display: none; }.is-embedded .embedded-view { display: block; }.embed-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }.embed-header h2 { margin: 0; font-size: 18px; letter-spacing: -.025em; }.embed-header p { margin: 3px 0 0; color: var(--muted); font-size: 12px; }.back-home { height: 36px; padding: 0 12px; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); background: var(--surface); font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }.back-home:hover { border-color: var(--blue); color: var(--blue); }.embed-frame { display: block; width: 100%; min-height: 650px; height: calc(100vh - 150px); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
-    @media (max-width: 920px) { .shell { display: block; }.sidebar { position: static; width: 100%; height: auto; padding: 16px 20px; }.brand { display: none; }nav { display: flex; overflow-x: auto; padding: 0; }nav a { flex: 0 0 auto; }.side-status { display: none; }main { padding-top: 28px; } } @media (max-width: 720px) { .workspace, .lower { grid-template-columns: 1fr; }.intro h2 { font-size: 28px; }.primary-link { min-height: 260px; padding: 24px; }.primary-link h3 { font-size: 23px; }.topline { margin-bottom: 18px; } } @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; } }
+    @media (max-width: 720px) { .workspace, .lower { grid-template-columns: 1fr; }.intro h2 { font-size: 28px; }.primary-link { min-height: 260px; padding: 24px; }.primary-link h3 { font-size: 23px; }.topline { margin-bottom: 18px; } } @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; } }
   </style>
   <style>
     /* Shared dashboard visual system — based on order_ivqf_dashboard_2026_corrected.html */
@@ -28,85 +28,189 @@
     .shell { grid-template-columns: 205px minmax(0, 1fr); }.sidebar { width: 205px; padding: 0 12px; background: var(--navy); }.brand { min-height: 88px; padding: 28px 6px 18px; }.brand-mark { display: none; }.brand h1 { font-size: 15px; font-weight: 700; }.brand p { margin-top: 3px; font-size: 11px; }.sidebar nav { padding: 16px 0; }.sidebar nav a { gap: 12px; padding: 9px 10px; border-radius: 8px; font-size: 13px; }.side-status { margin: auto 0 16px; border-radius: 8px; }
     .sidebar nav details { border-radius: 8px; }.sidebar nav summary { display: flex; align-items: center; gap: 12px; min-height: 42px; padding: 9px 10px; border-radius: 8px; color: rgb(255 255 255 / .8); cursor: pointer; font-size: 13px; list-style: none; transition: color var(--motion), background-color var(--motion); }.sidebar nav summary::-webkit-details-marker { display: none; }.sidebar nav summary:hover, .sidebar nav details[open] summary { color: white; background: rgb(255 255 255 / .1); }.sidebar nav summary::after { content: ""; width: 6px; height: 6px; margin-left: auto; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg) translateY(-2px); transition: transform var(--motion); }.sidebar nav details[open] summary::after { transform: rotate(225deg) translate(-2px, -2px); }.dashboard-submenu { display: grid; gap: 2px; padding: 5px 0 7px 0; }.sidebar nav .dashboard-submenu a { min-height: 38px; padding: 8px 10px 8px 14px; color: rgb(255 255 255 / .78); font-size: 13px; }.sidebar nav .dashboard-submenu a:hover { color: white; background: rgb(255 255 255 / .08); }.sidebar nav .dashboard-submenu .nav-icon { color: rgb(255 255 255 / .62); }.nav-icon svg { display: block; width: 16px; height: 16px; }
     main { max-width: none; padding: 28px 32px 46px; }.topline { margin-bottom: 22px; }.intro { margin-bottom: 26px; }.intro h2 { font-size: 22px; font-weight: 700; letter-spacing: -.035em; }.intro p { margin-top: 4px; font-size: 12px; }.workspace, .lower { gap: 14px; }.primary-link, .module, .notice { box-shadow: 0 1px 3px rgb(17 24 39 / .09); }.primary-link { min-height: 236px; padding: 22px; background: var(--navy); }.primary-link:hover { transform: none; background: var(--navy); }.primary-link h3 { font-size: 21px; }.primary-link p { font-size: 13px; }.primary-link::after { font-size: 105px; }.go { margin-top: 20px; padding: 8px 10px; border-radius: 8px; }.modules { gap: 14px; }.module { min-height: 111px; padding: 16px 18px; }.module h3 { font-size: 15px; }.module p { margin: 4px 0 10px; font-size: 12px; }.notice { padding: 18px; }.notice h3 { font-size: 14px; }.notice p { font-size: 12px; }.quick { padding: 18px; }
-    @media (max-width: 1000px) { .shell { display: block; }.sidebar { width: 205px; height: 100vh; padding: 0 12px; }.brand { display: block; }.sidebar nav { display: grid; overflow: visible; }.side-status { display: block; }main { padding: 18px; } }
+    .sidebar { overflow-y: auto; }.sidebar nav a, .nav-pending { overflow-wrap: anywhere; }.nav-icon { flex-shrink: 0; }
+    [hidden] { display: none !important; }
+    .menu-toggle { display: none; width: 100%; min-height: 44px; padding: 8px 12px; border: 1px solid rgb(255 255 255 / .4); border-radius: 8px; color: #fff; background: transparent; font: inherit; text-align: left; cursor: pointer; }
+    .sidebar a:focus-visible, summary:focus-visible, button:focus-visible, .embed-direct:focus-visible { outline: 3px solid #579ce0; outline-offset: 3px; }
+    .embed-header { flex-wrap: wrap; }.embed-header > div { min-width: 0; }.embed-header h2 { overflow-wrap: anywhere; }
+    .embed-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }.embed-direct { color: var(--blue); font-size: 12px; }
+    @media (max-width: 1000px) {
+      .shell { display: block; }.sidebar { position: static; width: 100%; height: auto; max-height: none; padding: 12px 16px; overflow: visible; }
+      .brand, .side-status { display: none; }.menu-toggle { display: block; }.sidebar nav { display: grid; padding: 12px 0 0; overflow: visible; }
+      .sidebar[data-menu-open="false"] nav { display: none; }.sidebar nav a, .sidebar nav summary, .sidebar nav .dashboard-submenu a { min-height: 44px; }
+      .back-home { height: auto; min-height: 44px; }.module a, .embed-direct { display: inline-flex; align-items: center; min-height: 44px; }
+      main { padding: 20px 16px; }.embed-frame { min-height: 480px; height: 75vh; }
+    }
+  </style>
+  <style>
+    .sidebar nav .dashboard-submenu .nav-pending { display: flex; align-items: center; gap: 12px; min-height: 38px; padding: 8px 10px 8px 14px; color: rgb(255 255 255 / .78); font-size: 13px; }
+    .nav-pending small { display: block; font-size: 11px; }
   </style>
 </head>
 <body>
   <div class="shell">
-    <aside class="sidebar" aria-label="เมนูหลัก">
+    <aside class="sidebar" aria-label="เมนูหลัก" data-menu-open="false">
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-controls="main-navigation" aria-expanded="false">IVQF Improvement · เปิด/ปิดเมนู</button>
       <div class="brand"><div class="brand-mark">IV</div><h1>IVQF Improvement</h1><p>Workspace สำหรับข้อมูลและมาตรฐานการผลิต</p></div>
-      <nav>
-        <a href="index.html" aria-current="page"><span class="nav-icon">⌂</span>หน้า Main</a>
+      <nav id="main-navigation">
+        <a href="index.html" data-route="home" aria-current="page"><span class="nav-icon">⌂</span>หน้า Main</a>
         <details>
           <summary><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="6" height="6"/></svg></span>Order Dashboard</summary>
           <div class="dashboard-submenu">
-            <a href="Order2026_Restored.html" data-embed data-view-title="ภาพรวม Dashboard"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="6" height="6"/></svg></span>ภาพรวม Dashboard</a>
-            <a href="#order-dashboard"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 19h16M7 16V9m5 7V5m5 11v-4"/></svg></span>Top 5 รายเดือน</a>
-            <a href="#order-dashboard"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 19h16M7 16V9m5 7V5m5 11v-4"/></svg></span>กราฟยอด Order</a>
-            <a href="#order-dashboard"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16"/><path d="M3.5 10h17M10 4v16"/></svg></span>ตารางสินค้า</a>
+            <a href="Order2026_Restored.html#overview" data-route="order-dashboard" data-embed data-view-title="ภาพรวม Dashboard"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="6" height="6"/></svg></span>ภาพรวม Dashboard</a>
+            <a href="Order2026_Restored.html#monthlyTop" data-route="order-top5"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 19h16M7 16V9m5 7V5m5 11v-4"/></svg></span>Top 5 รายเดือน</a>
+            <a href="Order2026_Restored.html#chart" data-route="order-chart"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 19h16M7 16V9m5 7V5m5 11v-4"/></svg></span>กราฟยอด Order</a>
+            <a href="Order2026_Restored.html#table" data-route="order-table"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16"/><path d="M3.5 10h17M10 4v16"/></svg></span>ตารางสินค้า</a>
           </div>
         </details>
         <details>
           <summary><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 5v14M5 12h14"/></svg></span>Glazing</summary>
           <div class="dashboard-submenu">
-            <a href="order_ivqf_dashboard_2026_corrected.html" data-embed data-view-title="Glazing Standard"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 5v14M5 12h14"/></svg></span>Glazing Standard</a>
-            <a href="#glazing-plan"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg></span>Glazing Plan</a>
-            <a href="#glazing-experiment"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 8a3 3 0 0 0 2.6 4h8.8a3 3 0 0 0 2.6-4l-5-8V3"/><path d="M8 16h8"/></svg></span>Glazing Experiment</a>
+            <a href="order_ivqf_dashboard_2026_corrected.html" data-route="glazing-standard" data-embed data-view-title="Glazing Standard"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 5v14M5 12h14"/></svg></span>Glazing Standard</a>
+            <span class="nav-pending" aria-disabled="true" data-pending="glazing-plan"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg></span><span>Glazing Plan<small>เตรียมข้อมูล</small></span></span>
+            <span class="nav-pending" aria-disabled="true" data-pending="glazing-experiment"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 8a3 3 0 0 0 2.6 4h8.8a3 3 0 0 0 2.6-4l-5-8V3"/><path d="M8 16h8"/></svg></span><span>Glazing Experiment<small>เตรียมข้อมูล</small></span></span>
           </div>
         </details>
         <details>
           <summary><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 3.5h7l3 3V20.5H7z"/><path d="M14 3.5v4h3M10 12h4M10 16h4"/></svg></span>ข้อมูลการทดลอง</summary>
           <div class="dashboard-submenu">
-            <a href="#experiment-1"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 9v3l2 1"/></svg></span>การทดลองครั้งที่ 1</a>
-            <a href="#experiment-2"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 9v3l2 1"/></svg></span>การทดลองครั้งที่ 2</a>
-            <a href="#experiment-3"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 9v3l2 1"/></svg></span>การทดลองครั้งที่ 3</a>
-            <a href="ivqf_experiment_4_summary.html" data-embed data-view-title="การทดลองครั้งที่ 4"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 9v3l2 1"/></svg></span>การทดลองครั้งที่ 4</a>
-            <a href="ivqf_experiment_5_summary.html" data-embed data-view-title="การทดลองครั้งที่ 5"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 9v3l2 1"/></svg></span>การทดลองครั้งที่ 5</a>
+            <span class="nav-pending" aria-disabled="true" data-pending="experiment-1"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 9v3l2 1"/></svg></span><span>การทดลองครั้งที่ 1<small>เตรียมข้อมูล</small></span></span>
+            <span class="nav-pending" aria-disabled="true" data-pending="experiment-2"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 9v3l2 1"/></svg></span><span>การทดลองครั้งที่ 2<small>เตรียมข้อมูล</small></span></span>
+            <span class="nav-pending" aria-disabled="true" data-pending="experiment-3"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 9v3l2 1"/></svg></span><span>การทดลองครั้งที่ 3<small>เตรียมข้อมูล</small></span></span>
+            <a href="ivqf_experiment_4_summary.html" data-route="experiment-4" data-embed data-view-title="การทดลองครั้งที่ 4"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 9v3l2 1"/></svg></span>การทดลองครั้งที่ 4</a>
+            <a href="ivqf_experiment_5_summary.html" data-route="experiment-5" data-embed data-view-title="การทดลองครั้งที่ 5"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 9v3l2 1"/></svg></span>การทดลองครั้งที่ 5</a>
+            <a href="ivqf_experiment_6_summary.html" data-route="experiment-6" data-embed data-view-title="การทดลองครั้งที่ 6"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 9v3l2 1"/></svg></span>การทดลองครั้งที่ 6</a>
           </div>
         </details>
         <details>
           <summary><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M8 7h8M8 11h2m4 0h2M8 15h2m4 0h2M8 18h2m4 0h2"/></svg></span>การคำนวณ</summary>
           <div class="dashboard-submenu">
-            <a href="ivqf_capacity_flow_simulator.html" data-embed data-view-title="IVQF Capacity Flow Simulator"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 19h16M7 16V9m5 7V5m5 11v-4"/></svg></span>IVQF Capacity Flow Simulator</a>
-            <a href="line_balancing_simulator_manual.html" data-embed data-view-title="คู่มือ Line Balancing เดิม"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4.5h11a3 3 0 0 1 3 3v12H8a3 3 0 0 0-3 1.5z"/><path d="M8 7.5h7M8 11h7M8 14.5h5"/></svg></span>คู่มือ Line Balancing เดิม</a>
+            <a href="ivqf_capacity_flow_simulator.html" data-route="capacity-flow" data-embed data-view-title="IVQF Capacity Flow Simulator"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 19h16M7 16V9m5 7V5m5 11v-4"/></svg></span>IVQF Capacity Flow Simulator</a>
+            <a href="line_balancing_simulator_manual.html" data-route="manual" data-embed data-view-title="คู่มือ IVQF Capacity Flow"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4.5h11a3 3 0 0 1 3 3v12H8a3 3 0 0 0-3 1.5z"/><path d="M8 7.5h7M8 11h7M8 14.5h5"/></svg></span>คู่มือ IVQF Capacity Flow</a>
           </div>
         </details>
       </nav>
       <div class="side-status"><strong>IVQF Improvement</strong>เลือกโมดูลเพื่อเริ่มดูข้อมูลและมาตรฐานการทำงาน</div>
     </aside>
-    <main id="workspace-main">
+    <main id="workspace-main" tabindex="-1">
       <div id="home-view">
       <div class="topline"><span class="date">Main workspace · 2026</span></div>
       <section class="intro"><h2>ศูนย์กลางข้อมูลสำหรับการปรับปรุงงาน IVQF</h2><p>เข้าถึงข้อมูล Order และมาตรฐาน Glazing ได้จากจุดเดียว เพื่อให้ทีมใช้ข้อมูลชุดเดียวกันในการติดตามผลและตัดสินใจหน้างาน</p></section>
       <section class="workspace" aria-label="โมดูลหลัก">
-        <article class="primary-link" id="order-dashboard"><span class="label">ข้อมูลการผลิตและคำสั่งซื้อ</span><h3>Order IVQF Dashboard</h3><p>ดูยอด Order รายเดือน แยกตามประเภทสินค้า หมวดสินค้า และรายละเอียดผลิตภัณฑ์</p><span class="go">โมดูลข้อมูล Order</span></article>
-        <div class="modules"><article class="module"><span class="label">มาตรฐานการทำงาน</span><h3>Glazing Standard</h3><p>เปรียบเทียบระบบ Glazing พร้อมค่าเป้าหมายสำหรับ BL, BB และ FL</p><a href="order_ivqf_dashboard_2026_corrected.html" data-embed data-view-title="Glazing Standard">เปิดมาตรฐาน <span aria-hidden="true">→</span></a></article><article class="module"><span class="label">การใช้งาน</span><h3>เริ่มจากข้อมูลที่ต้องใช้</h3><p>เลือก Dashboard เมื่อต้องการดูยอด หรือเลือก Standard เมื่อต้องการทบทวนวิธีทำงาน</p></article></div>
+        <a class="primary-link" id="order-dashboard" href="Order2026_Restored.html#overview" data-route="order-dashboard" data-embed><span class="label">ข้อมูลการผลิตและคำสั่งซื้อ</span><h3>Order IVQF Dashboard</h3><p>ดูยอด Order รายเดือน แยกตามประเภทสินค้า หมวดสินค้า และรายละเอียดผลิตภัณฑ์</p><span class="go">โมดูลข้อมูล Order</span></a>
+        <div class="modules"><article class="module"><span class="label">มาตรฐานการทำงาน</span><h3>Glazing Standard</h3><p>เปรียบเทียบระบบ Glazing พร้อมค่าเป้าหมายสำหรับ BL, BB และ FL</p><a href="order_ivqf_dashboard_2026_corrected.html" data-route="glazing-standard" data-embed data-view-title="Glazing Standard">เปิดมาตรฐาน <span aria-hidden="true">→</span></a></article><article class="module"><span class="label">การใช้งาน</span><h3>เริ่มจากข้อมูลที่ต้องใช้</h3><p>เลือก Dashboard เมื่อต้องการดูยอด หรือเลือก Standard เมื่อต้องการทบทวนวิธีทำงาน</p></article></div>
       </section>
       <section class="lower" aria-label="แนวทางการใช้งาน"><article class="notice"><h3>ลำดับการใช้งานที่แนะนำ</h3><p>ใช้ยอด Order เพื่อระบุสินค้าที่มีผลกระทบ แล้วตรวจสอบมาตรฐาน Glazing ก่อนวางแผนปรับปรุง</p><div class="path" aria-label="Order Dashboard ไปยัง Glazing Standard"><span>ดูยอด Order</span><i aria-hidden="true">→</i><span>ระบุจุดสำคัญ</span><i aria-hidden="true">→</i><span>ทบทวน Glazing</span></div></article><aside class="quick"><h3>ทางลัด</h3><ul><li>Order: ยอดรวมและรายการสินค้ารายเดือน</li><li>Glazing: ค่า Target และจุดควบคุม</li></ul></aside></section>
       </div>
       <section class="embedded-view" aria-live="polite">
-        <header class="embed-header"><div><h2 id="embed-title">Dashboard</h2><p>เนื้อหากำลังแสดงภายในพื้นที่ทำงาน</p></div><button class="back-home" id="back-home" type="button">← กลับหน้า Main</button></header>
-        <iframe class="embed-frame" id="embed-frame" title="Embedded workspace"></iframe>
+        <header class="embed-header"><div><h2 id="embed-title" tabindex="-1">Dashboard</h2><p id="embed-status" role="status"></p></div><div class="embed-actions"><button class="back-home" id="embed-retry" type="button" hidden>ลองใหม่</button><a class="embed-direct" id="embed-direct" hidden>เปิดแยกหน้า</a><button class="back-home" id="back-home" type="button">← กลับหน้า Main</button></div></header>
+        <iframe class="embed-frame" id="embed-frame" title="รายงานภายใน Workspace" hidden></iframe>
       </section>
     </main>
   </div>
   <script>
     (() => {
-      const main = document.getElementById('workspace-main');
-      const frame = document.getElementById('embed-frame');
-      const title = document.getElementById('embed-title');
-      const showHome = () => { main.classList.remove('is-embedded'); frame.removeAttribute('src'); };
-      document.querySelectorAll('[data-embed]').forEach(link => link.addEventListener('click', event => {
-        event.preventDefault();
-        title.textContent = link.dataset.viewTitle || link.textContent.trim();
-        frame.src = link.href;
-        main.classList.add('is-embedded');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+      const routes = {
+        'order-dashboard': { title: 'ภาพรวม Dashboard', file: 'Order2026_Restored.html', section: 'overview', marker: 'Order IVQF 2026' },
+        'order-top5': { title: 'Top 5 ยอด Order รายเดือน', file: 'Order2026_Restored.html', section: 'monthlyTop', marker: 'Order IVQF 2026' },
+        'order-chart': { title: 'กราฟยอด Order', file: 'Order2026_Restored.html', section: 'chart', marker: 'Order IVQF 2026' },
+        'order-table': { title: 'ตารางสินค้า', file: 'Order2026_Restored.html', section: 'table', marker: 'Order IVQF 2026' },
+        'glazing-standard': { title: 'Glazing Standard', file: 'order_ivqf_dashboard_2026_corrected.html', marker: 'IVQF Glazing Standard' },
+        'experiment-4': { title: 'การทดลองครั้งที่ 4', file: 'ivqf_experiment_4_summary.html', marker: 'สรุปผลการทดลอง IVQF ครั้งที่ 4' },
+        'experiment-5': { title: 'การทดลองครั้งที่ 5', file: 'ivqf_experiment_5_summary.html', marker: 'สรุปผลการทดลอง IVQF ครั้งที่ 5' },
+        'experiment-6': { title: 'การทดลองครั้งที่ 6', file: 'ivqf_experiment_6_summary.html', marker: 'สรุปผลการทดลอง IVQF ครั้งที่ 6' },
+        'capacity-flow': { title: 'IVQF Capacity Flow Simulator', file: 'ivqf_capacity_flow_simulator.html', marker: 'IVQF Capacity Flow Simulator' },
+        'manual': { title: 'คู่มือ Simulator', file: 'line_balancing_simulator_manual.html', marker: 'คู่มือ' }
+      };
+      const pending = Object.fromEntries([...document.querySelectorAll('[data-pending]')].map(node => [node.dataset.pending, node.textContent.replace('เตรียมข้อมูล', '').trim()]));
+      const main = document.getElementById('workspace-main'), frame = document.getElementById('embed-frame');
+      const title = document.getElementById('embed-title'), status = document.getElementById('embed-status');
+      const retry = document.getElementById('embed-retry'), direct = document.getElementById('embed-direct');
+      const sidebar = document.querySelector('.sidebar'), toggle = document.getElementById('menu-toggle');
+      const links = [...document.querySelectorAll('[data-route]')];
+      let revision = 0, controller, timeout, lastKey;
+      const routeKey = () => { try { return decodeURIComponent(location.hash.slice(1)) || 'home'; } catch { return 'invalid'; } };
+      const closeMenu = () => { sidebar.dataset.menuOpen = 'false'; toggle.setAttribute('aria-expanded', 'false'); };
+      const navigate = key => {
+        if (routeKey() !== key) history.pushState(null, '', key === 'home' ? location.pathname + location.search : '#' + encodeURIComponent(key));
+        renderRoute(true);
+      };
+      const showError = message => {
+        main.setAttribute('aria-busy', 'false'); status.textContent = message;
+        frame.hidden = true; frame.removeAttribute('src'); retry.hidden = false;
+      };
+      async function renderRoute(focus = false, force = false) {
+        const key = routeKey();
+        if (!force && key === lastKey) return;
+        lastKey = key;
+        const token = ++revision;
+        controller?.abort(); clearTimeout(timeout); frame.onload = null; frame.onerror = null;
+        frame.hidden = true; frame.removeAttribute('src'); main.setAttribute('aria-busy', 'false');
+        retry.hidden = true; direct.hidden = true;
+        links.forEach(link => {
+          if (link.dataset.route === key) { link.setAttribute('aria-current', 'page'); const group = link.closest('details'); if (group) group.open = true; }
+          else link.removeAttribute('aria-current');
+        });
+        closeMenu();
+        main.classList.toggle('is-embedded', key !== 'home');
+        if (key === 'home') { if (focus) main.focus(); return; }
+        const route = routes[key];
+        title.textContent = route?.title || pending[key] || 'ไม่พบเมนู';
+        if (focus) title.focus();
+        if (!route) {
+          status.textContent = pending[key] ? 'เตรียมข้อมูล — ยังไม่มีรายงานที่อนุมัติให้เปิด' : 'ไม่พบเมนูจากลิงก์นี้ กรุณากลับหน้า Main';
+          return;
+        }
+        const target = route.file + (route.section ? '#' + route.section : '');
+        direct.href = target; direct.hidden = false; direct.textContent = 'เปิด ' + route.title + ' แยกหน้า';
+        status.textContent = 'กำลังตรวจและโหลด ' + route.title + '…'; main.setAttribute('aria-busy', 'true');
+        controller = new AbortController();
+        timeout = setTimeout(() => {
+          if (token === revision) { controller.abort(); showError('โหลดไม่สำเร็จภายในเวลาที่กำหนด กรุณาลองใหม่หรือเปิดแยกหน้า'); }
+        }, 15000);
+        try {
+          // Local file mode has no HTTP status; a readable standards-mode report is still required.
+          if (location.protocol !== 'file:') {
+            const response = await fetch(route.file, { signal: controller.signal, cache: 'no-cache' });
+            if (!response.ok) throw new Error('HTTP ' + response.status);
+            const html = await response.text();
+            if (!/^\uFEFF?<!doctype html>/i.test(html) || !html.includes(route.marker)) throw new Error('เอกสารไม่ตรงกับรายงานที่เลือก');
+          }
+          if (token !== revision) return;
+          frame.title = route.title;
+          frame.onload = () => {
+            if (token !== revision) return;
+            try {
+              const doc = frame.contentDocument;
+              if (!doc || !doc.location.pathname.endsWith('/' + route.file)) return;
+              if (doc.compatMode !== 'CSS1Compat' || !doc.documentElement.textContent.includes(route.marker)) throw new Error('รายงานเปิดไม่สมบูรณ์');
+              if (route.section && !doc.getElementById(route.section)) throw new Error('ไม่พบหัวข้อในรายงาน');
+              clearTimeout(timeout); main.setAttribute('aria-busy', 'false');
+              status.textContent = 'กำลังแสดง ' + route.title; frame.hidden = false;
+            } catch (error) { clearTimeout(timeout); showError('เปิดรายงานไม่ได้: ' + error.message); }
+          };
+          frame.onerror = () => { if (token === revision) { clearTimeout(timeout); showError('โหลดรายงานไม่สำเร็จ กรุณาลองใหม่'); } };
+          frame.src = target;
+        } catch (error) {
+          if (token !== revision) return;
+          clearTimeout(timeout); showError('โหลดรายงานไม่สำเร็จ: ' + error.message);
+        }
+      }
+      links.forEach(link => link.addEventListener('click', event => {
+        if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+        event.preventDefault(); navigate(link.dataset.route);
       }));
-      document.getElementById('back-home').addEventListener('click', showHome);
-      document.querySelector('a[aria-current="page"]').addEventListener('click', event => { event.preventDefault(); showHome(); });
+      toggle.addEventListener('click', () => {
+        const open = sidebar.dataset.menuOpen !== 'true';
+        sidebar.dataset.menuOpen = String(open); toggle.setAttribute('aria-expanded', String(open));
+      });
+      document.addEventListener('keydown', event => { if (event.key === 'Escape' && sidebar.dataset.menuOpen === 'true') { closeMenu(); toggle.focus(); } });
+      document.getElementById('back-home').addEventListener('click', () => navigate('home'));
+      retry.addEventListener('click', () => renderRoute(true, true));
+      window.addEventListener('hashchange', () => renderRoute());
+      window.addEventListener('popstate', () => renderRoute());
+      renderRoute();
     })();
   </script>
 </body>
 </html>
-

@@ -1,0 +1,14 @@
+# Local work must not become public Pages content accidentally.
+.env
+.env.*
+!.env.example
+node_modules/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+outputs/
+tmp/
+work/
+.wrangler/
+# Existing tracked files are not removed by these rules.

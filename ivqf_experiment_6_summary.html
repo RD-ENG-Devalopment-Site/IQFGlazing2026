@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="สรุปข้อมูล Data Logger การทดลอง IVQF ครั้งที่ 6">
+  <title>IVQF — สรุปการทดลองครั้งที่ 6</title>
+  <style>
+    :root{--page:#f3f4f6;--surface:#fff;--ink:#172033;--muted:#5f6878;--line:#dfe3e8;--navy:#171816;--blue:#185fa5;--blue-soft:#e7f0fa;--amber:#714c19;--amber-soft:#faeeda;--red:#a12b2b;--red-soft:#fdeaea;--green:#236710;--green-soft:#e9f4e5;--radius:12px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--page);color:var(--ink);font:14px/1.55 Inter,"Noto Sans Thai","Segoe UI",Tahoma,sans-serif}.wrap{width:min(1160px,calc(100% - 40px));margin-inline:auto}.hero{padding:34px 0 12px}.source{margin:0 0 8px;color:var(--muted);font-size:13px}.hero h1{margin:0;font-size:28px;line-height:1.2;letter-spacing:-.035em;text-wrap:balance}.hero p{max-width:800px;margin:4px 0 0;color:var(--muted)}.utility{display:flex;justify-content:flex-end;padding-bottom:12px}.print{padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);font:inherit;font-size:12px;font-weight:700;cursor:pointer}.print:hover,.print:focus-visible{color:var(--blue);border-color:var(--blue);outline:0}main{padding:18px 0 46px}section{margin-top:28px;scroll-margin-top:20px}h2,h3{margin:0;line-height:1.25;letter-spacing:-.02em;text-wrap:balance}h2{font-size:22px}h3{font-size:16px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:14px}.section-head p,.lead{max-width:760px;margin:5px 0 0;color:var(--muted);font-size:13px}.badge{display:inline-block;padding:5px 9px;border-radius:8px;background:var(--blue-soft);color:var(--blue);font-size:12px;font-weight:800;white-space:nowrap}.badge.fail{background:var(--red-soft);color:var(--red)}.decision{display:grid;grid-template-columns:1.18fr .82fr;gap:14px;padding:18px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);box-shadow:0 1px 3px rgb(17 24 39/.06)}.decision h2{font-size:18px}.decision p{margin:5px 0 0;color:var(--muted);font-size:13px}.conditions{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}.condition{min-width:170px;padding:10px;border-radius:9px;background:var(--page)}.condition b{display:block;color:var(--blue);font-size:11px}.condition span{display:block;margin-top:2px;font-size:13px;font-weight:750}.finding{padding:16px;border-radius:10px;background:var(--red-soft)}.finding strong{display:block;color:#721c1c;font-size:15px}.finding p{color:#762d2d}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}.metric{min-height:142px;padding:18px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);box-shadow:0 1px 3px rgb(17 24 39/.06)}.metric span{display:block;color:var(--muted);font-size:12px;font-weight:700}.metric strong{display:block;margin-top:14px;font-size:28px;line-height:1}.metric small{display:block;margin-top:8px;color:var(--muted);font-size:12px}.goal-list{display:grid;gap:8px}.goal{display:grid;grid-template-columns:minmax(210px,.95fr) 105px 1.6fr;gap:14px;align-items:start;padding:14px 16px;border-bottom:1px solid var(--line)}.goal:last-child{border-bottom:0}.state{font-weight:800}.state.fail{color:var(--red)}.state.pending{color:var(--amber)}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);box-shadow:0 1px 3px rgb(17 24 39/.06)}table{width:100%;min-width:760px;border-collapse:collapse;font-variant-numeric:tabular-nums}th{padding:11px 14px;background:var(--blue-soft);color:#163f69;text-align:left;font-size:12px}td{padding:12px 14px;border-top:1px solid var(--line);vertical-align:top}.num{text-align:right}.fail-text{color:var(--red);font-weight:800}.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.chart-card{overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);box-shadow:0 1px 3px rgb(17 24 39/.06)}.chart-card header{padding:16px 18px;border-bottom:1px solid var(--line)}.chart-card header p{margin:4px 0 0;color:var(--muted);font-size:12px}.chart{padding:12px 10px 2px;overflow:auto}.chart svg{display:block;min-width:520px;width:100%;height:auto}.caption{margin:0;padding:0 18px 15px;color:var(--muted);font-size:12px}.plan{counter-reset:plan;display:grid;gap:10px}.plan article{position:relative;padding:16px 16px 16px 58px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}.plan article:before{counter-increment:plan;content:counter(plan);position:absolute;left:17px;top:16px;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--blue-soft);color:var(--blue);font-weight:850}.plan p{margin:5px 0 0;color:var(--muted);font-size:13px}.warn-list{display:grid;grid-template-columns:1fr 1fr;gap:10px}.warn{padding:15px;border-radius:10px;background:var(--amber-soft);color:var(--amber);font-size:13px}.warn b{display:block;margin-bottom:3px;color:#6b4300}.footer{padding:20px 0;background:var(--navy);color:#eef0f4;font-size:12px}.footer p{width:min(1160px,calc(100% - 40px));margin:auto}@media(max-width:900px){.decision,.chart-grid{grid-template-columns:1fr}.metrics{grid-template-columns:1fr 1fr}.goal{grid-template-columns:1fr 100px}.goal div:last-child{grid-column:1/-1}}@media(max-width:600px){.wrap,.footer p{width:calc(100% - 32px)}.hero{padding-top:26px}.hero h1{font-size:24px}.metrics,.warn-list{grid-template-columns:1fr}.section-head{display:block}.section-head .badge{margin-top:8px}.goal{grid-template-columns:1fr}.goal div:last-child{grid-column:auto}}@media print{body{background:#fff}.utility{display:none}.wrap{width:100%;max-width:none}.chart-grid{break-inside:avoid}.footer{background:#fff;color:var(--ink)}}
+  </style>
+</head>
+<body>
+  <header class="hero wrap">
+    <p class="source">Glazing Experiment · Trial 6 · 25/09/2569</p>
+    <h1>สรุปผลการทดลอง IVQF ครั้งที่ 6</h1>
+    <p>วิเคราะห์ Data Logger 9 จุด ตั้งแต่เข้าเครื่อง ผ่าน Glazing/บรรจุ และติดตามในคลังสินค้า โดยยึดเป้าหมาย Core Temp −18.5 ถึง −22.0°C</p>
+  </header>
+  <div class="utility wrap"><button class="print" type="button" onclick="window.print()">พิมพ์ / บันทึก PDF</button></div>
+
+  <main class="wrap">
+    <section class="decision" aria-labelledby="decision-title">
+      <div>
+        <h2 id="decision-title">ข้อสรุปสำหรับตัดสินใจ</h2>
+        <p>ภายใต้ข้อมูลชุดนี้ Condition ปัจจุบันยังไม่ทำให้สินค้าถึงเป้าหมาย และยังไม่สามารถยืนยันระยะเวลาในคลังที่ทำให้ทุกจุดอยู่ในช่วง −18.5 ถึง −22.0°C ได้</p>
+        <div class="conditions">
+          <div class="condition"><b>อุณหภูมิเครื่อง</b><span>−95°C</span></div>
+          <div class="condition"><b>เวลาเดินสายพาน</b><span>7 นาที 20 วินาที*</span></div>
+          <div class="condition"><b>Glazing</b><span>จุ่ม 1 วินาที · น้ำ 0–2°C</span></div>
+        </div>
+      </div>
+      <aside class="finding"><strong>ผลรวม: ยังไม่ผ่านเป้าหลัก</strong><p>0 จาก 9 จุดผ่าน −18.5°C ณ จุดออกจาก IVQF และหลังติดตามในคลัง 30 ชม. 57 นาที ค่าต่ำสุดยังอยู่ที่ −18.0°C</p></aside>
+    </section>
+
+    <section id="summary">
+      <div class="section-head"><div><h2>ภาพรวมผลการทดลอง</h2><p>ค่าหลังบรรจุ 0 นาทีอ้างอิงเวลา 10:50 เพื่อให้ตรงกับ Mark 15 นาทีเวลา 11:05 และ 30 นาทีเวลา 11:20</p></div><span class="badge fail">ต้องทดลองซ้ำ</span></div>
+      <div class="metrics">
+        <article class="metric"><span>Core Temp หลังออก IVQF</span><strong>0 / 9</strong><small>จำนวนจุดที่ ≤ −18.5°C · ค่าที่บันทึกอยู่ระหว่าง −15 ถึง −1°C เมื่อไม่นับเซลล์สูตรผิด</small></article>
+        <article class="metric"><span>หลัง Glazing / บรรจุ 0 นาที</span><strong>−6.3°C</strong><small>ค่าเฉลี่ย 9 จุด · ช่วง −9.0 ถึง −4.0°C</small></article>
+        <article class="metric"><span>ติดตามในคลัง</span><strong>&gt; 30:57 ชม.</strong><small>ยังไม่มีจุดใดถึง −18.5°C · ค่าสุดท้าย −18.0 ถึง −16.0°C</small></article>
+      </div>
+    </section>
+
+    <section id="goals">
+      <div class="section-head"><div><h2>สถานะเทียบกับเป้าหมาย</h2><p>แยกผลที่ยืนยันจาก Logger ออกจากข้อมูลที่ยังขาด เพื่อไม่ให้ตีความเกินหลักฐาน</p></div></div>
+      <div class="table-wrap goal-list">
+        <div class="goal"><strong>Data Logger หลัง Glazing 0, 15, 30 นาที</strong><span class="state pending">ได้บางส่วน</span><div>มีค่าครบ 9 จุด แต่ Mark “0 นาที” ไม่ได้ระบุโดยตรง จึงอ้างอิง 10:50 จากลำดับเวลา 15 และ 30 นาที</div></div>
+        <div class="goal"><strong>Core Temp หลังออก IVQF = −18.5°C</strong><span class="state fail">ไม่ผ่าน</span><div>ไม่มีจุดใดถึงเกณฑ์ ณ 10:41; ค่าที่เก็บยังมีความกระจายสูง แสดงถึงความไม่สม่ำเสมอของการแช่แข็งหรือวิธีวางหัววัด</div></div>
+        <div class="goal"><strong>เวลาในคลังจนถึง −18.5 ถึง −22.0°C</strong><span class="state fail">ยังสรุปไม่ได้</span><div>ข้อมูลสิ้นสุดที่ 30 ชม. 57 นาที โดยยังไม่ถึง −18.5°C ทุกจุด จึงสรุปได้เพียงว่าต้องใช้เวลามากกว่านี้</div></div>
+        <div class="goal"><strong>คุณภาพและลักษณะ Glazing</strong><span class="state pending">หลักฐานไม่พอ</span><div>มีภาพ 3 ภาพแต่ไม่มีป้ายเวลา ตัวอย่าง หรือ Condition และชิ้นสินค้าดูไม่สอดคล้องกับแผนที่ระบุ BLK</div></div>
+        <div class="goal"><strong>เพิ่ม %Yield</strong><span class="state pending">คำนวณไม่ได้</span><div>ไม่พบน้ำหนักก่อนและหลัง Glazing ของการทดลองครั้งที่ 6 จึงยังคำนวณ %Yield หรือ Glaze pickup ไม่ได้</div></div>
+      </div>
+    </section>
+
+    <section id="events">
+      <div class="section-head"><div><h2>อุณหภูมิตามจุดกระบวนการ</h2><p>Logger บันทึกทุก 1 นาที; ค่าเฉลี่ยคำนวณจาก 9 จุด ยกเว้นจุดออก IVQF ที่มีสูตรผิดใน OP16</p></div></div>
+      <div class="table-wrap"><table><thead><tr><th>เหตุการณ์</th><th>เวลา</th><th class="num">เฉลี่ย</th><th class="num">ต่ำสุด</th><th class="num">สูงสุด</th><th>ผลเทียบเกณฑ์</th></tr></thead><tbody>
+        <tr><td><strong>เข้าเครื่อง IVQF</strong></td><td>10:33</td><td class="num">5.6°C</td><td class="num">4.0°C</td><td class="num">8.0°C</td><td class="fail-text">0/9 ต่ำกว่า 4°C</td></tr>
+        <tr><td><strong>ออก IVQF / เริ่ม Glazing</strong></td><td>10:41</td><td class="num">−8.4°C*</td><td class="num">−15.0°C</td><td class="num">−1.0°C</td><td class="fail-text">0/9 ถึง −18.5°C</td></tr>
+        <tr><td><strong>หลังบรรจุ 0 นาที</strong></td><td>10:50</td><td class="num">−6.3°C</td><td class="num">−9.0°C</td><td class="num">−4.0°C</td><td class="fail-text">0/9 ผ่าน</td></tr>
+        <tr><td><strong>หลังบรรจุ 15 นาที</strong></td><td>11:05</td><td class="num">−5.1°C</td><td class="num">−7.5°C</td><td class="num">−2.5°C</td><td class="fail-text">0/9 ผ่าน</td></tr>
+        <tr><td><strong>หลังบรรจุ 30 นาที</strong></td><td>11:20</td><td class="num">−5.2°C</td><td class="num">−7.0°C</td><td class="num">−3.5°C</td><td class="fail-text">0/9 ผ่าน</td></tr>
+        <tr><td><strong>สิ้นสุดการติดตาม</strong></td><td>วันถัดไป 18:16–18:17</td><td class="num">−17.1°C</td><td class="num">−18.0°C</td><td class="num">−16.0°C</td><td class="fail-text">0/9 ถึง −18.5°C</td></tr>
+      </tbody></table></div>
+      <p class="lead">* ค่าเฉลี่ยจุดออก IVQF ใช้สมมติฐานว่า OP16 ตั้งใจบันทึก −10°C; เซลล์ต้นฉบับเขียน <code>=--10</code> ซึ่ง Excel คำนวณเป็น +10°C และต้องยืนยันกับผู้บันทึก</p>
+    </section>
+
+    <section id="logger-detail">
+      <div class="section-head"><div><h2>ผลราย Data Logger</h2><p>ค่าที่ 0, 15 และ 30 นาทีหลังบรรจุ และค่าล่าสุดหลังติดตามประมาณ 31 ชั่วโมง</p></div><span class="badge">9 จุดวัด</span></div>
+      <div class="table-wrap"><table><thead><tr><th>Logger</th><th class="num">0 นาที</th><th class="num">15 นาที</th><th class="num">30 นาที</th><th class="num">30 ชม. 56–57 นาที</th><th>สถานะ</th></tr></thead><tbody>
+        <tr><td>Data 2</td><td class="num">−6.5</td><td class="num">−5.0</td><td class="num">−5.5</td><td class="num">−17.0</td><td class="fail-text">ไม่ถึงเกณฑ์</td></tr>
+        <tr><td>Data 3</td><td class="num">−5.0</td><td class="num">−4.0</td><td class="num">−4.0</td><td class="num">−17.0</td><td class="fail-text">ไม่ถึงเกณฑ์</td></tr>
+        <tr><td>Data 5</td><td class="num">−6.0</td><td class="num">−4.5</td><td class="num">−4.5</td><td class="num">−18.0</td><td class="fail-text">ไม่ถึงเกณฑ์</td></tr>
+        <tr><td>Data 6</td><td class="num">−8.0</td><td class="num">−7.5</td><td class="num">−7.0</td><td class="num">−16.0</td><td class="fail-text">ไม่ถึงเกณฑ์</td></tr>
+        <tr><td>Data 7</td><td class="num">−5.5</td><td class="num">−5.0</td><td class="num">−4.5</td><td class="num">−16.5</td><td class="fail-text">ไม่ถึงเกณฑ์</td></tr>
+        <tr><td>Data 10</td><td class="num">−5.0</td><td class="num">−4.0</td><td class="num">−4.0</td><td class="num">−17.5</td><td class="fail-text">ไม่ถึงเกณฑ์</td></tr>
+        <tr><td>Data OP16</td><td class="num">−4.0</td><td class="num">−2.5</td><td class="num">−3.5</td><td class="num">−16.5</td><td class="fail-text">ไม่ถึงเกณฑ์</td></tr>
+        <tr><td>Data OP17</td><td class="num">−9.0</td><td class="num">−6.5</td><td class="num">−6.5</td><td class="num">−18.0</td><td class="fail-text">ไม่ถึงเกณฑ์</td></tr>
+        <tr><td>Data OP18</td><td class="num">−8.0</td><td class="num">−6.5</td><td class="num">−7.0</td><td class="num">−17.0</td><td class="fail-text">ไม่ถึงเกณฑ์</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section id="charts">
+      <div class="section-head"><div><h2>แนวโน้มอุณหภูมิ</h2><p>กราฟใช้ค่าเฉลี่ยและช่วงต่ำสุด–สูงสุดของ Logger ทั้ง 9 จุด เพื่อให้เห็นความกระจายของกระบวนการ</p></div></div>
+      <div class="chart-grid">
+        <article class="chart-card"><header><h3>เข้า IVQF ถึงหลังบรรจุ 30 นาที</h3><p>10:33–11:20 · เส้นประคือเกณฑ์ −18.5°C</p></header><div class="chart" id="process-chart"></div><p class="caption">ช่วงสีน้ำเงินอ่อน = ต่ำสุดถึงสูงสุด · เส้นน้ำเงิน = ค่าเฉลี่ย</p></article>
+        <article class="chart-card"><header><h3>อุณหภูมิระหว่างติดตามในคลัง</h3><p>0–30 ชั่วโมง · ค่าเฉลี่ยเย็นลงชัดหลังประมาณชั่วโมงที่ 10</p></header><div class="chart" id="storage-chart"></div><p class="caption">ที่ 30 ชั่วโมง ค่าเฉลี่ยยังอยู่เพียง −16.7°C และยังไม่ผ่านเกณฑ์</p></article>
+      </div>
+    </section>
+
+    <section id="recommendations">
+      <div class="section-head"><div><h2>Condition ที่แนะนำสำหรับการทดลองยืนยัน</h2><p>เนื่องจากอุณหภูมิเครื่องลดต่ำกว่า −95°C ไม่ได้ การปรับต้องเน้นความสม่ำเสมอของสินค้า เวลาพักในเครื่อง และความถูกต้องของการวัด</p></div></div>
+      <div class="plan">
+        <article><h3>ทำให้ RM ก่อนเข้าเครื่องอยู่ที่ 0–4°C ทุกจุด</h3><p>รอบนี้จุดเข้าเครื่องอยู่ 4–8°C และไม่มีจุดใดต่ำกว่า 4°C ควร Pre-chill และยืนยันค่า warmest core ก่อนเริ่ม เพื่อไม่ให้โหลดความร้อนเริ่มต้นกลบผลของ Condition เครื่อง</p></article>
+        <article><h3>ทดลองเวลาเดินสายพาน 3 ระดับที่ −95°C</h3><p>ใช้ 7:20 เป็น Baseline แล้วทดสอบ 9:30 และ 11:30 นาที โดยคงน้ำหนักต่อพื้นที่ ความหนาชั้นสินค้า และระยะห่างให้เท่ากัน หากชิ้นสินค้าตกเมื่อเพิ่มความเร็ว ให้คง/ลดความเร็วและแก้ด้วย guide หรือการจัดเรียง ไม่ควรเพิ่มความเร็วจนเวลาพักสั้นลง</p></article>
+        <article><h3>วัด Core ด้วยหัววัดที่เหมาะกับชิ้นสินค้า</h3><p>วางหัววัดที่แกนกลางชิ้นจริงและระบุตำแหน่งซ้าย–กลาง–ขวาของสายพานอย่างน้อยตำแหน่งละ 3 จุด แยก Logger อุณหภูมิอากาศออกจากหัววัด Core เพราะ iButton อาจใหญ่เกินไปสำหรับ BLK 20–30 g</p></article>
+        <article><h3>กำหนดเกณฑ์ผ่านที่จุดออกและหลัง Glazing</h3><p>เลือก Condition ที่ warmest core ของทุกจุด ≤ −18.5°C และ coldest core ไม่ต่ำกว่า −22.0°C ทั้งก่อน Glazing และที่ 0, 15, 30 นาที ทำซ้ำอย่างน้อย 3 รอบก่อนล็อกมาตรฐาน</p></article>
+        <article><h3>ติดตามคลังต่ออย่างน้อย 36–40 ชั่วโมง</h3><p>รอบนี้ 31 ชั่วโมงยังไม่พอ ให้บันทึกต่อจน warmest core ≤ −18.5°C ต่อเนื่องอย่างน้อย 3 ค่า พร้อม Logger อุณหภูมิอากาศคลังและตำแหน่งพาเลต เพื่อแยกผลของ airflow และการซ้อนสินค้า</p></article>
+        <article><h3>ล็อกนิยามเวลา 0, 15, 30 นาที</h3><p>เริ่มจับเวลา 0 นาทีทันทีหลังยกสินค้าพ้นน้ำ Glazing และกำหนดเวลาสะเด็ดน้ำ/บรรจุคงที่ ไม่ใช้เวลาหลังเริ่มบรรจุแทน เพื่อให้เทียบรอบทดลองได้ตรงกัน</p></article>
+      </div>
+    </section>
+
+    <section id="limitations">
+      <div class="section-head"><div><h2>ข้อจำกัดของข้อมูลต้นฉบับ</h2><p>ต้องแก้ก่อนใช้รอบถัดไปเป็นหลักฐานอนุมัติ Condition</p></div></div>
+      <div class="warn-list">
+        <div class="warn"><b>เวลาเครื่องไม่ตรงกัน</b>Logger ระบุปี 2089 ขณะที่แผนทดลองคือ 25/09/2569 (2026) ควรตั้งนาฬิกาและ Time zone ก่อนเริ่ม</div>
+        <div class="warn"><b>เวลาเดินสายพานไม่ตรงกัน</b>ผู้ทดลองแจ้ง 7:20 นาที แต่ชีต “แผนรอบ 6” ระบุ 7.30 นาที และ Mark ใน Logger ห่าง 8 นาที</div>
+        <div class="warn"><b>สูตร OP16 ผิดเครื่องหมาย</b>เซลล์เวลา 10:41 เขียน <code>=--10</code> จึงคำนวณเป็น +10°C ต้องยืนยันว่าค่าจริงคือ −10°C หรือ +10°C</div>
+        <div class="warn"><b>ยังไม่ยืนยันตำแหน่งหัววัด</b>ไม่มี mapping ว่า Logger แต่ละตัวอยู่ตำแหน่งใดและวัด Core หรืออากาศรอบสินค้า</div>
+        <div class="warn"><b>ไม่มีน้ำหนักสำหรับ %Yield</b>ชีตบันทึก BLK รอบ 6 ยังว่าง จึงไม่มี Baseline และน้ำหนักหลัง Glazing</div>
+        <div class="warn"><b>ภาพไม่มีป้ายกำกับ</b>ไม่ทราบว่าเป็นสินค้าเดียวกับ Logger ชุดนี้หรือเป็นเวลา 0, 15 หรือ 30 นาที</div>
+      </div>
+    </section>
+    <section id="final-summary" aria-labelledby="final-summary-title">
+      <div class="section-head"><div><h2 id="final-summary-title">สรุปผลการทดลองทั้งหมด</h2><p>การทดลองครั้งที่ 6 · ผลจาก Data Logger 9 จุด และแนวทางใช้ข้อมูลสำหรับการทดลองยืนยัน</p></div><span class="badge">สรุปรวม</span></div>
+      <article class="chart-card">
+        <header><h3>ยังยืนยัน Condition มาตรฐานและเวลาจัดเก็บไม่ได้</h3><p>ข้อมูลที่บันทึกยังไม่ถึงเป้าหมาย −18.5°C ณ จุดออกจาก IVQF และยังไม่ถึงช่วง −18.5 ถึง −22.0°C เมื่อสิ้นสุดการติดตามในคลัง ทั้งนี้ต้องยืนยันตำแหน่งหัววัดก่อนใช้ค่าจาก Logger เป็น Core Temp ของสินค้า</p></header>
+        <div class="goal-list">
+          <div class="goal"><strong>Condition ที่ใช้</strong><span class="state">−95°C</span><div>เวลาเดินสายพานตามที่แจ้ง 7 นาที 20 วินาที; แผนระบุ 7.30 นาที จึงต้องยืนยันเวลาใช้งานจริง ส่วน Glazing ตามแผนคือจุ่ม 1 วินาที ในน้ำ 0–2°C</div></div>
+          <div class="goal"><strong>ก่อนเข้า IVQF</strong><span class="state">เฉลี่ย 5.6°C</span><div>ค่าทั้ง 9 จุดอยู่ระหว่าง 4.0–8.0°C ไม่มีจุดใดต่ำกว่า 4°C การควบคุมอุณหภูมิเริ่มต้นให้สม่ำเสมอเป็นตัวแปรสำคัญสำหรับการทดลองรอบต่อไป</div></div>
+          <div class="goal"><strong>หลังออก IVQF</strong><span class="state fail">0/9 ผ่าน</span><div>ณ Mark เวลา 10:41 ไม่มีจุดใดถึง −18.5°C ค่าที่ไม่มีปัญหาสูตรอยู่ระหว่าง −15.0 ถึง −1.0°C ส่วนค่าเฉลี่ย −8.4°C ในรายงานใช้สมมติฐานว่า OP16 เป็น −10°C และยังต้องยืนยัน</div></div>
+          <div class="goal"><strong>หลัง Glazing / บรรจุ</strong><span class="state fail">0/9 ผ่าน</span><div>ค่าเฉลี่ยที่ 0, 15 และ 30 นาที เท่ากับ −6.3, −5.1 และ −5.2°C ตามลำดับ จุด 0 นาทีอ้างอิง 10:50 จาก Mark หลังบรรจุ จึงยังไม่ใช่เวลาหลัง Glazing ที่ยืนยันโดยตรง</div></div>
+          <div class="goal"><strong>ผลติดตามในคลัง</strong><span class="state pending">ยังไม่ถึงเป้า</span><div>ค่าเฉลี่ยรายชั่วโมงอุ่นขึ้นจากประมาณ −5.2°C เป็น −3.2°C ใน 10 ชั่วโมงแรก แล้วจึงลดลง เมื่อสิ้นสุดการติดตามที่ 30 ชม. 56–57 นาที ค่าสุดท้ายอยู่ระหว่าง −18.0 ถึง −16.0°C เฉลี่ย −17.1°C จึงยังระบุเวลาที่ถึง −18.5°C หรือ −22.0°C ไม่ได้ และไม่ควรใช้แนวโน้มนี้คาดเวลาแน่นอน</div></div>
+          <div class="goal"><strong>คุณภาพสินค้าและ %Yield</strong><span class="state pending">ยังสรุปไม่ได้</span><div>ยังไม่มีผลประเมินคุณภาพที่ผูกกับตัวอย่างและ Condition ชัดเจน และไม่มีน้ำหนักก่อน–หลัง Glazing สำหรับคำนวณ %Yield จึงยังยืนยันผลตามเป้ารองไม่ได้</div></div>
+          <div class="goal"><strong>ข้อมูลที่ต้องยืนยัน</strong><span class="state pending">ก่อนทดลองซ้ำ</span><div>ตรวจปีและนาฬิกา Logger, เวลาเดินสายพานจริง, สูตร OP16 ที่เขียน =--10, ตำแหน่งหัววัด Core/อากาศ, เวลาเริ่มนับ 0 นาที และเวลาเข้าคลังจริง ซึ่งในรายงานอ้างอิง 11:20 จาก Mark “เข้าคลัง 1 ชม.” เวลา 12:20</div></div>
+          <div class="goal"><strong>แนวทางทดลองครั้งต่อไป</strong><span class="state">ทดลองยืนยัน</span><div>คง −95°C ควบคุม RM ที่ 0–4°C และโหลดสินค้าให้เท่ากัน ตรวจหัววัด Core แล้วเปรียบเทียบเวลา 7:20, 9:30 และ 11:30 นาทีตามข้อเสนอในรายงาน ทำซ้ำอย่างน้อย 3 รอบ พร้อมชั่งน้ำหนักและประเมินคุณภาพ ติดตามในคลังต่อจนถึงเกณฑ์จริง; 36–40 ชั่วโมงเป็นช่วงเก็บข้อมูลที่เสนอ ไม่ใช่เวลาจัดเก็บที่ยืนยันแล้ว</div></div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer"><p>จัดทำจากไฟล์ “Potocal Glazing IVQF การทดลองครั้งที่ 6.xlsx” · วิเคราะห์ Data Logger 9 จุด · ไม่ได้แก้ไขไฟล์ต้นฉบับ</p></footer>
+
+  <script>
+    const processRows=[
+      ["10:33",[4,6,6,6.5,5.5,4,6.5,4,8]],["10:34",[2,5,6,6,4,3.5,4,4,8]],["10:35",[0,5,6,4,2,2,3,4,7.5]],["10:36",[-5,0,5.5,1.5,.5,.5,0,3,7.5]],["10:37",[-6,-2,4.5,-.5,-.5,-1,-5,0,6]],["10:38",[-10,-11,3,-2.5,-2.5,-5,-12,-5,4]],["10:39",[-11,-11,1.5,-5.5,-7,-8,-12,-7,2]],["10:40",[-11,-11,0,-10,-12,-10,-12,-15,0]],["10:41",[-8,-7.5,-1,-15,-12,-10,-10,-10,-2]],["10:42",[-8,-7.5,-1.5,-17.5,-9,-10,-8,-10,-5]],["10:43",[-7,-7.5,-3,-17,-7.5,-10,-8,-10,-12]],["10:44",[-6.5,-7.5,-4,-14.5,-6.5,-10,-4.5,-9,-17.5]],["10:45",[-6.5,-8,-5,-11,-6,-9.5,-5,-9,-18.5]],["10:46",[-6.5,-7.5,-6.5,-9,-6,-7.5,-5,-9,-18]],["10:47",[-6.5,-6.5,-7,-8.5,-5.5,-6.5,-4.5,-9,-17.5]],["10:48",[-6.5,-5.5,-7.5,-8,-5.5,-5.5,-4.5,-9,-13]],["10:49",[-6.5,-5,-7,-8,-5.5,-5,-4.5,-9,-9.5]],["10:50",[-6.5,-5,-6,-8,-5.5,-5,-4,-9,-8]],["10:51",[-5.5,-4.5,-5.5,-7.5,-5.5,-4.5,-4,-9,-7.5]],["10:52",[-5.5,-4.5,-5,-7.5,-5,-4.5,-3.5,-9,-7]],["10:53",[-5,-4.5,-5,-7.5,-5,-4.5,-3,-8,-7]],["10:54",[-5,-4.5,-4.5,-7.5,-5,-4.5,-3,-7,-7]],["10:55",[-5,-4,-4.5,-7.5,-5,-4.5,-3,-7,-6.5]],["10:56",[-5,-4,-4.5,-7.5,-5,-4.5,-2.5,-6.5,-6.5]],["11:00",[-5,-4,-4.5,-7.5,-5,-4,-2.5,-6.5,-6.5]],["11:05",[-5,-4,-4.5,-7.5,-5,-4,-2.5,-6.5,-6.5]],["11:10",[-5.5,-4,-4.5,-7.5,-5,-4,-3,-6.5,-6.5]],["11:15",[-5.5,-4,-4.5,-7,-4.5,-4,-3,-6.5,-6.5]],["11:20",[-5.5,-4,-4.5,-7,-4.5,-4,-3.5,-6.5,-7]]
+    ];
+    const storage=[
+      [0,-5.17,-7,-3.5],[1,-5.22,-6.5,-4],[2,-4.94,-6,-4],[3,-4.56,-5.5,-3.5],[4,-4.28,-5,-3.5],[5,-4.11,-5,-3],[6,-3.83,-4.5,-3],[7,-3.67,-4.5,-3],[8,-3.44,-4,-2.5],[9,-3.33,-4,-2.5],[10,-3.22,-4,-2.5],[11,-3.61,-4,-3],[12,-4.06,-5,-3.5],[13,-4.72,-6.5,-3.5],[14,-5.33,-7.5,-4],[15,-6.17,-8.5,-4.5],[16,-6.89,-9,-5],[17,-7.78,-10,-6],[18,-8.56,-10.5,-7],[19,-9.33,-11,-7.5],[20,-10.22,-12,-8.5],[21,-11,-12.5,-9.5],[22,-11.78,-13,-10.5],[23,-12.61,-14,-11],[24,-13.28,-14.5,-12],[25,-14,-15,-13],[26,-14.56,-15.5,-13.5],[27,-15.06,-16,-14],[28,-15.67,-16.5,-14.5],[29,-16.28,-17,-15.5],[30,-16.72,-17.5,-16]
+    ];
+    const stats=v=>({avg:v.reduce((a,b)=>a+b,0)/v.length,min:Math.min(...v),max:Math.max(...v)});
+    function chart(target,rows,{yMin=-22,yMax=10,xLabel="เวลา",labels=[]}={}){
+      const W=680,H=310,L=48,R=16,T=20,B=40,n=rows.length,xValues=rows.map(r=>typeof r[0]==="number"?r[0]:(()=>{const [h,m]=r[0].split(":").map(Number);return h*60+m})()),x=i=>L+(xValues[i]-xValues[0])/(xValues[n-1]-xValues[0])*(W-L-R),y=v=>T+(yMax-v)/(yMax-yMin)*(H-T-B);
+      const points=rows.map(r=>r.length===2?stats(r[1]):{avg:r[1],min:r[2],max:r[3]});
+      let grid=""; for(let v=Math.ceil(yMin/5)*5;v<=yMax;v+=5)grid+=`<line x1="${L}" y1="${y(v)}" x2="${W-R}" y2="${y(v)}" stroke="#dfe3e8"/><text x="5" y="${y(v)+4}" font-size="10" fill="#5f6878">${v}°</text>`;
+      [-18.5,-22].filter(v=>v>=yMin).forEach(v=>grid+=`<line x1="${L}" y1="${y(v)}" x2="${W-R}" y2="${y(v)}" stroke="#a12b2b" stroke-dasharray="5 4"/><text x="${W-90}" y="${y(v)-5}" font-size="10" fill="#a12b2b">${v}°C</text>`);
+      const upper=points.map((p,i)=>`${x(i)},${y(p.max)}`).join(" "),lower=points.map((p,i)=>`${x(n-1-i)},${y(points[n-1-i].min)}`).join(" "),line=points.map((p,i)=>(i?"L":"M")+x(i).toFixed(1)+","+y(p.avg).toFixed(1)).join(" ");
+      const tickEvery=Math.max(1,Math.floor(n/6)); for(let i=0;i<n;i+=tickEvery){const label=rows[i][0];grid+=`<text x="${x(i)-12}" y="${H-16}" font-size="10" fill="#5f6878">${label}</text>`}
+      document.querySelector(target).innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img"><title>กราฟอุณหภูมิ Data Logger</title>${grid}<polygon points="${upper} ${lower}" fill="#e7f0fa"/><path d="${line}" fill="none" stroke="#185fa5" stroke-width="2.2"/><text x="${W/2-20}" y="${H-3}" font-size="11" fill="#172033">${xLabel}</text></svg>`;
+    }
+    chart("#process-chart",processRows,{yMin:-22,yMax:10,xLabel:"เวลา"});
+    chart("#storage-chart",storage,{yMin:-22,yMax:0,xLabel:"ชั่วโมงในคลัง"});
+  </script>
+</body>
+</html>
