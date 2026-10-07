@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root { --ink: oklch(26% .028 252); --muted: oklch(49% .024 252); --line: oklch(88% .012 250); --page: oklch(97.7% .007 250); --surface: oklch(100% 0 0); --navy: oklch(32% .075 250); --blue: oklch(52% .125 247); --blue-soft: oklch(94.5% .024 247); --teal: oklch(50% .08 181); --amber-soft: oklch(95% .03 75); --radius: 14px; --motion: 180ms cubic-bezier(.22, 1, .36, 1); }
-    * { box-sizing: border-box; } html { scroll-behavior: smooth; } body { margin: 0; color: var(--ink); background: var(--page); font: 15px/1.55 "Noto Sans Thai", "Sarabun", "Segoe UI", system-ui, sans-serif; } a { color: inherit; }
+    * { box-sizing: border-box; } html { scroll-behavior: smooth; } body { margin: 0; color: var(--ink); background: var(--page); font: 15px/1.55 "Noto Sans Thai", "Sarabun", "Segoe UI", system-ui, sans-serif; } a { color: inherit; }.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
     .shell { min-height: 100vh; display: grid; grid-template-columns: 232px minmax(0, 1fr); }
     .sidebar { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; padding: 25px 14px; color: white; background: var(--navy); }
     .brand { padding: 0 10px 23px; border-bottom: 1px solid oklch(100% 0 0 / .16); }.brand-mark { display: grid; place-items: center; width: 38px; height: 38px; margin-bottom: 14px; border-radius: 10px; color: var(--navy); background: white; font-size: 14px; font-weight: 900; letter-spacing: -.05em; }.brand h1 { margin: 0; font-size: 17px; letter-spacing: -.025em; line-height: 1.2; }.brand p { margin: 5px 0 0; color: oklch(87% .015 250); font-size: 12px; }
@@ -45,6 +45,15 @@
   <style>
     .sidebar nav .dashboard-submenu .nav-pending { display: flex; align-items: center; gap: 12px; min-height: 38px; padding: 8px 10px 8px 14px; color: rgb(255 255 255 / .78); font-size: 13px; }
     .nav-pending small { display: block; font-size: 11px; }
+  </style>
+  <style>
+    .home-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:20px}.home-head .intro{margin:0}.home-meta{color:var(--muted);font-size:11px;text-align:right}.focus-toolbar{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px;padding:16px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);box-shadow:0 1px 3px rgb(17 24 39/.06)}.focus-field label{display:block;margin-bottom:5px;color:var(--muted);font-size:11px;font-weight:700}.focus-field select,.focus-field input{width:100%;min-height:40px;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);font:inherit}.focus-field select:focus-visible,.focus-field input:focus-visible{outline:3px solid #b7d5f3;outline-offset:1px;border-color:var(--blue)}
+    .kpi-strip{display:grid;grid-template-columns:repeat(4,1fr);margin:14px 0;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);box-shadow:0 1px 3px rgb(17 24 39/.06)}.focus-kpi{min-width:0;padding:14px 16px}.focus-kpi+.focus-kpi{border-left:1px solid var(--line)}.focus-kpi span{display:block;color:var(--muted);font-size:11px}.focus-kpi strong{display:block;margin-top:3px;font-size:21px;line-height:1.25}.focus-kpi small{display:block;margin-top:3px;color:var(--muted);font-size:10px}
+    .decision-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(290px,.8fr);gap:14px;align-items:start}.focus-panel,.trial-panel,.product-detail,.module-links{border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);box-shadow:0 1px 3px rgb(17 24 39/.06)}.focus-section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:16px 18px;border-bottom:1px solid var(--line)}.focus-section-head h3{margin:0;font-size:15px}.focus-section-head p{margin:3px 0 0;color:var(--muted);font-size:11px}.focus-section-head select{min-height:34px;padding:5px 8px;border:1px solid var(--line);border-radius:7px;background:#fff;font:inherit;font-size:11px}.focus-table-head,.focus-row{display:grid;grid-template-columns:30px minmax(210px,1.4fr) 88px 66px 92px minmax(138px,1fr);gap:10px;align-items:center}.focus-table-head{padding:9px 16px;color:var(--muted);background:#f8f9fa;font-size:10px;font-weight:700}.focus-list{max-height:454px;overflow:auto}.focus-row{width:100%;min-height:74px;padding:10px 16px;border:0;border-top:1px solid #edf0f2;background:#fff;color:var(--ink);font:inherit;text-align:left;cursor:pointer}.focus-row:first-child{border-top:0}.focus-row:hover{background:#f7f9fb}.focus-row[aria-pressed="true"]{background:#eef5fc;box-shadow:inset 3px 0 0 var(--blue)}.focus-rank{color:var(--muted);font-size:12px;font-weight:700}.focus-product{min-width:0}.focus-product strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px}.focus-product small{display:block;margin-top:4px;color:var(--muted);font-size:10px}.focus-num{font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}.focus-share,.focus-change{color:var(--muted);font-size:11px;font-variant-numeric:tabular-nums}.focus-change.up{color:#236710}.focus-change.new{color:#825f10}.evidence-badge{display:inline-flex;align-items:center;width:fit-content;max-width:100%;padding:4px 7px;border-radius:999px;background:#eef1f4;color:#4c5966;font-size:10px;font-weight:700;white-space:normal}.evidence-badge.review{background:#eaf3df;color:#365f19}.evidence-badge.fail{background:#fae6e4;color:#8c302c}.focus-empty{padding:34px 18px;text-align:center;color:var(--muted);font-size:12px}
+    .trial-list{padding:7px 16px 14px}.trial-item{display:block;padding:12px 0;color:inherit;text-decoration:none;border-bottom:1px solid #edf0f2}.trial-item:last-child{border-bottom:0}.trial-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;color:var(--muted);font-size:10px}.trial-item h4{margin:6px 0 3px;font-size:12px}.trial-item p{margin:0;color:var(--muted);font-size:11px}.trial-next{margin-top:6px!important;color:var(--ink)!important}.trial-item:hover h4{color:var(--blue)}.trial-status{padding:3px 6px;border-radius:999px;background:#eef1f4;color:#4c5966;font-weight:700}.trial-status.review{background:#eaf3df;color:#365f19}.trial-status.fail{background:#fae6e4;color:#8c302c}.trial-scope-note{margin:0 16px 14px;padding:10px;border-radius:8px;background:var(--amber-soft);color:#6b4a10;font-size:10px}
+    .product-detail{margin-top:14px;padding:18px}.detail-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}.detail-head h3{margin:0;font-size:17px}.detail-head p{margin:4px 0 0;color:var(--muted);font-size:11px}.detail-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px}.detail-actions a,.module-links a{display:inline-flex;align-items:center;min-height:36px;padding:7px 10px;border:1px solid var(--line);border-radius:8px;color:var(--blue);text-decoration:none;font-size:11px;font-weight:700}.detail-actions a:hover,.module-links a:hover{border-color:var(--blue)}.detail-grid{display:grid;grid-template-columns:minmax(250px,.8fr) minmax(300px,1.2fr);gap:24px;margin-top:18px}.detail-facts{display:grid;grid-template-columns:1fr 1fr;gap:1px;border:1px solid var(--line);background:var(--line)}.detail-fact{min-width:0;padding:10px;background:#fff}.detail-fact.wide{grid-column:1/-1}.detail-fact span{display:block;color:var(--muted);font-size:10px}.detail-fact strong{display:block;margin-top:3px;font-size:12px;overflow-wrap:anywhere}.trend-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:9px}.trend-head h4{margin:0;font-size:12px}.trend-head span{color:var(--muted);font-size:10px}.month-trend{display:grid;grid-template-columns:repeat(12,minmax(17px,1fr));gap:5px;align-items:end;height:126px;padding:9px 4px 0;border-bottom:1px solid var(--line)}.trend-col{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px}.trend-bar{width:100%;min-height:2px;border-radius:4px 4px 0 0;background:#93bde4}.trend-col.active .trend-bar{background:var(--blue)}.trend-col span{font-size:8px;color:var(--muted)}.trend-col.active span{color:var(--blue);font-weight:800}.detail-note{margin:14px 0 0;padding:10px;border-radius:8px;background:#f4f6f8;color:var(--muted);font-size:10px}.module-links{display:flex;align-items:center;gap:8px;margin-top:14px;padding:12px 14px}.module-links strong{margin-right:auto;font-size:12px}.data-note{margin:10px 2px 0;color:var(--muted);font-size:10px}
+    @media(max-width:1100px){.decision-layout{grid-template-columns:1fr}.focus-list{max-height:none}.trial-panel{order:2}.detail-grid{grid-template-columns:1fr}.focus-toolbar{grid-template-columns:repeat(2,minmax(140px,1fr))}}
+    @media(max-width:720px){.home-head{display:block}.home-meta{margin-top:10px;text-align:left}.focus-toolbar{grid-template-columns:1fr}.kpi-strip{grid-template-columns:1fr 1fr}.focus-kpi:nth-child(3){border-left:0;border-top:1px solid var(--line)}.focus-kpi:nth-child(4){border-top:1px solid var(--line)}.focus-table-head{display:none}.focus-row{grid-template-columns:28px minmax(0,1fr) 82px;gap:8px;min-height:86px}.focus-row .focus-share{display:none}.focus-row .focus-change{grid-column:3}.focus-row .evidence-badge{grid-column:2;grid-row:2}.detail-head{display:block}.detail-actions{justify-content:flex-start;margin-top:12px}.module-links{align-items:flex-start;flex-wrap:wrap}.module-links strong{width:100%;flex-basis:100%}.month-trend{gap:3px}.detail-facts{grid-template-columns:1fr}.detail-fact.wide{grid-column:auto}}
   </style>
 </head>
 <body>
@@ -94,13 +103,26 @@
     </aside>
     <main id="workspace-main" tabindex="-1">
       <div id="home-view">
-      <div class="topline"><span class="date">Main workspace · 2026</span></div>
-      <section class="intro"><h2>ศูนย์กลางข้อมูลสำหรับการปรับปรุงงาน IVQF</h2><p>เข้าถึงข้อมูล Order และมาตรฐาน Glazing ได้จากจุดเดียว เพื่อให้ทีมใช้ข้อมูลชุดเดียวกันในการติดตามผลและตัดสินใจหน้างาน</p></section>
-      <section class="workspace" aria-label="โมดูลหลัก">
-        <a class="primary-link" id="order-dashboard" href="Order2026_Restored.html#overview" data-route="order-dashboard" data-embed><span class="label">ข้อมูลการผลิตและคำสั่งซื้อ</span><h3>Order IVQF Dashboard</h3><p>ดูยอด Order รายเดือน แยกตามประเภทสินค้า หมวดสินค้า และรายละเอียดผลิตภัณฑ์</p><span class="go">โมดูลข้อมูล Order</span></a>
-        <div class="modules"><article class="module"><span class="label">มาตรฐานการทำงาน</span><h3>Glazing Standard</h3><p>เปรียบเทียบระบบ Glazing พร้อมค่าเป้าหมายสำหรับ BL, BB และ FL</p><a href="order_ivqf_dashboard_2026_corrected.html" data-route="glazing-standard" data-embed data-view-title="Glazing Standard">เปิดมาตรฐาน <span aria-hidden="true">→</span></a></article><article class="module"><span class="label">การใช้งาน</span><h3>เริ่มจากข้อมูลที่ต้องใช้</h3><p>เลือก Dashboard เมื่อต้องการดูยอด หรือเลือก Standard เมื่อต้องการทบทวนวิธีทำงาน</p></article></div>
-      </section>
-      <section class="lower" aria-label="แนวทางการใช้งาน"><article class="notice"><h3>ลำดับการใช้งานที่แนะนำ</h3><p>ใช้ยอด Order เพื่อระบุสินค้าที่มีผลกระทบ แล้วตรวจสอบมาตรฐาน Glazing ก่อนวางแผนปรับปรุง</p><div class="path" aria-label="Order Dashboard ไปยัง Glazing Standard"><span>ดูยอด Order</span><i aria-hidden="true">→</i><span>ระบุจุดสำคัญ</span><i aria-hidden="true">→</i><span>ทบทวน Glazing</span></div></article><aside class="quick"><h3>ทางลัด</h3><ul><li>Order: ยอดรวมและรายการสินค้ารายเดือน</li><li>Glazing: ค่า Target และจุดควบคุม</li></ul></aside></section>
+        <div class="home-head"><section class="intro"><span class="date">Main workspace · 2026</span><h2>สินค้าและผลการทดลองที่ควร Focus</h2><p>เลือกเดือนเพื่อดูสินค้าที่มียอด Order สูง พร้อมหลักฐานการทดลองที่เกี่ยวข้องและข้อมูลที่ต้องยืนยันก่อนวางแผนปรับปรุง</p></section><div class="home-meta">ข้อมูล Order ไม่ใช่ยอดผลิตจริง<br>ผลทดลองระดับกลุ่มไม่ใช่การรับรองราย SKU</div></div>
+        <section class="focus-toolbar" aria-label="ตัวกรองสินค้า">
+          <div class="focus-field"><label for="focusMonth">เดือน</label><select id="focusMonth"></select></div>
+          <div class="focus-field"><label for="focusType">ประเภทสินค้า</label><select id="focusType"></select></div>
+          <div class="focus-field"><label for="focusCategory">หมวด</label><select id="focusCategory"></select></div>
+          <div class="focus-field"><label for="focusSearch">ค้นหาสินค้า</label><input id="focusSearch" type="search" placeholder="ชื่อสินค้า หรือ SKU candidate" autocomplete="off"></div>
+        </section>
+        <section class="kpi-strip" aria-label="สรุปเดือนที่เลือก">
+          <div class="focus-kpi"><span>ยอด Order ในชุดข้อมูล</span><strong id="focusTotal">-</strong><small id="focusMonthLabel">-</small></div>
+          <div class="focus-kpi"><span>สินค้าที่มียอด</span><strong id="focusCount">-</strong><small>หลังใช้ตัวกรอง</small></div>
+          <div class="focus-kpi"><span>สัดส่วนสินค้าลำดับ 1</span><strong id="focusTopShare">-</strong><small>เทียบยอดรวมในตัวกรอง</small></div>
+          <div class="focus-kpi"><span>มีหลักฐานทดลองเกี่ยวข้อง</span><strong id="focusEvidence">-</strong><small>อาจเป็นข้อมูลระดับกลุ่ม</small></div>
+        </section>
+        <div class="decision-layout">
+          <section class="focus-panel" aria-labelledby="focus-list-title"><header class="focus-section-head"><div><h3 id="focus-list-title">ลำดับสินค้าที่ควร Focus</h3><p id="focusListInfo">เรียงตามยอด Order เดือนที่เลือก</p></div><label><span class="sr-only">จำนวนรายการ</span><select id="focusLimit"><option value="5">Top 5</option><option value="10">Top 10</option><option value="all">ทั้งหมด</option></select></label></header><div class="focus-table-head" aria-hidden="true"><span>#</span><span>สินค้า</span><span>Order</span><span>สัดส่วน</span><span>เทียบเดือนก่อน</span><span>หลักฐาน</span></div><div class="focus-list" id="focusList" aria-live="polite"></div></section>
+          <aside class="trial-panel" aria-labelledby="trial-panel-title"><header class="focus-section-head"><div><h3 id="trial-panel-title">ผลการทดลองที่เกี่ยวข้อง</h3><p id="trialPanelInfo">แสดงผลล่าสุดตามสินค้าที่เลือก</p></div></header><div class="trial-list" id="trialList"></div><p class="trial-scope-note">ป้ายระดับกลุ่มหมายถึงผลจากตัวอย่าง BLK/SBB ที่เกี่ยวข้อง ต้องยืนยัน SKU, ขนาดและ Condition ก่อนใช้กับสินค้า</p></aside>
+        </div>
+        <section class="product-detail" id="productDetail" aria-labelledby="product-detail-title" tabindex="-1"></section>
+        <nav class="module-links" aria-label="ทางลัดโมดูล"><strong>เปิดข้อมูลต่อ</strong><a href="#order-dashboard">Order Dashboard</a><a href="#glazing-standard">Glazing Standard</a><a href="#capacity-flow">Capacity Simulator</a><a href="IVQF_Capacity_Flow_Simulator_User_Manual_TH.pdf" target="_blank" rel="noopener">คู่มือ PDF</a></nav>
+        <p class="data-note" id="focusDataNote"></p>
       </div>
       <section class="embedded-view" aria-live="polite">
         <header class="embed-header"><div><h2 id="embed-title" tabindex="-1">Dashboard</h2><p id="embed-status" role="status"></p></div><div class="embed-actions"><button class="back-home" id="embed-retry" type="button" hidden>ลองใหม่</button><a class="embed-direct" id="embed-direct" hidden>เปิดแยกหน้า</a><button class="back-home" id="back-home" type="button">← กลับหน้า Main</button></div></header>
@@ -108,8 +130,79 @@
       </section>
     </main>
   </div>
+  <script src="main_focus_data.js"></script>
   <script>
     (() => {
+      const focusData = window.IVQF_MAIN_DATA;
+      const focusState = { month: Math.max(0, Math.min(11, new Date().getMonth())), selectedKey: null, rendered: [] };
+      const monthLabels = ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
+      const focusEl = id => document.getElementById(id);
+      const focusEsc = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+      const focusFmt = (value, digits = 3) => Number(value).toLocaleString('en-US',{minimumFractionDigits:digits,maximumFractionDigits:digits});
+      const unique = values => [...new Set(values)].sort((a,b)=>String(a).localeCompare(String(b),'th'));
+      const trialsFor = row => focusData.trials.filter(trial => trial.groups.includes(row.group)).sort((a,b)=>b.date.localeCompare(a.date));
+      const evidenceFor = row => {
+        const trial = trialsFor(row)[0];
+        if (!trial) return { text:'ยังไม่มีผลทดลองที่เชื่อมได้', tone:'' };
+        return { text:(trial.status==='fail'?'ต้องทดลองซ้ำ':'มีผลทดลอง')+' · ระดับกลุ่ม', tone:trial.status };
+      };
+      const changeFor = (row, month) => {
+        if (month === 0) return { text:'ไม่มีเดือนก่อน', tone:'' };
+        const current = row.months[month], previous = row.months[month-1];
+        if (previous > 0) { const percent=(current-previous)/previous*100; return { text:(percent>0?'+':'')+percent.toFixed(1)+'%', tone:percent>0?'up':'' }; }
+        if (current > 0) return { text:'เริ่มมียอด', tone:'new' };
+        return { text:'-', tone:'' };
+      };
+      const focusOptions = (items, all) => `<option value="">${all}</option>`+items.map(item=>`<option value="${focusEsc(item)}">${focusEsc(item)}</option>`).join('');
+
+      function populateFocusFilters(){
+        focusEl('focusMonth').innerHTML=focusData.months.map((month,index)=>`<option value="${index}">${month} · ${monthLabels[index]}</option>`).join('');
+        focusEl('focusMonth').value=String(focusState.month);
+        focusEl('focusType').innerHTML=focusOptions(unique(focusData.orderRows.map(row=>row.typeLabel)),'ทุกประเภท');
+        populateFocusCategories();
+      }
+      function populateFocusCategories(){
+        const type=focusEl('focusType').value,old=focusEl('focusCategory').value;
+        const rows=focusData.orderRows.filter(row=>!type||row.typeLabel===type);
+        const categories=unique(rows.map(row=>row.category));
+        focusEl('focusCategory').innerHTML=focusOptions(categories,'ทุกหมวด');
+        if(categories.includes(old))focusEl('focusCategory').value=old;
+      }
+      function filteredFocusRows(){
+        const type=focusEl('focusType').value,category=focusEl('focusCategory').value,query=focusEl('focusSearch').value.trim().toLowerCase();
+        return focusData.orderRows.filter(row=>row.months[focusState.month]>0&&(!type||row.typeLabel===type)&&(!category||row.category===category)&&(!query||row.name.toLowerCase().includes(query)||String(row.productMatch.code||'').toLowerCase().includes(query))).sort((a,b)=>b.months[focusState.month]-a.months[focusState.month]||a.name.localeCompare(b.name));
+      }
+      function renderFocusList(rows,total){
+        const limitValue=focusEl('focusLimit').value,shown=limitValue==='all'?rows:rows.slice(0,Number(limitValue));focusState.rendered=shown;
+        if(!shown.length){focusEl('focusList').innerHTML='<div class="focus-empty">ไม่มียอด Order ตามตัวกรองในเดือนนี้</div>';return;}
+        focusEl('focusList').innerHTML=shown.map((row,index)=>{const change=changeFor(row,focusState.month),evidence=evidenceFor(row),share=total?row.months[focusState.month]/total*100:0;return `<button class="focus-row" type="button" data-focus-index="${index}" aria-pressed="${row.key===focusState.selectedKey}"><span class="focus-rank">${index+1}</span><span class="focus-product"><strong title="${focusEsc(row.name)}">${focusEsc(row.name)}</strong><small>${focusEsc(row.typeLabel)} · ${focusEsc(row.category)}</small></span><span class="focus-num">${focusFmt(row.months[focusState.month])} MT</span><span class="focus-share">${share.toFixed(1)}%</span><span class="focus-change ${change.tone}">${change.text}</span><span class="evidence-badge ${evidence.tone}">${evidence.text}</span></button>`}).join('');
+      }
+      function renderTrialList(row){
+        const trials=row?trialsFor(row):[...focusData.trials].sort((a,b)=>b.date.localeCompare(a.date));
+        focusEl('trialPanelInfo').textContent=row?`หลักฐานล่าสุดของกลุ่ม ${row.group}`:'ผลการทดลองล่าสุดที่มีในระบบ';
+        focusEl('trialList').innerHTML=trials.length?trials.map(trial=>`<a class="trial-item" href="#experiment-${trial.number}"><div class="trial-meta"><span>ครั้งที่ ${trial.number} · ${trial.dateLabel}</span><span class="trial-status ${trial.status}">${trial.statusLabel}</span></div><h4>${focusEsc(trial.title)}</h4><p>${focusEsc(trial.finding)}</p><p class="trial-next"><b>ทำต่อ:</b> ${focusEsc(trial.next)}</p></a>`).join(''):'<div class="focus-empty">ยังไม่มีผลทดลองที่เชื่อมกับสินค้ากลุ่มนี้</div>';
+      }
+      function renderProductDetail(row){
+        if(!row){focusEl('productDetail').innerHTML='<div class="focus-empty">เลือกเดือนหรือปรับตัวกรองเพื่อดูรายละเอียดสินค้า</div>';renderTrialList(null);return;}
+        const match=row.productMatch,monthValue=row.months[focusState.month],max=Math.max(...row.months,1),candidate=match.level.endsWith('candidate');
+        const bars=row.months.map((value,index)=>`<div class="trend-col ${index===focusState.month?'active':''}" title="${monthLabels[index]} ${focusFmt(value)} MT"><i class="trend-bar" style="height:${Math.max(2,value/max*92)}px"></i><span>${focusData.months[index]}</span></div>`).join('');
+        focusEl('productDetail').innerHTML=`<div class="detail-head"><div><h3 id="product-detail-title">${focusEsc(row.name)}</h3><p>${focusEsc(row.typeLabel)} · ${focusEsc(row.category)} · กลุ่ม ${focusEsc(row.group)}</p></div><div class="detail-actions"><a href="#order-dashboard">ดู Order ทั้งหมด</a><a href="#capacity-flow">เปิด Capacity Simulator</a></div></div><div class="detail-grid"><div><div class="detail-facts"><div class="detail-fact"><span>Order ${monthLabels[focusState.month]}</span><strong>${focusFmt(monthValue)} MT</strong></div><div class="detail-fact"><span>รวมปีในชุดข้อมูล</span><strong>${focusFmt(row.total)} MT</strong></div><div class="detail-fact"><span>SKU candidate</span><strong>${candidate?focusEsc(match.code):'รอจับคู่สินค้า'}</strong></div><div class="detail-fact"><span>Part</span><strong>${candidate?focusEsc(match.part):focusEsc(row.group)}</strong></div><div class="detail-fact"><span>น้ำหนัก/กล่อง</span><strong>${candidate?focusFmt(match.kgPerCarton,2)+' kg':'ไม่มีข้อมูลที่ยืนยัน'}</strong></div><div class="detail-fact"><span>กล่อง/พาเลท</span><strong>${candidate?focusFmt(match.cartonsPerPallet,0)+' กล่อง':'ไม่มีข้อมูลที่ยืนยัน'}</strong></div><div class="detail-fact"><span>FG Speed</span><strong>${candidate?focusFmt(match.cartonsPerHour,1)+' กล่อง/hr':'ไม่มีข้อมูลที่ยืนยัน'}</strong></div><div class="detail-fact"><span>เวลาเต็มพาเลท</span><strong>${candidate?focusFmt(match.fullPalletMinutes,1)+' นาที':'ไม่มีข้อมูลที่ยืนยัน'}</strong></div><div class="detail-fact wide"><span>สถานะการเชื่อมข้อมูล</span><strong>${focusEsc(match.note)}</strong></div></div></div><div><div class="trend-head"><h4>ยอด Order รายเดือน</h4><span>${focusFmt(row.total)} MT ตลอดปีในชุดข้อมูล</span></div><div class="month-trend" role="img" aria-label="กราฟยอด Order รายเดือนของ ${focusEsc(row.name)}">${bars}</div><p class="detail-note">ข้อมูล Packaging และพาเลทจะแสดงเมื่อชื่อ Order ตรงฐาน Item และยังคงสถานะรอยืนยัน SKU จนกว่าเจ้าของข้อมูลจะรับรองการจับคู่</p></div></div>`;
+        renderTrialList(row);
+      }
+      function renderFocusDashboard(){
+        const rows=filteredFocusRows(),total=rows.reduce((sum,row)=>sum+row.months[focusState.month],0),top=rows[0];
+        if(!rows.some(row=>row.key===focusState.selectedKey))focusState.selectedKey=top?.key||null;
+        focusEl('focusTotal').textContent=focusFmt(total)+' MT';focusEl('focusCount').textContent=String(rows.length);focusEl('focusTopShare').textContent=top&&total?(top.months[focusState.month]/total*100).toFixed(1)+'%':'-';focusEl('focusEvidence').textContent=String(rows.filter(row=>trialsFor(row).length).length);
+        focusEl('focusMonthLabel').textContent=`${monthLabels[focusState.month]} ${focusData.year}`;focusEl('focusListInfo').textContent=`${rows.length} รายการ · เรียงจากยอด Order มากไปน้อย`;
+        renderFocusList(rows,total);renderProductDetail(rows.find(row=>row.key===focusState.selectedKey)||top||null);focusEl('focusDataNote').textContent=focusData.sourceNote;
+      }
+      if(focusData){
+        populateFocusFilters();renderFocusDashboard();
+        focusEl('focusMonth').addEventListener('change',event=>{focusState.month=Number(event.target.value);renderFocusDashboard()});
+        focusEl('focusType').addEventListener('change',()=>{populateFocusCategories();renderFocusDashboard()});
+        focusEl('focusCategory').addEventListener('change',renderFocusDashboard);focusEl('focusSearch').addEventListener('input',renderFocusDashboard);focusEl('focusLimit').addEventListener('change',renderFocusDashboard);
+        focusEl('focusList').addEventListener('click',event=>{const button=event.target.closest('[data-focus-index]');if(!button)return;const row=focusState.rendered[Number(button.dataset.focusIndex)];if(!row)return;focusState.selectedKey=row.key;renderFocusDashboard();const detail=focusEl('productDetail');detail.focus({preventScroll:true});detail.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})});
+      }
       const routes = {
         'order-dashboard': { title: 'ภาพรวม Dashboard', file: 'Order2026_Restored.html', section: 'overview', marker: 'Order IVQF 2026' },
         'order-top5': { title: 'Top 5 ยอด Order รายเดือน', file: 'Order2026_Restored.html', section: 'monthlyTop', marker: 'Order IVQF 2026' },
