@@ -105,13 +105,13 @@ test('pallet change loss reduces effective capacity without changing rated capac
   assert.ok(Math.abs(result.effectiveCapacityKgHr - 666.6666666667) < 1e-9);
 });
 
-test('new master and pace fields are wired into the web app', () => {
-  for (const id of ['packagingItem', 'packWeight', 'bagsPerCarton', 'cartonsPerPallet', 'packagingSource', 'derivedKgCarton', 'derivedKgPallet']) {
+test('new master, target and pace fields are wired into the web app', () => {
+  for (const id of ['packagingItem', 'packWeight', 'bagsPerCarton', 'cartonsPerPallet', 'packagingSource', 'productTargetInput', 'derivedKgCarton', 'derivedKgPallet']) {
     assert.match(html, new RegExp(`id="${id}"`));
   }
   assert.match(html, /paceFromCapacity/);
   assert.match(html, /data-auto-bag-min/);
   assert.match(html, /data-auto-sec-bag/);
   assert.match(html, /schemaVersion:VER/);
-  assert.match(html, /VER=4/);
+  assert.match(html, /VER=5/);
 });
