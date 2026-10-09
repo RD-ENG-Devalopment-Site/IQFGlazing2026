@@ -20,7 +20,7 @@ function setup(hash = '', fetchMock) {
   links.forEach(link => { link.group = new Element('details'); });
   const events = {}, documentEvents = {}, timers = new Map(), requests = [];
   let timerId = 0;
-  const location = { protocol: 'https:', pathname: '/IQFGlazing2026/', search: '', hash, href: 'https://example.test/IQFGlazing2026/' + hash };
+  const location = { protocol: 'https:', pathname: '/IQFGlazing2026/', search: '', hash, href: 'https://example.test/IQFGlazing2026/' + hash, replaced: [], replace(next) { this.replaced.push(next); this.href = new URL(next, this.href).href; } };
   const document = {
     getElementById: id => nodes.get(id),
     querySelector: selector => selector === '.sidebar' ? sidebar : null,
@@ -35,7 +35,7 @@ function setup(hash = '', fetchMock) {
     requests.push(args); if (fetchMock) return fetchMock(...args);
     return { ok: true, text: async () => fs.readFileSync(new URL(args[0], root), 'utf8') };
   };
-  const window = { addEventListener: (event, fn) => { events[event] = fn; } };
+  const window = { location, addEventListener: (event, fn) => { events[event] = fn; } };
   vm.runInNewContext(script, { document, window, location, history, fetch, AbortController,
     setTimeout: fn => { timers.set(++timerId, fn); return timerId; }, clearTimeout: id => timers.delete(id) });
   const click = key => links.find(l => l.dataset.route === key).listeners.click({ button: 0, preventDefault() {} });
@@ -51,13 +51,18 @@ function setup(hash = '', fetchMock) {
 }
 
 test('every available deep link loads the intended file/section and has correct active navigation', async () => {
-  for (const key of ['order-dashboard', 'order-top5', 'order-chart', 'order-table', 'glazing-standard', 'experiment-4', 'experiment-5', 'experiment-6', 'capacity-flow', 'manual']) {
+  for (const key of ['order-dashboard', 'order-top5', 'order-chart', 'order-table', 'glazing-standard', 'experiment-4', 'experiment-5', 'experiment-6', 'capacity-flow']) {
     const app = setup('#' + key); await settle(); app.complete();
     assert.equal(app.nodes.get('embed-frame').hidden, false, key);
     assert.equal(app.nodes.get('embed-retry').hidden, true, key);
     assert.ok(app.links.filter(l => l.getAttribute('aria-current') === 'page').every(l => l.dataset.route === key));
     if (key === 'order-top5') assert.ok(app.nodes.get('embed-frame').src.endsWith('#monthlyTop'));
   }
+});
+test('manual deep link redirects to the PDF without trying to load it as HTML', async () => {
+  const app = setup('#manual'); await settle();
+  assert.deepEqual(app.location.replaced, ['IVQF_Capacity_Flow_Simulator_User_Manual_TH.pdf']);
+  assert.equal(app.nodes.get('embed-frame').src, undefined);
 });
 test('click, refresh, back/forward, Home, and menu Escape execute real handlers', async () => {
   const app = setup(); app.click('experiment-4'); await settle(); app.complete();

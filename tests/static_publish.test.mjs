@@ -20,7 +20,8 @@ const assets = new Map([
   ['ivqf_report_assets/image1.webp', '00d54585d3f1e62d231639f5b52efac4c7d4c84a142c77a65d59bbdb531d95a0'],
   ['ivqf_report_assets/image14.webp', '869b6e81f13b5d36887be7db0fe5844b2b701c257e95ba959921e972dfcc9016'],
 ]);
-const candidate = new Set([...pages, ...assets.keys()]);
+const support = new Set(['main_focus_data.js', 'IVQF_Capacity_Flow_Simulator_User_Manual_TH.pdf']);
+const candidate = new Set([...pages, ...assets.keys(), ...support]);
 const documents = new Map(pages.map(name => [name, fs.readFileSync(path.join(root, name), 'utf8')]));
 // Use exact Git/filesystem inventory strings, never Windows existsSync for filename case.
 const inventory = new Set(execFileSync('git', ['ls-files', '-z', '--cached', '--others', '--exclude-standard'],
@@ -80,8 +81,9 @@ function referenceErrors(name, source, files, docs) {
     } catch { errors.push(`invalid URL encoding: ${reference}`); continue; }
     if (!files.has(destination)) { errors.push(`missing or wrong-case path: ${destination}`); continue; }
     if (fragment && docs.has(destination)) {
-      const ids = new Set(tags(docs.get(destination)).map(tag => tag.attrs.id).filter(Boolean));
-      if (!ids.has(fragment)) errors.push(`missing fragment: ${destination}#${fragment}`);
+      const destinationTags = tags(docs.get(destination));
+      const targets = new Set(destinationTags.flatMap(tag => [tag.attrs.id, tag.attrs['data-route']]).filter(Boolean));
+      if (!targets.has(fragment)) errors.push(`missing fragment: ${destination}#${fragment}`);
     }
   }
   return errors;

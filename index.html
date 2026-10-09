@@ -117,7 +117,7 @@
           <div class="focus-kpi"><span>มีหลักฐานทดลองเกี่ยวข้อง</span><strong id="focusEvidence">-</strong><small>อาจเป็นข้อมูลระดับกลุ่ม</small></div>
         </section>
         <div class="decision-layout">
-          <section class="focus-panel" aria-labelledby="focus-list-title"><header class="focus-section-head"><div><h3 id="focus-list-title">ลำดับสินค้าที่ควร Focus</h3><p id="focusListInfo">เรียงตามยอด Order เดือนที่เลือก</p></div><label><span class="sr-only">จำนวนรายการ</span><select id="focusLimit"><option value="5">Top 5</option><option value="10">Top 10</option><option value="all">ทั้งหมด</option></select></label></header><div class="focus-table-head" aria-hidden="true"><span>#</span><span>สินค้า</span><span>Order</span><span>สัดส่วน</span><span>เทียบเดือนก่อน</span><span>หลักฐาน</span></div><div class="focus-list" id="focusList" aria-live="polite"></div></section>
+          <section class="focus-panel" aria-labelledby="focus-list-title"><header class="focus-section-head"><div><h3 id="focus-list-title">ลำดับสินค้าที่ควร Focus</h3><p id="focusListInfo">แสดงตามจำนวนสินค้าที่มียอด Order ในเดือนที่เลือก</p></div><label><span class="sr-only">จำนวนรายการสูงสุด</span><select id="focusLimit"><option value="5">สูงสุด 5 รายการ</option><option value="10">สูงสุด 10 รายการ</option><option value="all">แสดงทั้งหมด</option></select></label></header><div class="focus-table-head" aria-hidden="true"><span>#</span><span>สินค้า</span><span>Order</span><span>สัดส่วน</span><span>เทียบเดือนก่อน</span><span>หลักฐาน</span></div><div class="focus-list" id="focusList" aria-live="polite"></div></section>
           <aside class="trial-panel" aria-labelledby="trial-panel-title"><header class="focus-section-head"><div><h3 id="trial-panel-title">ผลการทดลองที่เกี่ยวข้อง</h3><p id="trialPanelInfo">แสดงผลล่าสุดตามสินค้าที่เลือก</p></div></header><div class="trial-list" id="trialList"></div><p class="trial-scope-note">ป้ายระดับกลุ่มหมายถึงผลจากตัวอย่าง BLK/SBB ที่เกี่ยวข้อง ต้องยืนยัน SKU, ขนาดและ Condition ก่อนใช้กับสินค้า</p></aside>
         </div>
         <section class="product-detail" id="productDetail" aria-labelledby="product-detail-title" tabindex="-1"></section>
@@ -174,6 +174,8 @@
       }
       function renderFocusList(rows,total){
         const limitValue=focusEl('focusLimit').value,shown=limitValue==='all'?rows:rows.slice(0,Number(limitValue));focusState.rendered=shown;
+        const displayStatus=shown.length===rows.length?'แสดงครบทั้งหมด':`แสดง ${shown.length} อันดับแรก`;
+        focusEl('focusListInfo').textContent=`พบ ${rows.length} รายการ · ${displayStatus} · เรียงจากยอด Order มากไปน้อย`;
         if(!shown.length){focusEl('focusList').innerHTML='<div class="focus-empty">ไม่มียอด Order ตามตัวกรองในเดือนนี้</div>';return;}
         focusEl('focusList').innerHTML=shown.map((row,index)=>{const change=changeFor(row,focusState.month),evidence=evidenceFor(row),share=total?row.months[focusState.month]/total*100:0;return `<button class="focus-row" type="button" data-focus-index="${index}" aria-pressed="${row.key===focusState.selectedKey}"><span class="focus-rank">${index+1}</span><span class="focus-product"><strong title="${focusEsc(row.name)}">${focusEsc(row.name)}</strong><small>${focusEsc(row.typeLabel)} · ${focusEsc(row.category)}</small></span><span class="focus-num">${focusFmt(row.months[focusState.month])} MT</span><span class="focus-share">${share.toFixed(1)}%</span><span class="focus-change ${change.tone}">${change.text}</span><span class="evidence-badge ${evidence.tone}">${evidence.text}</span></button>`}).join('');
       }
@@ -193,7 +195,7 @@
         const rows=filteredFocusRows(),total=rows.reduce((sum,row)=>sum+row.months[focusState.month],0),top=rows[0];
         if(!rows.some(row=>row.key===focusState.selectedKey))focusState.selectedKey=top?.key||null;
         focusEl('focusTotal').textContent=focusFmt(total)+' MT';focusEl('focusCount').textContent=String(rows.length);focusEl('focusTopShare').textContent=top&&total?(top.months[focusState.month]/total*100).toFixed(1)+'%':'-';focusEl('focusEvidence').textContent=String(rows.filter(row=>trialsFor(row).length).length);
-        focusEl('focusMonthLabel').textContent=`${monthLabels[focusState.month]} ${focusData.year}`;focusEl('focusListInfo').textContent=`${rows.length} รายการ · เรียงจากยอด Order มากไปน้อย`;
+        focusEl('focusMonthLabel').textContent=`${monthLabels[focusState.month]} ${focusData.year}`;
         renderFocusList(rows,total);renderProductDetail(rows.find(row=>row.key===focusState.selectedKey)||top||null);focusEl('focusDataNote').textContent=focusData.sourceNote;
       }
       if(focusData){

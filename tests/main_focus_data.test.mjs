@@ -26,6 +26,7 @@ for (const row of data.orderRows) {
 }
 
 const october = data.orderRows.filter(row => row.months[9] > 0);
+assert.equal(october.length, 3, 'October legitimately has only three products with positive Order');
 assert.ok(october.every(row => row.productMatch.level.endsWith('candidate')));
 assert.deepEqual([...october.map(row => row.productMatch.code)].sort(), ['111117302','111117317','111117318']);
 
@@ -34,5 +35,9 @@ for (const trial of data.trials) {
   assert.ok(trial.href.endsWith('.html'));
   assert.ok(trial.criteria);
 }
+
+const index = fs.readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+assert.ok(index.includes('<option value="5">สูงสุด 5 รายการ</option>'));
+assert.ok(index.includes("shown.length===rows.length?'แสดงครบทั้งหมด'"));
 
 console.log('main focus data: PASS');
