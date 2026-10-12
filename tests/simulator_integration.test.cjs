@@ -38,20 +38,20 @@ const context = vm.createContext({
   renderAll(){}, renderScenarios(){}, savePalletState(){},
   format:x=>String(x), compact:x=>String(x),
   displayCapacity:(x,k)=>({kg:String(x),boxes:String(x/k)}),
-  renderPackagingSummary(){}, deriveNextId:()=>1,
+  renderPackagingSummary(){}, renderBaselineCalculation(){}, renderPalletInsights(){}, deriveNextId:()=>1,
   window:{__ivqf:{}}, fmt:x=>String(x),
 });
 const item={code:'111117309',product:'P',part:'BLK',palletCartons:32,kgPerCarton:10,cartonsPerHour:55.2,cycleSort:10};
 vm.runInContext(`
 let stations=[],feedRates={},feedMax={},autoMode='safe',nextId=1,validatedSettings={},scenarioA=null;
 const num=(v,f=0)=>Number.isFinite(Number(v))?Number(v):f;
-let suppress=false,restoringPallet=false,packagingOverrides={},lastPayload=null,linkTimer=null;
-const fields=['palletCode','palletProduct','palletPart','palletCycle','palletCap','palletKg','palletSpeed','palletRateBasis','palletElapsed','palletChangeLoss'];
+let suppress=false,restoringPallet=false,comparisonMigrationPending=false,packagingOverrides={},lastPayload=null,linkTimer=null;
+const fields=['palletCode','palletProduct','palletPart','palletCycle','palletCap','palletKg','palletSpeed','palletRateBasis','palletBaselineMinutes','palletElapsed','palletChangeLoss'];
 const PALLET_DATA=${JSON.stringify([item])},FIXED_PALLET_CODE='111117309';
 ` + [line('function settings(){'), line('function syncFeedMode(){'),
   line('function loadSnapshot(snap){'),line('function snapshot(){'),line('function validModelPayload('),
   line('function applyPalletTransfer('),line('function validPalletPayload('),func('restorePalletState'),func('palletState'),func('inferredPackaging'),line('function packagingRecord('),
-  func('loadPackaging'),func('setItem'),func('applyToLine'),func('calculate')].join('\n') + `
+  func('loadPackaging'),func('setItem'),func('applyToLine'),func('baselinePalletResult'),func('calculate')].join('\n') + `
 window.__ivqf.validateModel=validModelPayload;
 window.__ivqf.applyPalletTransfer=applyPalletTransfer;
 `,context);

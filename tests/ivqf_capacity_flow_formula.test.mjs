@@ -21,6 +21,10 @@ const appPaceFromCapacity = extractArrowFunction('paceFromCapacity', {
   settings: () => ({ packG: 500 }),
   packKg: appPackKg,
 });
+const baselineStart = html.indexOf('  function baselinePalletResult(');
+const baselineEnd = html.indexOf('  function renderBaselineCalculation(', baselineStart);
+assert.ok(baselineStart >= 0 && baselineEnd > baselineStart, 'Expected baseline calculation in the application source');
+const appBaselinePalletResult = new Function(`${html.slice(baselineStart, baselineEnd)}\nreturn baselinePalletResult`)();
 
 const packaging = ({ packG, bagsPerCarton, cartonsPerPallet }) => {
   const kgBag = packG / 1000;
@@ -103,6 +107,21 @@ test('111117309 baseline and 10-minute release calculations are correct', () => 
 test('pallet change loss reduces effective capacity without changing rated capacity', () => {
   const result = palletScenario({ capacityKgHr: 700, kgPerCarton: 10, cartonsPerPallet: 32, releaseMinutes: 10, changeLossMinutes: 0.5 });
   assert.ok(Math.abs(result.effectiveCapacityKgHr - 666.6666666667) < 1e-9);
+});
+
+test('normal B release calculates partial cartons and retains a later actual release time', () => {
+  const partial = appBaselinePalletResult(36, 10, 58.75, 15);
+  assert.equal(partial.exact, 14.6875);
+  assert.equal(partial.completed, 14);
+  assert.equal(partial.remaining, 22);
+  assert.equal(partial.weight, 140);
+  assert.ok(Math.abs(partial.percent - 38.8888888889) < 1e-9);
+  assert.equal(partial.kgHr, 560);
+
+  const delayed = appBaselinePalletResult(36, 10, 58.75, 50);
+  assert.equal(delayed.completed, 36);
+  assert.equal(delayed.releaseMinutes, 50);
+  assert.equal(delayed.kgHr, 432);
 });
 
 test('new master, target and pace fields are wired into the web app', () => {
