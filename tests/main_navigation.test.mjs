@@ -51,7 +51,7 @@ function setup(hash = '', fetchMock) {
 }
 
 test('every available deep link loads the intended file/section and has correct active navigation', async () => {
-  for (const key of ['order-dashboard', 'order-top5', 'order-chart', 'order-table', 'glazing-standard', 'experiment-4', 'experiment-5', 'experiment-6', 'capacity-flow']) {
+  for (const key of ['order-dashboard', 'order-top5', 'order-chart', 'order-table', 'glazing-standard', 'experiment-4', 'experiment-5', 'experiment-6', 'experiment-7', 'capacity-flow']) {
     const app = setup('#' + key); await settle(); app.complete();
     assert.equal(app.nodes.get('embed-frame').hidden, false, key);
     assert.equal(app.nodes.get('embed-retry').hidden, true, key);
@@ -85,6 +85,16 @@ test('trial 6 click and refresh load the supplied report with active navigation'
   assert.equal(app.links.find(l => l.dataset.route === 'experiment-6').getAttribute('aria-current'), 'page');
   const fresh = setup(app.location.hash); await settle(); fresh.complete();
   assert.equal(fresh.nodes.get('embed-frame').src, 'ivqf_experiment_6_summary.html');
+  assert.equal(fresh.nodes.get('embed-retry').hidden, true);
+});
+test('trial 7 click and refresh load the supplied report with active navigation', async () => {
+  const app = setup(); app.click('experiment-7'); await settle(); app.complete();
+  assert.equal(app.location.hash, '#experiment-7');
+  assert.equal(app.nodes.get('embed-frame').src, 'ivqf_experiment_7_summary.html');
+  assert.equal(app.nodes.get('embed-title').textContent, 'การทดลองครั้งที่ 7');
+  assert.equal(app.links.find(l => l.dataset.route === 'experiment-7').getAttribute('aria-current'), 'page');
+  const fresh = setup(app.location.hash); await settle(); fresh.complete();
+  assert.equal(fresh.nodes.get('embed-frame').src, 'ivqf_experiment_7_summary.html');
   assert.equal(fresh.nodes.get('embed-retry').hidden, true);
 });
 test('pending and malformed URLs never load a fake report', async () => {

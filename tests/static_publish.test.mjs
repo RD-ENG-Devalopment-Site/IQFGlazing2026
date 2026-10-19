@@ -11,6 +11,7 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 const pages = [
   'index.html', 'Order2026_Restored.html', 'order_ivqf_dashboard_2026_corrected.html',
   'ivqf_experiment_4_summary.html', 'ivqf_experiment_5_summary.html', 'ivqf_experiment_6_summary.html',
+  'ivqf_experiment_7_summary.html',
   'ivqf_capacity_flow_simulator.html', 'line_balancing_simulator.html',
   'line_balancing_simulator_manual.html',
 ];
@@ -99,7 +100,7 @@ test('candidate files exist in exact-case Git inventory; no conditional reports 
   }
 });
 
-test('all nine candidate HTML documents start in standards mode without terminal pollution', () => {
+test('all ten candidate HTML documents start in standards mode without terminal pollution', () => {
   for (const [name, source] of documents) assert.deepEqual(documentErrors(source), [], name);
 });
 
