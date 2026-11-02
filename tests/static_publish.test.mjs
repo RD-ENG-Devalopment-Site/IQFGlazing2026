@@ -11,7 +11,7 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 const pages = [
   'index.html', 'Order2026_Restored.html', 'order_ivqf_dashboard_2026_corrected.html',
   'ivqf_experiment_4_summary.html', 'ivqf_experiment_5_summary.html', 'ivqf_experiment_6_summary.html',
-  'ivqf_experiment_7_summary.html',
+  'ivqf_experiment_7_summary.html', 'ivqf_experiment_8_summary.html',
   'ivqf_capacity_flow_simulator.html', 'line_balancing_simulator.html',
   'line_balancing_simulator_manual.html',
 ];
@@ -21,7 +21,8 @@ const assets = new Map([
   ['ivqf_report_assets/image1.webp', '00d54585d3f1e62d231639f5b52efac4c7d4c84a142c77a65d59bbdb531d95a0'],
   ['ivqf_report_assets/image14.webp', '869b6e81f13b5d36887be7db0fe5844b2b701c257e95ba959921e972dfcc9016'],
 ]);
-const support = new Set(['main_focus_data.js', 'IVQF_Capacity_Flow_Simulator_User_Manual_TH.pdf']);
+const support = new Set(['main_focus_data.js', 'IVQF_Capacity_Flow_Simulator_User_Manual_TH.pdf',
+  ...['blk', 'blth', 'drumstick', 'fillet', 'mw35', 'mwboneless', 'sbb-op1', 'sbb-op2'].map(name => `ivqf_report_assets/trial8/${name}.jpg`)]);
 const candidate = new Set([...pages, ...assets.keys(), ...support]);
 const documents = new Map(pages.map(name => [name, fs.readFileSync(path.join(root, name), 'utf8')]));
 // Use exact Git/filesystem inventory strings, never Windows existsSync for filename case.

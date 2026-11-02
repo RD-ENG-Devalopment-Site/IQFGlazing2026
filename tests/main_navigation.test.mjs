@@ -51,7 +51,7 @@ function setup(hash = '', fetchMock) {
 }
 
 test('every available deep link loads the intended file/section and has correct active navigation', async () => {
-  for (const key of ['order-dashboard', 'order-top5', 'order-chart', 'order-table', 'glazing-standard', 'experiment-4', 'experiment-5', 'experiment-6', 'experiment-7', 'capacity-flow']) {
+  for (const key of ['order-dashboard', 'order-top5', 'order-chart', 'order-table', 'glazing-standard', 'experiment-4', 'experiment-5', 'experiment-6', 'experiment-7', 'experiment-8', 'capacity-flow']) {
     const app = setup('#' + key); await settle(); app.complete();
     assert.equal(app.nodes.get('embed-frame').hidden, false, key);
     assert.equal(app.nodes.get('embed-retry').hidden, true, key);
