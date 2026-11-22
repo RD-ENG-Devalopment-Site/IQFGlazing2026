@@ -51,13 +51,21 @@ function setup(hash = '', fetchMock) {
 }
 
 test('every available deep link loads the intended file/section and has correct active navigation', async () => {
-  for (const key of ['order-dashboard', 'order-top5', 'order-chart', 'order-table', 'glazing-standard', 'experiment-4', 'experiment-5', 'experiment-6', 'experiment-7', 'experiment-8', 'capacity-flow']) {
+  for (const key of ['order-dashboard', 'order-top5', 'order-chart', 'order-table', 'glazing-standard', 'experiment-4', 'experiment-5', 'experiment-6', 'experiment-7', 'experiment-8', 'capacity-flow', 'spray-glazing-calculator']) {
     const app = setup('#' + key); await settle(); app.complete();
     assert.equal(app.nodes.get('embed-frame').hidden, false, key);
     assert.equal(app.nodes.get('embed-retry').hidden, true, key);
     assert.ok(app.links.filter(l => l.getAttribute('aria-current') === 'page').every(l => l.dataset.route === key));
     if (key === 'order-top5') assert.ok(app.nodes.get('embed-frame').src.endsWith('#monthlyTop'));
   }
+});
+test('spray glazing calculator is above the manual and loads through its deep link', async () => {
+  assert.ok(html.indexOf('href="IVQF_Nozzle_Spray_Calculator.html"') < html.indexOf('href="IVQF_Capacity_Flow_Simulator_User_Manual_TH.pdf"'));
+  const app = setup(); app.click('spray-glazing-calculator'); await settle(); app.complete();
+  assert.equal(app.location.hash, '#spray-glazing-calculator');
+  assert.equal(app.nodes.get('embed-frame').src, 'IVQF_Nozzle_Spray_Calculator.html');
+  assert.equal(app.nodes.get('embed-title').textContent, 'Spray Glazing calculator');
+  assert.equal(app.links.find(l => l.dataset.route === 'spray-glazing-calculator').getAttribute('aria-current'), 'page');
 });
 test('manual deep link redirects to the PDF without trying to load it as HTML', async () => {
   const app = setup('#manual'); await settle();
