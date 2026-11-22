@@ -12,7 +12,7 @@ const pages = [
   'index.html', 'Order2026_Restored.html', 'order_ivqf_dashboard_2026_corrected.html',
   'ivqf_experiment_4_summary.html', 'ivqf_experiment_5_summary.html', 'ivqf_experiment_6_summary.html',
   'ivqf_experiment_7_summary.html', 'ivqf_experiment_8_summary.html',
-  'ivqf_capacity_flow_simulator.html', 'IVQF_Nozzle_Spray_Calculator.html', 'line_balancing_simulator.html',
+  'ivqf_capacity_flow_simulator.html', 'IVQF_Glazing_Hydraulics.html', 'line_balancing_simulator.html',
   'line_balancing_simulator_manual.html',
 ];
 const assets = new Map([
