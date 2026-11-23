@@ -46,6 +46,17 @@
   summary:hover {background:var(--soft)}
   summary::marker {color:var(--blue)}
   summary small {font-weight:500;color:var(--muted);margin-inline-start:5px}
+  .input-disclosure {min-width:0;border:1px solid var(--line);border-radius:8px}
+  .input-disclosure > summary {padding:10px 12px;border-radius:7px}
+  .input-disclosure[open] > summary {border-bottom:1px solid var(--line);border-radius:7px 7px 0 0}
+  .input-disclosure > summary h2 {display:inline}
+  .input-disclosure[open] > summary .collapsed-value {display:none}
+  .disclosure-body {padding:10px 12px 12px}
+  .disclosure-body > .description:first-child {margin-top:0}
+  .panel.input-disclosure {border-radius:12px}
+  .panel.input-disclosure > summary {padding:15px 18px;border-radius:11px}
+  .panel.input-disclosure[open] > summary {border-radius:11px 11px 0 0}
+  .disclosure-intro {display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px 12px;padding:10px 18px;color:var(--muted);font-size:.83rem}
   .fields {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 11px}
   .section-body {padding:0 18px 14px}
   .field {min-width:0;display:flex;flex-direction:column;gap:4px}
@@ -55,6 +66,8 @@
   .input-unit input {color:var(--ink);background:transparent;border:0;border-radius:7px;padding:6px 7px;width:100%;min-width:0;min-height:38px;font-variant-numeric:tabular-nums}
   .input-unit .unit {color:var(--muted);font-size:.72rem;display:grid;place-items:center;padding:0 7px;background:var(--soft);border-radius:0 6px 6px 0;white-space:nowrap}
   .input-unit:has([aria-invalid="true"]) {border-color:var(--danger)}
+  .input-error {color:var(--danger);font-size:.76rem;line-height:1.5}
+  .pipe-row:has(.input-error) {align-items:start}
   .field select {width:100%;min-width:0;min-height:40px;padding:6px 8px;border:1px solid #b8cadd;border-radius:7px;color:var(--ink);background:var(--paper)}
   .field textarea {width:100%;min-width:0;min-height:92px;resize:vertical;padding:7px 8px;border:1px solid #b8cadd;border-radius:7px;color:var(--ink);background:var(--paper);font:inherit;font-variant-numeric:tabular-nums}
   .field textarea::placeholder {color:var(--muted)}
@@ -64,9 +77,7 @@
   #pump-setup {scroll-margin-top:12px}
   .measure-fields {margin-top:9px}
   .measure-meta {margin-top:9px;font-size:.81rem;color:var(--teal);font-weight:650}
-  .fieldgroup {border:0;padding:0;margin:0;min-width:0}
-  .fieldgroup + .fieldgroup {margin-top:13px;border-top:1px solid var(--line);padding-top:10px}
-  .group-title {font-size:.83rem;font-weight:750;margin-bottom:7px}
+  .measurement-bank + .measurement-bank {margin-top:8px}
   .description {color:var(--muted);font-size:.79rem;margin:8px 0 0}
   .form-actions {padding:12px 18px;display:flex;gap:8px;flex-wrap:wrap}
   .btn {min-height:40px;border:1px solid #b8cadd;border-radius:7px;background:var(--paper);color:var(--ink);font-size:.84rem;font-weight:740;padding:7px 12px}
@@ -78,6 +89,28 @@
   .form-actions .primary {flex:1}
   .form-status {padding:0 18px 12px;font-size:.79rem;color:var(--muted)}
   .form-status.error {color:var(--danger)}
+  .setup-shortcut {display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 12px;padding:12px 18px;border-bottom:1px solid var(--line);background:var(--soft)}
+  .setup-shortcut span {color:var(--muted);font-size:.79rem}
+  #pipe-setup {scroll-margin-top:12px}
+  .pipe-editor {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:14px 18px 16px}
+  .pipe-card {align-self:start}
+  .pipe-card > .fields {padding:10px 12px}
+  .pipe-card[open] > summary {background:var(--soft)}
+  .pipe-card.upper > summary {color:var(--blue)}
+  .pipe-card.lower > summary {color:var(--teal)}
+  .pipe-row {display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr) minmax(0,1fr);align-items:end;gap:8px;padding:7px 12px}
+  .pipe-row + .pipe-row {border-top:1px solid var(--line)}
+  .pipe-row-name {align-self:center;font-size:.82rem;font-weight:650}
+  .pipe-row .field > span:first-child {font-size:.74rem;color:var(--muted)}
+  .pipe-row input::placeholder {color:#60758b}
+  .pipe-row .input-unit input {min-height:34px}
+  .pipe-row .input-unit .unit {padding-inline:5px}
+  .pipe-details > summary {padding:8px 12px;font-size:.82rem}
+  .pipe-details .fields {padding:0 12px 10px}
+  .pipe-editor-note {margin:9px 12px 11px;color:var(--muted);font-size:.77rem}
+  .pipe-report-actions {display:flex;align-items:center;flex-wrap:wrap;gap:8px 14px;padding:10px 18px 14px;border-top:1px solid var(--line)}
+  .pipe-report-actions p {font-size:.8rem;color:var(--muted)}
+  .pipe-report-actions p.error {color:var(--danger)}
   .result-pane {overflow:hidden}
   .result-top {display:flex;justify-content:space-between;align-items:start;gap:10px;flex-wrap:wrap}
   .result-top p {margin-top:4px}
@@ -101,7 +134,10 @@
   .view {padding:0 18px 12px}
   .view figure {border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#f4f8fd}
   .view canvas {display:block;width:100%;height:300px}
+  #network-canvas {height:376px}
   .network-drawing {position:relative}
+  .network-key {display:flex;gap:7px 14px;flex-wrap:wrap;color:var(--muted)}
+  .network-key b {color:var(--ink)}
   .network-points {position:absolute;inset:0;pointer-events:none}
   .network-point {position:absolute;transform:translate(-50%,-50%);padding:0;border:1px solid transparent;border-radius:6px;background:transparent;pointer-events:auto}
   .network-point:hover {background:#155caa12;border-color:#155caa65}
@@ -127,9 +163,10 @@
   .result-note {max-width:none;padding:9px 18px;border-top:1px solid var(--line);background:#f8fbfe;font-size:.79rem;color:var(--muted)}
   .result-note.warning {background:var(--warn-bg);color:var(--warn);border-color:#efdbbc}
   .report {margin-top:20px}
-  #pump-section,#field-check,#pump-check {scroll-margin-top:12px}
+  #pump-section,#loss-section,#nozzle-details,#field-check,#pump-check {scroll-margin-top:12px}
   .pump-jump {font-size:.8rem;font-weight:700}
-  .report-links {display:flex;gap:6px 18px;flex-wrap:wrap}
+  .report-links {display:flex;gap:6px 16px;flex-wrap:wrap;padding:9px 18px;border-bottom:1px solid var(--line)}
+  .report-links a {text-underline-offset:3px}
   .validation-table tbody th {font-size:.82rem;background:transparent;color:var(--ink)}
   .validation-table td {font-size:.84rem}
   .validation-table input {width:94px;min-height:36px;padding:5px 7px;border:1px solid #b8cadd;border-radius:7px;background:var(--paper);color:var(--ink);text-align:right;font-variant-numeric:tabular-nums}
@@ -137,7 +174,7 @@
   .validation-table .empty {color:var(--muted);font-size:.78rem}
   .check-form {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 24px;padding:14px 18px 0}
   .check-form .fields {margin-top:8px}
-  .check-form .fieldgroup + .fieldgroup {margin:0;padding:0;border:0}
+  .check-form > .input-disclosure {align-self:start}
   .check-actions {grid-column:1/-1;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
   .check-actions p {font-size:.8rem;color:var(--muted)}
   .check-actions p.error {color:var(--danger)}
@@ -145,43 +182,72 @@
   .check-note.warning {background:var(--warn-bg);color:var(--warn)}
   .check-method {padding:13px 18px;font-size:.8rem;color:var(--muted)}
   .check-method a {margin-inline-end:12px;display:inline-block}
-  .pump-grid {display:grid;grid-template-columns:minmax(0,2.35fr) minmax(235px,1fr);gap:18px;padding:16px 18px}
-  .pump-figure {min-width:0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--paper)}
-  #pump-canvas {display:block;width:100%;height:320px}
-  .graph-legend {display:flex;flex-wrap:wrap;gap:7px 14px;padding:9px 10px;color:var(--muted);font-size:.76rem;border-top:1px solid var(--line)}
+  #pump-section {--pump-columns:minmax(0,2.25fr) minmax(280px,1fr)}
+  #pump-section > .description {margin:10px 16px 0}
+  .pump-grid {display:grid;grid-template:"chart controls" auto "chart summary" 1fr "notes notes" auto / var(--pump-columns);gap:8px 12px;padding:12px 16px;align-items:start}
+  .pump-figure {grid-area:chart;min-width:0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--paper)}
+  #pump-canvas {display:block;width:100%;height:330px}
+  .pump-graph-empty {grid-area:chart;min-height:284px;display:grid;place-items:center;max-width:none;padding:14px;text-align:center;color:var(--muted);background:var(--soft);border:1px solid var(--line);border-radius:9px}
+  .graph-legend {display:flex;flex-wrap:wrap;gap:7px 14px;padding:9px 10px;color:var(--muted);font-size:.8rem;border-top:1px solid var(--line)}
   .graph-legend span {display:inline-flex;align-items:center;gap:6px}
   .legend-line,.legend-dot,.legend-range {display:inline-block;width:14px;height:0;border-bottom:3px solid var(--blue)}
   .legend-system {border-color:var(--teal)}
+  .pump-figure.is-preview .legend-system {border-bottom-style:dashed}
   .legend-range {height:10px;border:1px solid #a9c7c2;background:#e8f5f2}
   .legend-dot {width:10px;height:10px;border:2px solid #9b570e;border-radius:50%}
   .legend-intersection {border-color:var(--teal);background:var(--teal)}
-  .pump-controls {display:flex;flex-wrap:wrap;align-items:end;gap:8px 14px}
-  .pump-controls .field {flex:1 1 220px}
-  .pump-stats {margin-top:10px}
-  .pump-stats .data-row {display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 10px;border-bottom:1px solid var(--line);padding:6px 0;font-size:.81rem}
+  .pump-controls {grid-area:controls;grid-template-columns:minmax(0,1fr);display:grid;gap:4px}
+  #pump-model-settings > summary,#pump-model-settings > .disclosure-body {padding:8px 12px}
+  .pump-actions {display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px}
+  .pump-actions a {display:inline-flex;align-items:center;min-height:32px}
+  .pump-model-name {font-size:.8rem;color:var(--muted)}
+  .pump-option {grid-area:summary;min-width:0;align-self:stretch}
+  .pump-stats .data-row {display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 10px;border-bottom:1px solid var(--line);padding:7px 0;font-size:.83rem}
+  .pump-option .pump-stats {display:grid;min-height:100%}
+  .pump-option .data-row {align-items:center;padding-block:6px}
   .pump-stats dt {color:var(--muted)}
   .pump-stats dd {font-weight:720;text-align:right;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+  .pump-stats .pump-duty-row {background:var(--soft);padding-inline:8px}
+  .pump-stats .pump-duty-row:has(#pump-intersection) {color:#075c55}
   .pump-assessment {margin-top:10px;border:1px solid var(--line);border-radius:7px;background:var(--soft);padding:8px 9px;font-size:.81rem}
   .pump-assessment.caution {background:var(--warn-bg);color:var(--warn);border-color:#efdbbc}
-  .pump-source {display:block;margin-top:8px;font-size:.8rem}
+  .pump-notes {grid-area:notes;display:grid;grid-template-columns:var(--pump-columns);align-items:start;gap:8px 12px;padding-top:8px;border-top:1px solid var(--line)}
+  .pump-notes .pump-assessment,.pump-context .description {margin:0}
+  .pump-notes .pump-assessment {max-width:none}
+  .pump-context {display:grid;gap:4px;min-width:0}
+  .pump-context:not(:has(> :not([hidden]))) {display:none}
+  .pump-notes:not(:has(.pump-context > :not([hidden]))) .pump-assessment {grid-column:1/-1}
+  .pump-source {font-size:.8rem;justify-self:start}
+  #pump-curve-details > summary {padding:10px 16px;border-top:1px solid var(--line)}
   .table-scroll {overflow:auto}
   .scroll-hint {display:none}
   table {width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:.82rem}
   th,td {padding:8px 12px;border-bottom:1px solid #e4edf5;text-align:right;white-space:nowrap}
   th {background:#eef4fa;color:#344f69;font-size:.76rem}
   th:first-child,td:first-child {text-align:left;padding-left:18px}
-  tr.group-row td {background:#f5f8fc;color:#344f69;text-align:left;font-weight:750;padding-block:5px}
+  .results-table tbody th {background:var(--paper);text-align:left;font-size:inherit;color:var(--ink);font-weight:650}
+  .results-table th:first-child,.results-table td:first-child {position:sticky;left:0;z-index:1}
+  .results-table .group-row th {background:var(--soft);color:#344f69;border-top:1px solid var(--line);padding-block:7px}
+  .results-table [data-group="upper"] .group-row th {color:var(--blue)}
+  .results-table [data-group="lower"] .group-row th {color:var(--teal)}
+  .results-table .reading {font-weight:720}
+  .results-table .pending {color:var(--muted);font-weight:400}
+  .results-table tbody tr:not(.group-row):hover > * {background:#f1f7ff}
+  .results-table tr.limiting > * {background:#edf5ff}
+  .report-await {display:flex;align-items:center;flex-wrap:wrap;gap:4px 14px;padding:9px 18px;background:var(--soft);border-bottom:1px solid var(--line);color:var(--muted);font-size:.83rem}
+  #nozzle-details summary,#loss-method summary {border-top:1px solid var(--line)}
   tbody tr:last-child td {border-bottom:0}
-  .report details:last-child {border:0}
+  .report > details:last-child {border-bottom:0}
   .notes {padding:0 18px 15px;font-size:.84rem;color:var(--muted)}
   .notes p+p {margin-top:8px}
   .notes a {display:inline-block;margin:8px 12px 0 0}
   .equations {font:600 .81rem/1.65 Consolas,monospace;color:var(--ink);margin-block:8px;padding:8px 11px;background:var(--soft);border-radius:6px;overflow:auto}
   @media(max-width:820px) {
     .workbench {grid-template-columns:minmax(0,1fr)}
+    .pipe-editor {grid-template-columns:minmax(0,1fr)}
     .input-pane .fields {grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
-    .pump-grid {grid-template-columns:minmax(0,1fr);gap:12px}
-    .pump-option {order:-1}
+    #pump-section {--pump-columns:minmax(0,1fr)}
+    .pump-grid {grid-template:"controls" auto "chart" auto "summary" auto "notes" auto / var(--pump-columns)}
     .check-form {grid-template-columns:minmax(0,1fr)}
     .scroll-hint {display:block;padding:6px 12px;background:var(--soft);color:var(--muted);font-size:.75rem;max-width:none}
   }
@@ -190,6 +256,11 @@
     h1 {font-size:1.53rem}
     .mast-caption {display:none}
     .panel-head,.form-actions {padding-inline:12px}
+    .panel.input-disclosure > summary,.disclosure-intro {padding-inline:12px}
+    .report-links,.report-await {padding-inline:10px}
+    .pipe-editor,.pipe-report-actions,.setup-shortcut {padding-inline:10px}
+    .pipe-row {padding-inline:8px;gap:6px}
+    .pipe-row .input-unit .unit {padding-inline:4px}
     .view,.view-head,.result-note {padding-inline:10px}
     .summary-grid > div {padding:9px 7px}
     .summary-grid dd {font-size:1.06rem}
@@ -197,9 +268,11 @@
     .budget {gap:5px}
     .inspection-values {grid-template-columns:repeat(2,minmax(0,1fr))}
     #spray-canvas {height:286px}
-    .pump-grid {padding:12px}
+    #pump-section > .description {margin-inline:12px}
+    #pump-curve-details > summary,.pump-grid {padding-inline:12px}
     #pump-canvas {height:258px}
     th,td {padding-inline:8px}
+    .results-table th:first-child {padding-left:10px}
     .validation-table {table-layout:fixed}
     .validation-table th,.validation-table td {padding-inline:5px;white-space:normal;overflow-wrap:anywhere;font-size:.72rem}
     .validation-table th:first-child {width:28%;padding-left:8px}
@@ -209,6 +282,23 @@
     .validation-table input {width:100%;min-width:0;font-size:.78rem;padding-inline:4px}
     .validation-table .empty {font-size:.7rem}
   }
+  .trial-body {padding:14px 18px;display:grid;gap:12px}
+  .trial-fields {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:10px 14px}
+  .trial-fields .wide {grid-column:1/-1}
+  .trial-fields input:not([type=number]) {padding:8px;border:1px solid #b8cadd;border-radius:7px;width:100%;color:var(--ink)}
+  .trial-ribbon {display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 18px;padding:10px 18px;background:var(--soft);border-block:1px solid var(--line);font-size:.84rem}
+  .trial-ribbon strong {color:var(--teal)}
+  .trial-msg {color:var(--muted);font-size:.84rem;white-space:pre-line}
+  .trial-msg.error {color:var(--danger)}
+  .trial-results {display:flex;flex-wrap:wrap;gap:8px 24px}
+  .trial-results div {padding-block:4px}
+  .trial-results dt {font-size:.8rem;color:var(--muted)}
+  .trial-results dd {font-weight:700;font-variant-numeric:tabular-nums}
+  .tray-row {display:grid;grid-template-columns:5em minmax(30px,1fr) 5em;align-items:center;gap:8px;font-size:.8rem}
+  .tray-row meter {width:100%;height:14px}
+  #trial-history select {max-width:100%}
+  #trial-history pre {white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;color:var(--muted)}
+  .legend-measured {display:inline-block;width:9px;height:9px;background:#863d91;transform:rotate(45deg)}
 </style>
 </head>
 <body>
@@ -223,17 +313,22 @@
   <div class="intro">
     <div>
       <h1>คำนวณระบบพ่นน้ำ Glazing</h1>
-      <p>หาจุดทำงานของปั๊มจากแรงดันที่หัวฉีด พร้อมตรวจแรงดันสูญเสียและพื้นที่พ่นบนสายพาน</p>
+      <p>เทียบจุดทำงานของปั๊มกับผลวัด ตรวจการพ่นบนสายพาน และประเมินน้ำเคลือบจากการชั่ง RM</p>
     </div>
+    <button type="button" id="print-worksheet" class="btn">พิมพ์แบบฟอร์มจดหน้างาน (PDF)</button>
   </div>
   <noscript><p class="result-note warning">เปิด JavaScript ในเบราว์เซอร์เพื่อใช้เครื่องคำนวณ</p></noscript>
   <div class="workbench">
     <aside class="panel input-pane" aria-labelledby="inputs-title">
       <div class="panel-head">
         <h2 id="inputs-title">ข้อมูลระบบ</h2>
-        <p>ค่าเริ่มต้นตามแบบ IVQF ที่ให้ไว้</p>
+        <p>กรอกระยะท่อ แล้วตรวจหัวฉีดและปั๊มที่ใช้</p>
       </div>
       <form id="system-form" novalidate>
+        <div class="setup-shortcut">
+          <a class="pump-jump" href="#pipe-setup" id="start-pipe-entry">กรอกระยะและขนาดท่อ ↓</a>
+          <span id="pipe-progress"></span>
+        </div>
         <details open id="setup">
           <summary>หัวฉีดและแรงดัน</summary>
           <div class="section-body">
@@ -264,29 +359,29 @@
           </div>
         </details>
         <details id="pump-setup">
-          <summary>ข้อมูลปั๊มและรอบเดิน</summary>
+          <summary>รอบเดินและวิธีเทียบปั๊ม</summary>
           <div class="section-body pump-entry">
-            <label class="field">
-              <span>กราฟสมรรถนะของปั๊ม</span>
-              <select id="pump-model"></select>
-            </label>
-            <div class="pump-entry" id="pump-custom" hidden>
-              <label class="field">
-                <span>ชื่อรุ่นหรือรหัสปั๊ม</span>
-                <span class="input-unit"><input id="pump-custom-name" type="text" maxlength="80"></span>
-              </label>
-              <div class="fields">
-                <label class="field"><span>ความถี่ของกราฟ</span><span class="input-unit"><input id="pump-ref-hz" type="number" value="50" min="1" max="120" step="any"><span class="unit">Hz</span></span></label>
-                <label class="field"><span>รอบของกราฟ (ถ้าทราบ)</span><span class="input-unit"><input id="pump-ref-rpm" type="number" min="1" max="20000" step="any"><span class="unit">rpm</span></span></label>
+            <a class="pump-jump" href="#pump-model" id="pump-model-link">เลือกรุ่นที่กราฟ H–Q ↓</a>
+            <details class="input-disclosure" id="pump-custom" hidden>
+              <summary>ข้อมูลกราฟปั๊มที่กรอกเอง</summary>
+              <div class="disclosure-body pump-entry">
+                <label class="field">
+                  <span>ชื่อรุ่นหรือรหัสปั๊ม</span>
+                  <span class="input-unit"><input id="pump-custom-name" type="text" maxlength="80"></span>
+                </label>
+                <div class="fields">
+                  <label class="field"><span>ความถี่ของกราฟ</span><span class="input-unit"><input id="pump-ref-hz" type="number" value="50" min="1" max="120" step="any"><span class="unit">Hz</span></span></label>
+                  <label class="field"><span>รอบของกราฟ (ถ้าทราบ)</span><span class="input-unit"><input id="pump-ref-rpm" type="number" min="1" max="20000" step="any"><span class="unit">rpm</span></span></label>
+                </div>
+                <label class="field"><span>จุดบนกราฟ Q, H</span><textarea id="pump-curve-input" rows="4" spellcheck="false" maxlength="3000" placeholder="Q (L/min), H (m)"></textarea></label>
+                <p class="description">กรอกหนึ่งคู่ต่อบรรทัด เช่น 12, 39.2 ใช้อย่างน้อย 2 จุดที่ Q &gt; 0 ในช่วงที่เฮดคงที่หรือลดลงเมื่อ Q เพิ่ม เพิ่ม Q = 0 ได้หากมีเฮดชัตออฟจากเอกสาร</p>
+                <div class="fields">
+                  <label class="field"><span>Q ต่ำสุดที่อนุญาต</span><span class="input-unit"><input id="pump-qmin" type="number" min=".01" max="100000" step="any"><span class="unit">L/min</span></span></label>
+                  <label class="field"><span>Q สูงสุดที่อนุญาต</span><span class="input-unit"><input id="pump-qmax" type="number" min=".01" max="100000" step="any"><span class="unit">L/min</span></span></label>
+                </div>
+                <p class="description">กรอกขอบเขตจากผู้ผลิตที่ความถี่ของกราฟ หากเว้นว่าง โปรแกรมจะใช้ช่วงจุดที่กรอกเพื่อเทียบทางไฮดรอลิก</p>
               </div>
-              <label class="field"><span>จุดบนกราฟ Q, H</span><textarea id="pump-curve-input" rows="4" spellcheck="false" maxlength="3000" placeholder="Q (L/min), H (m)"></textarea></label>
-              <p class="description">กรอกหนึ่งคู่ต่อบรรทัด เช่น 12, 39.2 ใช้อย่างน้อย 2 จุดที่ Q &gt; 0 ในช่วงที่เฮดคงที่หรือลดลงเมื่อ Q เพิ่ม เพิ่ม Q = 0 ได้หากมีเฮดชัตออฟจากเอกสาร</p>
-              <div class="fields">
-                <label class="field"><span>Q ต่ำสุดที่อนุญาต</span><span class="input-unit"><input id="pump-qmin" type="number" min=".01" max="100000" step="any"><span class="unit">L/min</span></span></label>
-                <label class="field"><span>Q สูงสุดที่อนุญาต</span><span class="input-unit"><input id="pump-qmax" type="number" min=".01" max="100000" step="any"><span class="unit">L/min</span></span></label>
-              </div>
-              <p class="description">กรอกขอบเขตจากผู้ผลิตที่ความถี่ของกราฟ หากเว้นว่าง โปรแกรมจะใช้ช่วงจุดที่กรอกเพื่อเทียบทางไฮดรอลิก</p>
-            </div>
+            </details>
             <div class="fields">
               <label class="field"><span>ความถี่ขณะเดิน</span><span class="input-unit"><input id="pump-run-hz" type="number" value="50" min="1" max="120" step="any"><span class="unit">Hz</span></span></label>
               <label class="field"><span>รอบเดินที่วัดได้</span><span class="input-unit"><input id="pump-run-rpm" type="number" min="1" max="20000" step="any"><span class="unit">rpm</span></span></label>
@@ -301,16 +396,8 @@
             </label>
           </div>
         </details>
-        <details id="pipe-setup">
-          <summary>ท่อ ข้อต่อ และระดับติดตั้ง</summary>
-          <div class="section-body">
-            <p class="description">กรอก ID และความยาวตามแนวท่อ ระดับทั้งหมดเทียบศูนย์กลางปั๊ม</p>
-            <div id="pipe-fields"></div>
-            <p class="description">ค่า K คือความต้านทานรวมของข้อต่อในช่วงนั้น อ้างอิงความเร็วในท่อที่กรอก ค่าเริ่มต้น K = 4 อยู่ที่ท่อร่วมขนาดเล็ก ใช้แทนข้องอ สามทาง และข้อลดโดยประมาณ หากแยก K รายช่วงให้ปรับค่าเดิมเพื่อไม่ให้ซ้ำ</p>
-          </div>
-        </details>
         <details id="spray-setup">
-          <summary>ระยะหัวฉีดและแนวพ่น</summary>
+          <summary>แนวพ่นและหน้ากว้างสายพาน</summary>
           <div class="section-body">
             <div class="fields" id="spray-fields"></div>
             <p class="description">ระยะพ่นวัดจากปลายหัวถึงผิวที่รับน้ำ ค่าเริ่มต้นระยะพ่นและหน้ากว้างสายพานใช้เพื่อจำลองภาพและแก้ได้ตามหน้างาน</p>
@@ -336,8 +423,15 @@
         <div><dt>อัตราการไหลรวม</dt><dd><span id="metric-flow">…</span> <small>L/min</small><span class="sub" id="metric-hour"></span></dd></div>
         <div><dt>Loss ในเส้นทางกำหนดเฮด</dt><dd><span id="metric-loss">…</span> <small>bar</small><span class="sub" id="metric-loss-m"></span></dd></div>
       </dl>
+      <div class="trial-ribbon"><a href="#trial" class="pump-jump" id="trial-link">ผล Glazing บน RM ↓</a><strong id="rm-headline">รอผลชั่ง RM</strong><span id="rm-coverage"></span></div>
+      <nav class="report-links" id="report-links" aria-label="ไปที่กราฟหรือรายละเอียดผล">
+        <a class="pump-jump" href="#pump-section" id="pump-graph-link">กราฟปั๊ม H–Q ↓</a>
+        <a class="pump-jump" href="#loss-section" id="loss-jump">Loss รายช่วง ↓</a>
+        <a class="pump-jump" href="#nozzle-details" id="nozzle-jump">ผลรายหัวฉีด ↓</a>
+        <a class="pump-jump" href="#field-check" id="field-check-jump" hidden>เทียบผลวัด ↓</a>
+      </nav>
       <div class="view-head">
-        <h3>ภาพจากผลคำนวณ</h3>
+        <h3>ผังระบบ 2 มิติ</h3>
         <div class="tabs" role="tablist" aria-label="เลือกภาพระบบ">
           <button type="button" class="tab" role="tab" id="network-tab" aria-controls="network-view" aria-selected="true">ผังท่อ</button>
           <button type="button" class="tab" role="tab" id="spray-tab" aria-controls="spray-view" aria-selected="false" tabindex="-1">ม่านพ่น</button>
@@ -349,7 +443,7 @@
             <canvas id="network-canvas" role="img" aria-label="ผังถัง ปั๊ม และรางหัวฉีดบน–ล่าง"></canvas>
             <div class="network-points" id="network-points" role="group" aria-label="จุดตรวจบนผัง"></div>
           </div>
-          <figcaption>กดหัวฉีด อุปกรณ์ หรือเส้นท่อเพื่อดูรายละเอียดด้านล่าง ตำแหน่งในภาพเป็นผังการต่อท่อ</figcaption>
+          <figcaption class="network-key"><span><b>ท</b> ท่อตรง</span><span><b>ง</b> ข้องอ 90°</span><span><b>U / L</b> หัวฉีดบน / ล่าง</span><span>กดจุดบนผังเพื่อดูหรือแก้ข้อมูล · ผังแสดงลำดับการต่อท่อ</span></figcaption>
         </figure>
         <section class="network-inspector" id="network-inspector" aria-labelledby="inspection-title">
           <div class="inspection-head">
@@ -361,7 +455,7 @@
           </div>
           <dl class="inspection-values" id="inspection-values"></dl>
           <p class="inspection-note" id="inspection-note"></p>
-          <a class="pump-jump" href="#pump-setup" id="inspection-pump-link" hidden>แก้ข้อมูลปั๊มและรอบเดิน ↑</a>
+          <a class="pump-jump" href="#pipe-setup" id="inspection-edit-link" hidden>แก้ข้อมูลช่วงนี้</a>
           <p class="visually-hidden" id="inspection-status" role="status"></p>
         </section>
         <dl class="budget">
@@ -371,78 +465,73 @@
         </dl>
       </div>
       <div class="view" id="spray-view" role="tabpanel" aria-labelledby="spray-tab" hidden>
-        <figure>
+        <p class="description" id="spray-await">กรอกระยะท่อและคำนวณระบบเพื่อแสดงม่านพ่น</p>
+        <figure id="spray-figure" hidden>
           <canvas id="spray-canvas" role="img" aria-label="ภาพตัดขวางม่านพ่นบนและล่าง เทียบหน้ากว้างสายพาน"></canvas>
           <figcaption>ภาพตัดขวางมองตามแนวสายพาน มุมและระยะกำหนดขอบม่านพ่นเชิงเรขาคณิต</figcaption>
         </figure>
         <dl class="coverage" id="coverage"></dl>
-        <p class="layout-description">สมมติหัวตั้งฉากและจัดกึ่งกลางสายพาน แถบสีบนระนาบสินค้าแสดงช่วงที่แนวพ่นถึง การกระจายน้ำจริงขึ้นกับรูปแบบหัว แรงดัน และการบังของสายพาน</p>
+        <p class="layout-description" id="spray-note" hidden>สมมติหัวตั้งฉากและจัดกึ่งกลางสายพาน แถบสีบนระนาบสินค้าแสดงช่วงที่แนวพ่นถึง การกระจายน้ำจริงขึ้นกับรูปแบบหัว แรงดัน และการบังของสายพาน</p>
       </div>
       <p class="result-note" id="result-pump"></p>
-      <p class="result-note report-links"><a class="pump-jump" href="#field-check">เทียบผลวัดหน้างาน ↓</a><a class="pump-jump" href="#pump-section">เทียบกับกราฟปั๊ม H–Q ↓</a></p>
       <p class="result-note warning" id="geometry-warning" hidden></p>
     </section>
   </div>
-  <section class="panel report" id="field-check" aria-labelledby="field-check-title">
-    <div class="panel-head result-top">
-      <div>
-        <h2 id="field-check-title">เทียบผลวัดหน้างานกับค่าคำนวณ</h2>
-        <p>กรอกจากการวัดรอบเดียวกัน โดยให้จำนวนหัวที่เปิด รอบปั๊ม และระดับน้ำตรงกับกรณีที่คำนวณ</p>
-      </div>
-      <span class="badge stale" id="field-check-stale" hidden>ผลจากค่าก่อนแก้</span>
-    </div>
-    <p class="result-note" id="field-check-basis"></p>
-    <div class="table-scroll" tabindex="0" role="region" aria-label="ตารางเทียบผลวัดหน้างาน">
-      <table class="validation-table" aria-labelledby="field-check-title">
-        <thead><tr><th scope="col">รายการวัด</th><th scope="col">คำนวณ</th><th scope="col">ค่าที่วัด</th><th scope="col">ผลต่าง</th><th scope="col">ผลต่าง (%)</th></tr></thead>
-        <tbody id="field-check-rows"></tbody>
-      </table>
-    </div>
-    <p class="check-note">ผลต่าง = ค่าวัด − ค่าคำนวณ เครื่องหมายบวกหมายถึงค่าวัดสูงกว่า เว้นช่องที่ยังไม่ได้วัดไว้ได้</p>
-  </section>
-  <section class="panel report" id="pump-section" aria-labelledby="pump-title">
-    <div class="panel-head result-top">
-      <div>
-        <h2 id="pump-title">กราฟปั๊ม H–Q เทียบกับระบบ</h2>
-        <p>จุดตัดแสดงอัตราการไหลและเฮดที่คาดเมื่อเดินปั๊มที่ความถี่ตามกราฟ</p>
-      </div>
-      <span class="badge" id="pump-freshness" hidden>ผลจากค่าก่อนแก้</span>
-    </div>
+  <details class="panel report input-disclosure" id="pump-section">
+    <summary>
+      <h2 id="pump-title">กราฟปั๊ม H–Q เทียบกับระบบ</h2>
+      <span class="badge stale" id="pump-freshness" hidden>ผลจากค่าก่อนแก้</span>
+    </summary>
+    <p class="description">จุดตัดแสดงอัตราการไหลและเฮดที่คาดเมื่อเดินปั๊มที่ความถี่ตามกราฟ</p>
     <div class="pump-grid">
-      <figure class="pump-figure">
+      <div class="pump-controls">
+        <details class="input-disclosure" id="pump-model-settings" open>
+          <summary>รุ่นปั๊มที่ใช้เทียบกราฟ <small class="collapsed-value" id="pump-model-selected"></small></summary>
+          <label class="disclosure-body field">
+            <span class="visually-hidden">เลือกรุ่นปั๊มที่ใช้เทียบกราฟ</span>
+            <select id="pump-model" form="system-form"></select>
+          </label>
+        </details>
+        <div class="pump-actions">
+          <a class="pump-jump" href="#pump-setup" id="pump-edit-link">ตั้งรอบเดินและข้อมูลกราฟ ↑</a>
+          <button type="button" class="btn" id="pump-zoom" aria-pressed="false" hidden>ซูมใกล้จุดเป้าหมาย</button>
+        </div>
+        <p class="pump-model-name" id="pump-applied-name" hidden></p>
+      </div>
+      <figure class="pump-figure" id="pump-figure">
         <canvas id="pump-canvas" role="img" aria-label="กราฟอัตราการไหลเทียบกับเฮดของปั๊มและระบบท่อ"></canvas>
         <div class="graph-legend">
           <span><i class="legend-line" aria-hidden="true"></i>กราฟปั๊ม</span>
-          <span><i class="legend-line legend-system" aria-hidden="true"></i>กราฟระบบ</span>
+          <span id="system-legend" hidden><i class="legend-line legend-system" aria-hidden="true"></i><span id="system-legend-label">กราฟระบบ</span></span>
           <span><i class="legend-range" aria-hidden="true"></i><span id="pump-range-legend">ช่วงเดินแนะนำ</span></span>
-          <span><i class="legend-dot" aria-hidden="true"></i>จุดที่ระบบต้องการ</span>
-          <span id="intersection-legend" hidden><i class="legend-dot legend-intersection" aria-hidden="true"></i>จุดตัด</span>
+          <span id="target-legend" hidden><i class="legend-dot" aria-hidden="true"></i>จุดที่ระบบต้องการ</span>
+          <span id="intersection-legend" hidden><i class="legend-dot legend-intersection" aria-hidden="true"></i><span id="intersection-legend-label">จุดตัด</span></span>
+          <span id="measured-legend" hidden><i class="legend-measured"></i>จุดวัดจริง</span>
         </div>
-        <figcaption>เส้นประเชื่อมค่าชัตออฟกับจุดเริ่มกราฟเมื่อมีข้อมูล Q = 0 การหาจุดตัดใช้เฉพาะเส้นทึบในช่วง Q ที่แสดง</figcaption>
+        <figcaption id="pump-caption">เส้นประเชื่อมเฮดชัตออฟ (Q = 0) กับต้นกราฟ การหาจุดตัดใช้ช่วงเส้นทึบของปั๊ม</figcaption>
       </figure>
+      <p class="pump-graph-empty" id="pump-graph-empty" hidden>กรอกข้อมูลกราฟปั๊มเพื่อแสดงเส้น H–Q</p>
       <div class="pump-option">
-        <div class="pump-controls">
-          <label class="field">
-            <span>รุ่นปั๊มที่ใช้เทียบกราฟ</span>
-            <select id="pump-select"></select>
-          </label>
-          <button type="button" class="btn" id="pump-zoom" aria-pressed="false" hidden>ซูมใกล้จุดเป้าหมาย</button>
-        </div>
-        <dl class="pump-stats">
+        <dl class="pump-stats" id="pump-stats">
           <div class="data-row"><dt>ความถี่ / รอบที่ใช้คำนวณ</dt><dd id="pump-speed"></dd></div>
           <div class="data-row"><dt id="pump-range-label">ช่วงเดินแนะนำ</dt><dd id="pump-range"></dd></div>
           <div class="data-row"><dt>Q ต่ำสุดที่ใช้เทียบกราฟ</dt><dd id="pump-min"></dd></div>
           <div class="data-row"><dt>เฮดชัตออฟที่ Q = 0</dt><dd id="pump-shutoff"></dd></div>
-          <div class="data-row"><dt>จุดที่ระบบต้องการ</dt><dd id="pump-target"></dd></div>
-          <div class="data-row"><dt>จุดตัดที่คำนวณได้</dt><dd id="pump-intersection"></dd></div>
-          <div class="data-row"><dt>แรงดันต่ำสุดที่จุดตัด</dt><dd id="pump-nozzle"></dd></div>
+          <div class="data-row pump-duty-row"><dt id="pump-target-label">จุดที่ระบบต้องการ</dt><dd id="pump-target"></dd></div>
+          <div class="data-row pump-duty-row"><dt id="pump-intersection-label">จุดตัดที่คำนวณได้</dt><dd id="pump-intersection"></dd></div>
+          <div class="data-row pump-duty-row"><dt>แรงดันต่ำสุดที่จุดตัด</dt><dd id="pump-nozzle"></dd></div>
         </dl>
+      </div>
+      <div class="pump-notes">
         <p class="pump-assessment" id="pump-assessment" role="status"></p>
-        <p class="description" id="pump-scaling-note" hidden></p>
-        <a class="pump-source" id="pump-source" target="_blank" rel="noopener">แหล่งข้อมูลกราฟ EBARA ↗</a>
+        <div class="pump-context">
+          <p class="description" id="pump-preview-note" hidden></p>
+          <p class="description" id="pump-scaling-note" hidden></p>
+          <a class="pump-source" id="pump-source" target="_blank" rel="noopener">แหล่งข้อมูลกราฟ EBARA ↗</a>
+        </div>
       </div>
     </div>
-    <details>
+    <details id="pump-curve-details">
       <summary>ค่าจากแค็ตตาล็อกและวิธีเทียบกราฟ</summary>
       <div class="notes">
         <p>คำนวณเฮดปั๊มระหว่างจุดด้วยการประมาณเชิงเส้น ในกราฟจากแค็ตตาล็อกใช้ขอบเขตเส้นทึบของผู้ผลิต กราฟระบบคำนวณการแบ่งน้ำตามแรงดันของทั้งสองกิ่ง โดยใช้พิกัดหัวฉีดจากผลวัดที่กรอกหรือค่าอ้างอิง</p>
@@ -456,38 +545,79 @@
         </table>
       </div>
     </details>
-  </section>
-  <section class="panel report" id="pump-check" aria-labelledby="pump-check-title">
-    <div class="panel-head result-top">
-      <div>
-        <h2 id="pump-check-title">ตรวจโหลดมอเตอร์และ NPSH</h2>
-        <p id="pump-check-point">ใช้จุดตัดของกราฟปั๊มและกราฟระบบ</p>
-      </div>
+  </details>
+  <details class="panel report input-disclosure" id="pipe-setup">
+    <summary><h2>ระยะท่อและข้อต่อ</h2></summary>
+    <div class="disclosure-intro">
+      <p>กรอก L ของท่อตรงตามแนวท่อจากหน้าต่อถึงหน้าต่อ เรียงจากปั๊มไปยังหัวฉีด</p>
+    </div>
+    <div class="pipe-editor" id="pipe-fields"></div>
+    <div class="pipe-report-actions">
+      <button class="btn primary" type="submit" form="system-form" id="calculate-from-pipe">คำนวณระบบ</button>
+      <a class="pump-jump" href="#network-tab" id="return-to-network">กลับไปผังท่อ ↑</a>
+      <p id="pipe-status"></p>
+    </div>
+  </details>
+  <details class="panel report input-disclosure" id="field-check" hidden>
+    <summary><h2 id="field-check-title">เทียบผลวัดหน้างานกับค่าคำนวณ</h2></summary>
+    <div class="disclosure-intro">
+      <p>กรอกจากการวัดรอบเดียวกัน โดยให้จำนวนหัวที่เปิด รอบปั๊ม และระดับน้ำตรงกับกรณีที่คำนวณ</p>
+      <span class="badge stale" id="field-check-stale" hidden>ผลจากค่าก่อนแก้</span>
+    </div>
+    <p class="result-note" id="field-check-basis"></p>
+    <div class="table-scroll" tabindex="0" role="region" aria-label="ตารางเทียบผลวัดหน้างาน">
+      <table class="validation-table" aria-labelledby="field-check-title">
+        <thead><tr><th scope="col">รายการวัด</th><th scope="col">คำนวณ</th><th scope="col">ค่าที่วัด</th><th scope="col">ผลต่าง</th><th scope="col">ผลต่าง (%)</th></tr></thead>
+        <tbody id="field-check-rows"></tbody>
+      </table>
+    </div>
+    <p class="check-note">ผลต่าง = ค่าวัด − ค่าคำนวณ เครื่องหมายบวกหมายถึงค่าวัดสูงกว่า เว้นช่องที่ยังไม่ได้วัดไว้ได้</p>
+    <div class="trial-body">
+      <details class="input-disclosure"><summary>เกจดูด–จ่ายและจุดวัดจริงบนกราฟ H–Q</summary><div class="trial-body">
+        <p class="description">ใช้ Q รวมและแรงดันจ่ายจากตารางด้านบน วัดที่หน้าแปลนปั๊มในรอบเดียวกัน ระบุ ID ณ เกจทั้งสอง และระดับเกจจ่ายลบระดับเกจดูด กรอก 0 เมื่ออยู่ระดับเดียวกัน</p>
+        <div class="trial-fields" id="gauge-fields"></div>
+        <div><button class="btn" type="button" id="capture-duty">ใช้จุดวัดกับปั๊มและรอบนี้</button></div><p id="gauge-result" role="status" class="trial-msg"></p><p id="measured-pump-check" class="trial-msg"></p>
+      </div></details>
+    </div>
+  </details>
+  <details class="panel report input-disclosure" id="pump-check" hidden>
+    <summary><h2>ตรวจโหลดมอเตอร์และ NPSH</h2></summary>
+    <div class="disclosure-intro">
+      <p id="pump-check-point">ใช้จุดตัดของกราฟปั๊มและกราฟระบบ</p>
       <span class="badge stale" id="pump-check-stale" hidden>ผลจากค่าก่อนแก้</span>
     </div>
     <form id="pump-check-form" class="check-form" novalidate>
-      <div class="fieldgroup">
-        <h3>กำลังเพลาและโหลดมอเตอร์</h3>
-        <p class="description">ใช้กำลังเพลาจากกราฟที่จุดทำงาน หรือกรอกประสิทธิภาพปั๊มเพื่อประมาณกำลังเพลา</p>
-        <div class="fields" id="power-check-fields"></div>
-        <dl class="pump-stats">
-          <div class="data-row"><dt>กำลังที่ส่งให้น้ำ</dt><dd id="power-hyd"></dd></div>
-          <div class="data-row"><dt>กำลังเพลาที่ปั๊มใช้</dt><dd id="power-shaft"></dd></div>
-          <div class="data-row"><dt>โหลดเทียบกำลังมอเตอร์</dt><dd id="power-load"></dd></div>
-        </dl>
-        <p class="pump-assessment" id="power-note"></p>
-      </div>
-      <div class="fieldgroup">
-        <h3>NPSH ทางดูดจากถังเปิด</h3>
-        <p class="description">แรงดันบรรยากาศเริ่มต้นใช้ค่ามาตรฐาน 1.01325 bar abs เปลี่ยนได้ตามค่าที่วัด ณ จุดติดตั้ง</p>
-        <div class="fields" id="npsh-check-fields"></div>
-        <dl class="pump-stats">
-          <div class="data-row"><dt>NPSH ที่ระบบให้ได้ ณ ระดับน้ำต่ำสุด</dt><dd id="npsh-available"></dd></div>
-          <div class="data-row"><dt>NPSH ที่ปั๊มต้องการ</dt><dd id="npsh-required-output"></dd></div>
-          <div class="data-row"><dt>ส่วนเผื่อ NPSH</dt><dd id="npsh-margin-output"></dd></div>
-        </dl>
-        <p class="pump-assessment" id="npsh-note"></p>
-      </div>
+      <details class="input-disclosure"><summary>ข้อมูลผู้ผลิตตามรุ่นและรอบเดิน</summary><div class="trial-body">
+        <p class="description">ใช้ข้อมูลผู้ผลิตที่ความถี่และรอบเดียวกับกราฟที่เลือก กรอกหนึ่งแถวต่อจุด เรียง Q จากน้อยไปมาก แอปเทียบเชิงเส้นเฉพาะระหว่างจุดที่กรอก</p>
+        <div class="trial-fields" id="vendor-fields"></div>
+        <div><button type="button" class="btn" id="vendor-apply">บันทึกข้อมูลผู้ผลิตสำหรับรอบนี้</button></div><p id="vendor-status" class="trial-msg" role="status"></p>
+      </div></details>
+      <details class="input-disclosure" id="power-check-setup">
+        <summary>กำลังเพลาและโหลดมอเตอร์</summary>
+        <div class="disclosure-body">
+          <p class="description">ใช้กำลังเพลาจากกราฟที่จุดทำงาน หรือกรอกประสิทธิภาพปั๊มเพื่อประมาณกำลังเพลา</p>
+          <div class="fields" id="power-check-fields"></div>
+          <dl class="pump-stats">
+            <div class="data-row"><dt>กำลังที่ส่งให้น้ำ</dt><dd id="power-hyd"></dd></div>
+            <div class="data-row"><dt>กำลังเพลาที่ปั๊มใช้</dt><dd id="power-shaft"></dd></div>
+            <div class="data-row"><dt>โหลดเทียบกำลังมอเตอร์</dt><dd id="power-load"></dd></div>
+          </dl>
+          <p class="pump-assessment" id="power-note"></p>
+        </div>
+      </details>
+      <details class="input-disclosure" id="npsh-check-setup">
+        <summary>NPSH ทางดูดจากถังเปิด</summary>
+        <div class="disclosure-body">
+          <p class="description">แรงดันบรรยากาศเริ่มต้นใช้ค่ามาตรฐาน 1.01325 bar abs เปลี่ยนได้ตามค่าที่วัด ณ จุดติดตั้ง</p>
+          <div class="fields" id="npsh-check-fields"></div>
+          <dl class="pump-stats">
+            <div class="data-row"><dt>NPSH ที่ระบบให้ได้ ณ ระดับน้ำต่ำสุด</dt><dd id="npsh-available"></dd></div>
+            <div class="data-row"><dt>NPSH ที่ปั๊มต้องการ</dt><dd id="npsh-required-output"></dd></div>
+            <div class="data-row"><dt>ส่วนเผื่อ NPSH</dt><dd id="npsh-margin-output"></dd></div>
+          </dl>
+          <p class="pump-assessment" id="npsh-note"></p>
+        </div>
+      </details>
       <div class="check-actions">
         <button class="btn primary" type="submit" id="pump-check-submit">คำนวณด้วยข้อมูลจุดนี้</button>
         <p id="pump-check-status" role="status"></p>
@@ -499,42 +629,68 @@
       <a href="https://www.pumps.org/2022/03/21/reliability-basics-understanding-npsh-por-and-aor/" target="_blank" rel="noopener">ส่วนเผื่อ NPSH · Hydraulic Institute ↗</a>
       <a href="https://iapws.org/technical-guidance/release/Supp-sat" target="_blank" rel="noopener">แรงดันไอของน้ำ · IAPWS ↗</a>
     </div>
-  </section>
-  <section class="panel report" aria-labelledby="loss-title">
-    <div class="panel-head">
-      <h2 id="loss-title">อัตราการไหลและแรงดันสูญเสียรายช่วง</h2>
-      <p>ปริมาณน้ำลดลงหลังผ่านหัวฉีดแต่ละหัว ค่า ΔP ในตารางรวมแรงเสียดทานและข้อต่อของช่วงนั้น</p>
+  </details>
+  <details class="panel report input-disclosure" id="trial">
+    <summary><h2>ผล Glazing บน RM และการใช้น้ำ</h2></summary>
+    <div class="trial-body">
+      <p class="description">ชั่ง RM ชุดเดิมก่อนพ่นและหลังสะเด็ดน้ำตามเวลาที่กำหนด ผลอัปเดตเมื่อกรอกข้อมูล</p>
+      <details class="input-disclosure"><summary>วัตถุดิบและเกณฑ์รับงาน</summary><div class="trial-body"><div class="trial-fields" id="criteria-fields"></div></div></details>
+      <details class="input-disclosure"><summary>ตัวอย่างชั่งและพื้นที่ผิว</summary><div class="trial-body"><div class="trial-fields" id="sample-fields"></div><p class="description">ชั่งน้ำหนักสุทธิของชุดเดียวกัน ใช้พื้นที่รวมของทุกชิ้น เมื่อประมาณจากทรงกล่องให้ใช้ขนาดเฉลี่ยต่อชิ้น ผลน้ำเคลือบเป็นปริมาตรเทียบเท่าน้ำของมวลที่เพิ่มขึ้น</p></div></details>
+      <details class="input-disclosure"><summary>สายพานและกำลังผลิต</summary><div class="trial-body"><div class="trial-fields" id="line-fields"></div><a class="pump-jump" href="#field-check" id="trial-field-link">กรอก Q รวมที่วัดจริงและแรงดันปลายราง ↑</a></div></details>
+      <details class="input-disclosure"><summary>ทดสอบถาดรับน้ำตามหน้ากว้าง</summary><div class="trial-body"><p class="description">ใช้ถาดขนาดเท่ากันวางเรียงจากซ้ายไปขวาที่ระนาบ RM แยกทดสอบรางบนและล่างด้วยเวลารับน้ำเท่ากัน กรอกปริมาตร mL คั่นด้วยช่องว่าง เช่น 20 24 22 ช่องที่แห้งให้กรอก 0</p><div class="trial-fields" id="tray-fields"></div><div id="tray-chart"></div></div></details>
+      <dl id="rm-results" class="trial-results"></dl>
+      <p class="trial-msg" id="acceptance"></p><p class="trial-msg error" id="trial-errors" role="status"></p>
+    </div>
+  </details>
+  <details class="panel report input-disclosure" id="trial-history">
+    <summary><h2>บันทึกและเปรียบเทียบรอบทดลอง</h2></summary>
+    <div class="trial-body"><p class="description">บันทึกค่าตั้ง ผลวัด และผลคำนวณเป็นภาพรวมของแต่ละรอบในเบราว์เซอร์เครื่องนี้ ดาวน์โหลดรายงานเพื่อเก็บสำเนาหรือส่งต่อ</p>
+      <div><button type="button" id="save-trial" class="btn primary">บันทึกรอบปัจจุบัน</button></div>
+      <p id="history-status" class="trial-msg" role="status"></p><div id="history-list"></div>
+    </div>
+  </details>
+  <details class="panel report input-disclosure" id="loss-section">
+    <summary><h2 id="loss-title">อัตราการไหลและแรงดันสูญเสียรายช่วง</h2></summary>
+    <div class="disclosure-intro">
+      <p id="loss-basis"></p>
+      <span class="badge" id="loss-state">รอผลคำนวณ</span>
+    </div>
+    <div class="report-await" id="report-await">
+      <p>กรอกระยะท่อและคำนวณเพื่อดู Q, ΔP และ Loss ของแต่ละช่วง</p>
+      <a class="pump-jump" href="#pipe-setup" id="report-pipe-entry">ไปกรอกระยะท่อ ↑</a>
     </div>
     <p class="scroll-hint">เลื่อนตารางเพื่อดูขนาดท่อ ตัวประกอบแรงเสียดทาน และค่า K</p>
     <div class="table-scroll" tabindex="0" role="region" aria-label="ตารางแรงดันสูญเสีย เลื่อนแนวนอนได้">
-      <table id="loss-table" aria-labelledby="loss-title">
+      <table class="results-table" id="loss-table" aria-labelledby="loss-title">
         <thead><tr><th scope="col">ช่วงท่อ</th><th scope="col">Q (L/min)</th><th scope="col">ΔP (bar)</th><th scope="col">ID (mm)</th><th scope="col">L (m)</th><th scope="col">v (m/s)</th><th scope="col">Re</th><th scope="col">f</th><th scope="col">K</th><th scope="col">Loss ท่อ (m)</th><th scope="col">Loss ข้อต่อ (m)</th></tr></thead>
       </table>
     </div>
     <details id="nozzle-details">
       <summary>แรงดันและอัตราการไหลรายหัว</summary>
       <p class="result-note" id="measurement-report"></p>
+      <p class="scroll-hint">เลื่อนตารางเพื่อดูค่าอ้างอิงที่ 3 bar และระยะจากต้นราง</p>
       <div class="table-scroll" tabindex="0" role="region" aria-label="ตารางแรงดันและอัตราการไหลของหัวฉีด">
-        <table aria-label="ผลรายหัวฉีด" id="nozzle-table">
-          <thead><tr><th scope="col">หัวฉีด</th><th scope="col">Q ที่ 3 bar (L/min)</th><th scope="col">แหล่งที่มา</th><th scope="col">แรงดันที่คำนวณ (barG)</th><th scope="col">Q ที่คำนวณ (L/min)</th><th scope="col">ระยะจากต้นราง (mm)</th></tr></thead>
-          <tbody id="nozzle-rows"></tbody>
+        <table class="results-table" aria-label="ผลรายหัวฉีด" id="nozzle-table">
+          <thead><tr><th scope="col">หัวฉีด</th><th scope="col">แรงดัน (barG)</th><th scope="col">Q ที่คำนวณ (L/min)</th><th scope="col">Q ที่ 3 bar (L/min)</th><th scope="col">แหล่งค่า Q ที่ 3 bar</th><th scope="col">ระยะจากต้นราง (mm)</th></tr></thead>
         </table>
       </div>
     </details>
-    <details>
+    <details id="loss-method">
       <summary>วิธีคำนวณและสมมติฐาน</summary>
       <div class="notes">
         <p>ถังเปิด หัวฉีดพ่นสู่อากาศ รางบนและล่างต่อขนานและรับน้ำจากด้านเดียว แต่ละรางอยู่ระดับเดียวกัน โปรแกรมคำนวณย้อนหลังจากหัวปลายราง แล้วใช้เฮดที่จุดแยกเท่ากันเพื่อหาอัตราการไหลของทั้งสองชุด โดยให้แรงดันต่ำสุดถึงค่าที่กำหนด</p>
         <div class="equations">q = q_ref × √(P / P_ref)<br>v = Q / A &nbsp; · &nbsp; Re = ρvD / μ<br>h_loss = (fL/D + K) × v² / (2g)<br>ΔP_loss = ρg × h_loss<br>H_pump ≈ P_nozzle/(ρg) + (z_nozzle − z_water) + Σ h_loss<br>W = 2H × tan(θ/2)</div>
-        <p>ใช้ Darcy–Weisbach กับตัวประกอบแรงเสียดทานของ Churchill สมบัติน้ำอ้างอิงที่ 0.1 MPa ช่วง 0–60°C แบบจำลองละเลยผลต่างเฮดความเร็วตามจุดวัดและการคืนแรงดันจากความเร็วที่ลดลงในราง ค่า K ในรางใช้กับทุกช่วงตามความเร็วของช่วงนั้น</p>
-        <p>แรงดันหัวฉีดเทียบกับบรรยากาศตามพิกัดน้ำ ให้เทียบกราฟ H–Q ที่อัตราการไหลและเฮดพร้อมกัน หากเพิ่มไส้กรองหรืออุปกรณ์ ให้ปรับ K สมมูลที่อัตราการไหลเป้าหมายตามข้อมูลแรงดันตกคร่อมของผู้ผลิต</p>
+        <p>ใช้ Darcy–Weisbach กับตัวประกอบแรงเสียดทานของ Churchill สมบัติน้ำอ้างอิงที่ 0.1 MPa ช่วง 0–60°C แบบจำลองละเลยผลต่างเฮดความเร็วตามจุดวัดและการคืนแรงดันในราง ท่อตรงใช้ L และข้อต่อใช้ K อ้างอิงความเร็วตามที่ระบุในแบบกรอก</p>
+        <p>สามทางใช้ K คงที่แยกตามทางออกและอ้างอิงความเร็วของกิ่งนั้น ค่า K จริงขึ้นกับรูปทรงและสัดส่วนการแบ่งน้ำ ถ้าเอกสารอ้างอิงความเร็วท่อเข้า ให้แปลง K_กิ่ง = K_เข้า × (v_เข้า/v_กิ่ง)² ที่สัดส่วนการแบ่งน้ำที่พิจารณา</p>
+        <p>แรงดันหัวฉีดเทียบกับบรรยากาศตามพิกัดน้ำ ให้เทียบกราฟ H–Q ที่อัตราการไหลและเฮดพร้อมกัน</p>
         <a href="https://www.teejet.com/ko-kr/-/media/dam/agricultural/korea/sales-material/catalog/028-029_cat52_xr.pdf" target="_blank" rel="noopener">TeeJet XR11004 ↗</a>
         <a href="https://www.ksb.com/en-global/centrifugal-pump-lexicon/h" target="_blank" rel="noopener">KSB · Head loss ↗</a>
+        <a href="https://www.ksb.com/en-global/centrifugal-pump-lexicon/article/loss-coefficient-1118308" target="_blank" rel="noopener">KSB · ค่าสูญเสีย K ↗</a>
         <a href="https://files.engineering.com/files/85c0f3a6-a102-4a22-9d35-f15858c0dd2b/CEM_-_Friction-factor_equation_%281977%29.pdf" target="_blank" rel="noopener">Churchill · Friction factor ↗</a>
         <a href="https://www.nist.gov/publications/reference-correlations-thermophysical-properties-liquid-water-01-mpa" target="_blank" rel="noopener">NIST · สมบัติน้ำ ↗</a>
       </div>
     </details>
-  </section>
+  </details>
 </main>
 <script>
 'use strict';
@@ -546,9 +702,64 @@ const LPM_PER_M3S = 60000;
 const TEST_PRESSURE = 3;
 const MAX_NOZZLES = 12;
 const SIDES = [
-  {id:'upper', name:'ชุดบน', code:'U'},
-  {id:'lower', name:'ชุดล่าง', code:'L'}
+  {id:'upper', name:'ชุดบน', code:'U', feedRuns:3},
+  {id:'lower', name:'ชุดล่าง', code:'L', feedRuns:2}
 ];
+
+function straightPart(id, title, length, diameter = 19, mark = '') {
+  return {
+    id,title,mark,kind:'straight',length:id+'-length',diameter:id+'-id',
+    fields:[
+      [id+'-length','ความยาว L','m',length,0,200],
+      [id+'-id','ขนาด ID','mm',diameter,2,250]
+    ]
+  };
+}
+
+const suctionPart = {
+  ...straightPart('suction','ท่อดูดจากถังถึงปั๊ม',.5,54.8),
+  coefficient:'suction-k'
+};
+const beforeReducer = straightPart('common-before','ท่อร่วมก่อนข้อลด',0,54.8);
+const afterReducer = straightPart('common-after','ท่อร่วมหลังข้อลด',.5);
+const reducerPart = {
+  id:'reducer', title:'ข้อลด', kind:'reducer', diameter:afterReducer.diameter,
+  coefficient:'reducer-k', face:'reducer-face',
+  fields:[['reducer-k','ค่า K','',.5,0,1000],['reducer-face','หน้าต่อถึงหน้าต่อ','mm','',0,5000,'any',false]]
+};
+const commonParts = [beforeReducer,reducerPart,afterReducer];
+const teeInletField = ['tee-inlet-face','ศูนย์กลางถึงหน้าเข้า','mm','',0,5000,'any',false];
+const branchLayouts = SIDES.map(side => {
+  const prefix = side.id;
+  const rail = straightPart(prefix+'-rail','ราง'+side.name,.9);
+  rail.fields[0] = [rail.length,'ความยาวราง','m',.9,.01,20];
+  const straights = Array.from({length:side.feedRuns},(_,i) =>
+    straightPart(prefix+'-straight-'+(i+1),'ท่อตรง '+(i+1),'',19,'ท'+(i+1)));
+  const feed = straights.flatMap((pipe,i) => {
+    const id = prefix+'-elbow-'+(i+1);
+    return [pipe,{
+      id,title:'ข้องอ 90° '+(i+1),mark:'ง'+(i+1),kind:'elbow',
+      diameter:(straights[i+1] ?? rail).diameter,coefficient:id+'-k',radius:id+'-radius',
+      fields:[[id+'-k','ค่า K','',.9,0,1000],[id+'-radius','รัศมีแนวกลาง R','mm','',0,5000,'any',false]]
+    }];
+  });
+  const tee = {
+    id:prefix+'-tee',title:'สามทาง → '+side.name,kind:'tee',diameter:feed[0].diameter,
+    coefficient:prefix+'-tee-k',face:prefix+'-tee-face',
+    fields:[
+      [prefix+'-tee-k','K ทางออก'+side.name,'',1,0,1000],
+      [prefix+'-tee-face','ศูนย์กลางถึงหน้าออก'+side.name,'mm','',0,5000,'any',false]
+    ]
+  };
+  const gaps = Array.from({length:MAX_NOZZLES},(_,i) => {
+    const code = side.code+(i+1);
+    const title = i ? side.code+i+' → '+code : 'ต้นราง → '+code;
+    const id = prefix+'-rail-'+i;
+    return {id,code,title,kind:'rail',diameter:rail.diameter,length:id+'-gap',
+      fields:[[id+'-gap',title,'mm',i ? 200 : 100,i ? .1 : 0,5000]]};
+  });
+  return {side,rail,feed,tee,gaps};
+});
 // Manufacturer selection tables. All points use L/min and metres of water.
 // Only the points in the solid-line range are used to determine an operating point.
 const PUMPS = {
@@ -585,58 +796,38 @@ const schema = {
     ['upperCount', 'จำนวนหัวชุดบน', 'หัว', 4, 0, MAX_NOZZLES, 1],
     ['lowerCount', 'จำนวนหัวชุดล่าง', 'หัว', 4, 0, MAX_NOZZLES, 1]
   ],
-  pipe: [
-    ['ระดับและความขรุขระ', [
-      ['tankZ', 'ผิวน้ำต่ำสุด', 'm', .5, -10, 20],
-      ['upperZ', 'ระดับหัวชุดบน', 'm', 1.25, -10, 20],
-      ['lowerZ', 'ระดับหัวชุดล่าง', 'm', .8, -10, 20],
-      ['roughness', 'ความขรุขระ ε', 'mm', .0015, 0, .5]
-    ]],
-    ['ทางดูด', [
-      ['suctionID', 'ID ท่อดูด', 'mm', 54.8, 2, 250],
-      ['suctionL', 'ความยาวท่อดูด', 'm', .5, 0, 200],
-      ['suctionK', 'K ทางดูด', '', .5, 0, 1000]
-    ]],
-    ['ท่อร่วมก่อนแยก', [
-      ['commonBigID', 'ID ก่อนข้อลด', 'mm', 54.8, 2, 250],
-      ['commonBigL', 'ความยาวก่อนข้อลด', 'm', 0, 0, 200],
-      ['commonID', 'ID หลังข้อลด', 'mm', 19, 2, 250],
-      ['commonL', 'ความยาวหลังข้อลด', 'm', .5, 0, 200],
-      ['commonK', 'K รวมท่อร่วม', '', 4, 0, 1000]
-    ]],
-    ...['upper','lower'].map((side, i) => [i ? 'กิ่งและรางชุดล่าง' : 'กิ่งและรางชุดบน', [
-      [side+'FeedID', 'ID ท่อเข้าราง', 'mm', 19, 2, 250],
-      [side+'FeedL', 'ความยาวท่อเข้าราง', 'm', .125, 0, 200],
-      [side+'FeedK', 'K ท่อเข้าราง', '', 0, 0, 1000],
-      [side+'RailID', 'ID ราง', 'mm', 19, 2, 250],
-      [side+'RailL', 'ความยาวราง', 'm', .9, .01, 20],
-      [side+'RailK', 'K ต่อช่วงในราง', '', 0, 0, 1000]
-    ]])
+  elevation: [
+    ['tankZ', 'ผิวน้ำต่ำสุด', 'm', .5, -10, 20],
+    ['upperZ', 'ระดับหัวชุดบน', 'm', 1.25, -10, 20],
+    ['lowerZ', 'ระดับหัวชุดล่าง', 'm', .8, -10, 20],
+    ['roughness', 'ความขรุขระ ε', 'mm', .0015, 0, .5]
   ],
   spray: [
     ['belt', 'หน้ากว้างสายพาน', 'mm', 850, 50, 5000],
     ['angle', 'มุมพ่นจริงที่ใช้จำลอง', '°', 110, 1, 160],
     ['upperHeight', 'ระยะพ่นชุดบน', 'mm', 150, 10, 2000],
     ['lowerHeight', 'ระยะพ่นชุดล่าง', 'mm', 120, 10, 2000],
-    ['upperFirst', 'ต้นรางถึงหัวแรก (บน)', 'mm', 100, 0, 5000],
-    ['lowerFirst', 'ต้นรางถึงหัวแรก (ล่าง)', 'mm', 100, 0, 5000],
-    ['upperSpacing', 'ระยะระหว่างหัว (บน)', 'mm', 200, 1, 2000],
-    ['lowerSpacing', 'ระยะระหว่างหัว (ล่าง)', 'mm', 200, 1, 2000]
+    ['upperOffset', 'กึ่งกลางชุดหัวบนเทียบกลางสายพาน (+ ขวา)', 'mm', 0, -5000, 5000],
+    ['lowerOffset', 'กึ่งกลางชุดหัวล่างเทียบกลางสายพาน (+ ขวา)', 'mm', 0, -5000, 5000]
   ]
 };
-const allFields = [...schema.duty, ...schema.pipe.flatMap(([, fields]) => fields), ...schema.spray];
+const suctionEntranceField = [suctionPart.coefficient,'K ทางเข้าในถัง','',.5,0,1000];
+const pipeFields = [
+  ...schema.elevation, ...suctionPart.fields, ...commonParts.flatMap(part => part.fields),
+  suctionEntranceField, teeInletField,
+  ...branchLayouts.flatMap(({tee,feed,rail,gaps}) => [tee,...feed,rail,...gaps].flatMap(part => part.fields))
+];
+const allFields = [...schema.duty, ...pipeFields, ...schema.spray];
 const controls = new Map();
-for (const id of ['pump-select','pump-model']) {
-  for (const [key,name] of [...Object.entries(PUMPS).map(([key,pump]) => [key,pump.name]),['custom','กรอกกราฟปั๊มเอง']]) {
-    const option = document.createElement('option');
-    option.value = key;
-    option.textContent = name;
-    $(id).append(option);
-  }
+for (const [key,name] of [...Object.entries(PUMPS).map(([key,pump]) => [key,pump.name]),['custom','กรอกกราฟปั๊มเอง']]) {
+  const option = document.createElement('option');
+  option.value = key;
+  option.textContent = name;
+  $('pump-model').append(option);
 }
 
-function makeFields(target, fields) {
-  for (const [key, name, unit, initial, min, max, step = 'any'] of fields) {
+function makeFields(target, fields, formId, context = '') {
+  for (const [key, name, unit, initial, min, max, step = 'any', required = true] of fields) {
     const label = document.createElement('label');
     label.className = 'field';
     const title = document.createElement('span');
@@ -644,7 +835,10 @@ function makeFields(target, fields) {
     const wrap = document.createElement('span');
     wrap.className = 'input-unit';
     const input = document.createElement('input');
-    Object.assign(input, {id:key, name:key, type:'number', min, max, step, required:true, defaultValue:initial});
+    Object.assign(input, {id:key, name:key, type:'number', min, max, step, required, defaultValue:initial});
+    if (formId) input.setAttribute('form',formId);
+    if (context) input.setAttribute('aria-label',context+' '+name+(unit?' ('+unit+')':''));
+    if (initial==='') input.placeholder = required?'กรอก':'เว้นได้';
     input.inputMode = step === 1 ? 'numeric' : 'decimal';
     wrap.append(input);
     if (unit) {
@@ -660,33 +854,117 @@ function makeFields(target, fields) {
 }
 
 makeFields($('duty-fields'), schema.duty);
-for (const [name, fields] of schema.pipe) {
-  const fieldset = document.createElement('section');
-  fieldset.className = 'fieldgroup';
-  const title = document.createElement('h3');
-  title.className = 'group-title';
-  title.textContent = name;
+makeFields($('spray-fields'), schema.spray);
+
+function pipeCard(id,title) {
+  const card = document.createElement('details');
+  card.id = id+'-pipe-card';
+  card.className = 'input-disclosure pipe-card '+id;
+  const summary = document.createElement('summary');
+  summary.textContent = title;
+  card.append(summary);
+  $('pipe-fields').append(card);
+  return card;
+}
+
+function pipeNote(container,content) {
+  const p = document.createElement('p');
+  p.className = 'pipe-editor-note';
+  p.textContent = content;
+  container.append(p);
+}
+
+function pipeEditorRow(container,part,context='') {
+  const row = document.createElement('div');
+  row.className = 'pipe-row';
+  const name = document.createElement('span');
+  name.className = 'pipe-row-name';
+  name.textContent = part.mark ? part.mark+' · '+part.title : part.title;
+  row.append(name);
+  makeFields(row,part.fields,'system-form',[context,part.title].filter(Boolean).join(' '));
+  container.append(row);
+}
+
+function pipeEditorDetails(container,label,fields,initiallyOpen) {
+  const details = document.createElement('details');
+  details.className = 'pipe-details';
+  details.open = Boolean(initiallyOpen);
+  const summary = document.createElement('summary');
+  summary.textContent = label;
   const grid = document.createElement('div');
   grid.className = 'fields';
-  makeFields(grid, fields);
-  fieldset.append(title, grid);
-  $('pipe-fields').append(fieldset);
+  makeFields(grid,fields,'system-form');
+  details.append(summary,grid);
+  container.append(details);
 }
-makeFields($('spray-fields'), schema.spray);
+
+const sharedEditor = pipeCard('shared','ถัง → ปั๊ม → สามทาง');
+for (const part of [suctionPart,...commonParts]) pipeEditorRow(sharedEditor,part);
+pipeNote(sharedEditor,'ความยาวท่อร่วมรวมเดิม 0.50 m ค่าเริ่มต้นอยู่หลังข้อลด ปรับแบ่งตามตำแหน่งติดตั้งจริง');
+pipeEditorDetails(sharedEditor,'ค่า K ทางเข้าในถัง',[suctionEntranceField]);
+const levelsEditor = pipeCard('levels','ระดับน้ำและสามทาง');
+const levelsFields = document.createElement('div');
+levelsFields.className = 'fields';
+makeFields(levelsFields,schema.elevation,'system-form');
+levelsEditor.append(levelsFields);
+pipeNote(levelsEditor,'ระดับวัดจากศูนย์กลางปั๊มถึงผิวน้ำต่ำสุดและแนวหัวฉีด');
+pipeEditorDetails(levelsEditor,'ค่า K ของสามทางเดียวกัน',branchLayouts.map(({tee}) => tee.fields[0]),true);
+pipeEditorDetails(levelsEditor,'ระยะศูนย์กลางถึงหน้าต่อสามทาง',
+  [teeInletField,...branchLayouts.map(({tee}) => tee.fields[1])]);
+pipeNote(levelsEditor,'ค่า K แก้ได้ทุกข้อต่อ ค่าเริ่มต้นใช้ประเมิน สามทางใช้ความเร็วในท่อออกของกิ่งนั้น ข้องอและข้อลดใช้ความเร็วด้านออก');
+
+const railEditors = new Map();
+for (const {side,rail,feed,gaps} of branchLayouts) {
+  const card = pipeCard(side.id,'สามทาง → ราง'+side.name);
+  const rows = document.createElement('div');
+  for (const part of [...feed,rail]) pipeEditorRow(rows,part,side.name);
+  card.append(rows);
+  pipeEditorDetails(card,'ระยะถึงหัวฉีดแต่ละหัว',gaps.flatMap(part => part.fields),true);
+  pipeNote(card,'ระยะถึงหัวแรกและระยะระหว่างหัวตั้งต้นตามแบบประมาณ 100 / 200 mm รัศมี R กรอกได้เพื่อบันทึกขนาดข้องอ ส่วน Loss ใช้ค่า K');
+  railEditors.set(side.id,{card,rows});
+}
+
+function activeHeadCount(side) {
+  const control = controls.get(side.id+'Count');
+  return control.validity.valid ? control.valueAsNumber : 0;
+}
+
+function updatePipeEditor() {
+  const missing = [];
+  for (const {side,tee,feed,rail,gaps} of branchLayouts) {
+    const count = activeHeadCount(side);
+    const {card,rows} = railEditors.get(side.id);
+    card.hidden = !count;
+    for (const part of [tee,...feed,rail]) {
+      for (const [key] of part.fields) controls.get(key).disabled = !count;
+    }
+    for (const [index,part] of gaps.entries()) {
+      const input = controls.get(part.length);
+      input.disabled = index >= count;
+      input.closest('label').hidden = input.disabled;
+    }
+    rows.querySelectorAll('input[required]').forEach(input => {
+      if (!input.disabled && !input.value) missing.push(input);
+    });
+  }
+  $('pipe-progress').textContent = missing.length ? 'เหลือระยะท่อตรง '+missing.length+' ช่วง'
+    : SIDES.some(activeHeadCount) ? 'กรอกระยะท่อตรงครบ' : 'เลือกจำนวนหัวฉีด';
+  return missing;
+}
 
 const measurementFields = [];
 for (const side of SIDES) {
-  const group = document.createElement('div');
-  group.className = 'fieldgroup';
-  const heading = document.createElement('h3');
-  heading.className = 'group-title';
-  heading.textContent = side.name;
+  const group = document.createElement('details');
+  group.id = 'measure-'+side.id;
+  group.className = 'input-disclosure measurement-bank';
+  const summary = document.createElement('summary');
+  summary.textContent = side.name;
   const grid = document.createElement('div');
-  grid.className = 'fields';
+  grid.className = 'disclosure-body fields';
   for (let i=1;i<=MAX_NOZZLES;i++) {
     const code = side.code+i;
     const row = document.createElement('div');
-    const measurement = {side, i, code, row, fields:{}};
+    const measurement = {side, i, code, row, group, fields:{}};
     for (const mode of ['volume','flow']) {
       const label = document.createElement('label');
       label.className = 'field';
@@ -709,7 +987,7 @@ for (const side of SIDES) {
     grid.append(row);
     measurementFields.push(measurement);
   }
-  group.append(heading,grid);
+  group.append(summary,grid);
   $('measurement-fields').append(group);
 }
 
@@ -717,11 +995,11 @@ function updateMeasurementFields() {
   const mode = $('measurement-mode').value;
   $('measurement-duration-field').hidden = mode !== 'volume';
   $('measurement-example').hidden = mode !== 'volume';
-  for (const {side,i,row,fields} of measurementFields) {
-    row.hidden = i > controls.get(side.id+'Count').valueAsNumber || !Number.isFinite(controls.get(side.id+'Count').valueAsNumber);
+  for (const {side,i,row,group,fields} of measurementFields) {
+    row.hidden = i > activeHeadCount(side);
     fields.volume.label.hidden = mode !== 'volume';
     fields.flow.label.hidden = mode !== 'flow';
-    if (i===1) row.closest('.fieldgroup').hidden = row.hidden;
+    if (i===1) group.hidden = row.hidden;
   }
 }
 
@@ -745,35 +1023,53 @@ function readMeasurements(values) {
   return {measured};
 }
 
-function readInputs() {
+const branchPipeLengths = new Set(branchLayouts.flatMap(({feed}) =>
+  feed.filter(part => part.kind==='straight').map(part => part.length)));
+
+function readInputs({allowMissingPipeLengths = false} = {}) {
   const values = {};
+  let missingPipeLengths = 0;
   for (const [key, label, , , min, max] of allFields) {
     const control = controls.get(key);
+    if (control.disabled) continue;
+    if (control.validity.valueMissing) {
+      if (allowMissingPipeLengths && !control.validity.badInput && branchPipeLengths.has(key)) {
+        values[key] = 0;
+        missingPipeLengths++;
+        continue;
+      }
+      const field = control.getAttribute('aria-label') ?? label;
+      return {error:'กรอก '+field,key};
+    }
     if (!control.validity.valid) {
       return {error: 'ตรวจค่า ' + label + ' ให้เป็นตัวเลขในช่วง ' + min + ' ถึง ' + max +
         (control.step === '1' ? ' และเป็นจำนวนเต็ม' : ''), key};
     }
-    values[key] = control.valueAsNumber;
+    values[key] = control.value ? control.valueAsNumber : null;
   }
   if (values.upperCount + values.lowerCount === 0) {
     return {error:'เลือกให้มีหัวฉีดอย่างน้อยหนึ่งหัว', key:'upperCount'};
   }
-  for (const side of ['upper','lower']) {
-    const count = values[side+'Count'];
-    const lastPosition = values[side+'First'] + (count-1)*values[side+'Spacing'];
-    if (count && lastPosition > values[side+'RailL']*1000 + 1e-7) {
-      return {error:'หัวสุดท้ายของ' + (side === 'upper' ? 'ชุดบน' : 'ชุดล่าง') +
-        ' อยู่เกินความยาวราง กรุณาตรวจระยะหรือความยาวราง', key:side+'RailL'};
+  for (const {side,rail,gaps} of branchLayouts) {
+    const count = values[side.id+'Count'];
+    let position = 0;
+    for (const gap of gaps.slice(0,count)) {
+      position += values[gap.length];
+      if (position > values[rail.length]*1000 + 1e-7) {
+        return {error:'หัว '+gap.code+' อยู่เกินความยาวราง'+side.name+' ตรวจระยะหัวหรือความยาวราง',key:gap.length};
+      }
     }
   }
   const measurements = readMeasurements(values);
   if (measurements.error) return measurements;
   values.measured = measurements.measured;
-  return {values};
+  return {values,missingPipeLengths};
 }
 
 function updatePumpFields() {
-  const preset = PUMPS[$('pump-model').value];
+  const model = $('pump-model');
+  const preset = PUMPS[model.value];
+  $('pump-model-selected').textContent = model.selectedOptions[0].textContent;
   $('pump-custom').hidden = Boolean(preset);
   $('pump-ref-note').textContent = preset
     ? 'กราฟอ้างอิง '+preset.frequency+' Hz / ประมาณ '+number(preset.speed,0)+' rpm กรอกรอบเดินที่วัดได้ถ้ามี'
@@ -850,7 +1146,7 @@ function readPumpSettings() {
     speed:measuredSpeed ? rpm : reference.speed*ratio,
     measuredSpeed,
     scaled:Math.abs(ratio-1)>1e-6,
-    hasOperatingRange:Boolean(preset || reference.hasOperatingRange),
+    hasOperatingRange:Boolean(reference.hasOperatingRange),
     points:reference.points.map(([q,h]) => [q*ratio,h*ratio**2]),
     shutoff:reference.shutoff===null ? null : reference.shutoff*ratio**2
   };
@@ -873,7 +1169,13 @@ function waterProperties(t) {
   return {density, viscosity, headToBar:density*GRAVITY/PA_PER_BAR};
 }
 
-function pipeLoss(name, flow, id, length, k, fluid, roughness) {
+function pipeDimensions(part,input) {
+  const length = part.length ? input[part.length]/(part.kind==='rail'?1000:1) : 0;
+  return {part,id:input[part.diameter],length,k:input[part.coefficient] ?? 0};
+}
+
+function pipeLoss(flow,dimensions,fluid,roughness) {
+  const {id,length,k} = dimensions;
   const diameter = id/1000;
   const velocity = (flow/LPM_PER_M3S)/(Math.PI*diameter**2/4);
   const re = fluid.density*velocity*diameter/fluid.viscosity;
@@ -888,41 +1190,50 @@ function pipeLoss(name, flow, id, length, k, fluid, roughness) {
   const velocityHead = velocity**2/(2*GRAVITY);
   const straight = friction*(length/diameter)*velocityHead;
   const fitting = k*velocityHead;
-  return {name, flow, id, length, k, velocity, re, friction, straight, fitting, loss:straight+fitting};
+  return {...dimensions,flow,velocity,re,friction,straight,fitting,loss:straight+fitting};
+}
+
+function branchPorts({side,gaps},input) {
+  const baseFlow = input.refFlow*Math.sqrt(TEST_PRESSURE/input.refPressure);
+  let position = 0;
+  return gaps.slice(0,input[side.id+'Count']).map(part => {
+    position += input[part.length];
+    const measured = input.measured[part.code];
+    return {part,code:part.code,position,flowAt3:measured ?? baseFlow,measured:measured !== undefined};
+  });
 }
 
 function createHydraulicModel(input) {
   const fluid = waterProperties(input.temperature);
-  const baseFlow = input.refFlow*Math.sqrt(TEST_PRESSURE/input.refPressure);
-  const loss = (name, flow, id, length, k) => pipeLoss(name,flow,id,length,k,fluid,input.roughness);
-  const sides = SIDES.filter(side => input[side.id+'Count'] > 0);
+  const loss = (part,flow) => pipeLoss(flow,pipeDimensions(part,input),fluid,input.roughness);
+  const layouts = new Map(branchLayouts.filter(({side}) => input[side.id+'Count']>0)
+    .map(layout => [layout.side,layout]));
+  const sides = [...layouts.keys()];
   const firstElevation = Math.min(...sides.map(side => input[side.id+'Z']));
+  const nozzlesBySide = new Map([...layouts].map(([side,layout]) => [side,branchPorts(layout,input)]));
 
   // Reconstruct one branch from its end nozzle toward the common split.
   function branchAtPressure(side, endPressure) {
-    const key = side.id;
-    const count = input[key+'Count'];
+    const {tee,feed} = layouts.get(side);
+    const ports = nozzlesBySide.get(side);
     let pressure = endPressure;
     let flow = 0;
-    const nozzles = [], segments = [];
-    for (let i = count - 1; i >= 0; i--) {
-      const code = side.code+(i+1);
-      const position = input[key+'First'] + i*input[key+'Spacing'];
-      const measured = input.measured[code];
-      const flowAt3 = measured ?? baseFlow;
-      const q = flowAt3*Math.sqrt(Math.max(0,pressure)/TEST_PRESSURE);
-      nozzles.unshift({code, pressure, flow:q, position, flowAt3, measured:measured !== undefined});
+    const nozzles = [], railSegments = [];
+    for (let i = ports.length-1; i >= 0; i--) {
+      const port = ports[i];
+      const q = port.flowAt3*Math.sqrt(Math.max(0,pressure)/TEST_PRESSURE);
+      nozzles.unshift({...port,pressure,flow:q});
       flow += q;
-      const row = loss(i ? side.code+i+' → '+code : 'ต้นราง → '+code, flow, input[key+'RailID'],
-        (i ? input[key+'Spacing'] : input[key+'First'])/1000, input[key+'RailK']);
-      segments.unshift(row);
+      const row = loss(port.part,flow);
+      railSegments.unshift(row);
       pressure += row.loss*fluid.headToBar;
     }
-    const feed = loss('จุดแยก → ต้นราง', flow, input[key+'FeedID'], input[key+'FeedL'], input[key+'FeedK']);
-    segments.unshift(feed);
+    const feedSegments = [tee,...feed].map(part => loss(part,flow));
+    const segments = [...feedSegments,...railSegments];
     const branchLoss = segments.reduce((sum, segment) => sum+segment.loss,0);
-    const z = input[key+'Z'];
-    return {side, flow, z, nozzles, segments, branchLoss, splitHead:z+endPressure/fluid.headToBar+branchLoss};
+    const z = input[side.id+'Z'];
+    return {side,flow,z,nozzles,feedSegments,railSegments,segments,branchLoss,
+      splitHead:z+endPressure/fluid.headToBar+branchLoss};
   }
 
   function atSplit(splitHead, fixedBranch) {
@@ -935,11 +1246,8 @@ function createHydraulicModel(input) {
       return branchAtPressure(side,pressure);
     });
     const flow = branches.reduce((sum,branch) => sum+branch.flow,0);
-    const suction = loss('ถัง → ทางดูดปั๊ม',flow,input.suctionID,input.suctionL,input.suctionK);
-    const common = [
-      loss('ทางจ่ายปั๊ม → ข้อลด',flow,input.commonBigID,input.commonBigL,0),
-      loss('หลังข้อลด → จุดแยก',flow,input.commonID,input.commonL,input.commonK)
-    ].filter(row => row.length > 0 || row.k > 0);
+    const suction = loss(suctionPart,flow);
+    const common = commonParts.map(part => loss(part,flow));
     const commonLoss = common.reduce((sum,row) => sum+row.loss,0);
     const hydraulicHead = splitHead-input.tankZ+suction.loss+commonLoss;
     return {flow,branches,suction,common,commonLoss,hydraulicHead,splitHead,
@@ -1020,7 +1328,8 @@ function coverageGeometry(input, branch) {
   const key = branch.side.id;
   const height = input[key+'Height'];
   const spread = 2*height*Math.tan(input.angle*Math.PI/360);
-  const centers = branch.nozzles.map((_, i) => (i-(branch.nozzles.length-1)/2)*input[key+'Spacing']);
+  const midpoint = (branch.nozzles[0].position+branch.nozzles.at(-1).position)/2;
+  const centers = branch.nozzles.map(nozzle => nozzle.position-midpoint+input[key+'Offset']);
   const clipped = centers.map(x => [Math.max(-input.belt/2,x-spread/2),Math.min(input.belt/2,x+spread/2)])
     .filter(([left,right]) => left < right);
   const union = [];
@@ -1039,25 +1348,114 @@ function cell(row, value) {
   return td;
 }
 
-function tableGroup(name, rows, headToBar) {
+function fittingLength(part,input) {
+  if (part.radius && Number.isFinite(input[part.radius])) return Math.PI*input[part.radius]/2000;
+  if (part.face && Number.isFinite(input[part.face])) return input[part.face]/1000;
+  return null;
+}
+
+function rowHeading(row,value,scope='row') {
+  const heading = document.createElement('th');
+  heading.scope = scope;
+  heading.textContent = value;
+  row.append(heading);
+  return heading;
+}
+
+function reportGroup(key,name,columns) {
   const group = document.createElement('tbody');
+  group.dataset.group = key;
   const heading = group.insertRow();
   heading.className = 'group-row';
-  cell(heading,name).colSpan = 11;
+  rowHeading(heading,name,'rowgroup').colSpan = columns;
+  return group;
+}
+
+function reportValue(row,value,digits,emphasis=false) {
+  const valid = Number.isFinite(value);
+  const td = cell(row,valid?number(value,digits):'—');
+  td.classList.toggle('pending',!valid);
+  td.classList.toggle('reading',valid && emphasis);
+}
+
+function lossGroup(key,name,rows,headToBar) {
+  const group = reportGroup(key,name,11);
   for (const entry of rows) {
     const row = group.insertRow();
-    const values = [
-      entry.name, number(entry.flow), number(entry.loss*headToBar,5), number(entry.id), number(entry.length,3),
-      number(entry.velocity,3), number(entry.re,0), number(entry.friction,4),
-      number(entry.k,2), number(entry.straight,5), number(entry.fitting,5)
+    rowHeading(row,entry.part.title);
+    const metrics = [
+      [entry.flow,2,true],[entry.loss*headToBar,5,true],[entry.id,2],
+      [entry.part.length?entry.length:NaN,3],[entry.velocity,3],[entry.re,0],[entry.friction,4],
+      [entry.k,2],[entry.straight,5],[entry.fitting,5]
     ];
-    values.forEach(value => cell(row,value));
+    metrics.forEach(args => reportValue(row,...args));
   }
   return group;
 }
 
+function renderResultTables(result) {
+  const input = result?.input ?? Object.fromEntries(allFields.map(([key]) => {
+    const control = controls.get(key);
+    return [key,control.validity.valid?control.valueAsNumber:NaN];
+  }));
+  let measurementIssue;
+  if (!result) {
+    const draft = readMeasurements(input);
+    measurementIssue = draft.error;
+    input.measured = draft.measured ?? {};
+    if (measurementIssue) input.refFlow = NaN;
+  }
+  const shared = [suctionPart,...commonParts];
+  const sharedRows = result ? [result.suction,...result.common] : shared.map(part => pipeDimensions(part,input));
+  const branches = result?.branches ?? branchLayouts.filter(({side}) => input[side.id+'Count']>0)
+    .map(layout => {
+      const nozzles = branchPorts(layout,input);
+      const parts = [layout.tee,...layout.feed,...nozzles.map(nozzle => nozzle.part)];
+      return {side:layout.side,nozzles,segments:parts.map(part => pipeDimensions(part,input))};
+    });
+  const headToBar = result?.fluid.headToBar;
+  const lossTitle = result ? 'ทางดูดและท่อร่วม · Loss '+number(result.suction.loss+result.commonLoss,4)+' m' : 'ทางดูดและท่อร่วม';
+  const lossGroups = [lossGroup('shared',lossTitle,sharedRows,headToBar)];
+  const nozzleGroups = [];
+  const allNozzles = [];
+  for (const branch of branches) {
+    const {side,nozzles} = branch;
+    const branchTitle = result ? side.name+' · '+number(branch.flow)+' L/min · Loss กิ่ง '+number(branch.branchLoss,4)+' m' : side.name;
+    lossGroups.push(lossGroup(side.id,branchTitle,branch.segments,headToBar));
+    const nozzleGroup = reportGroup(side.id,side.name,6);
+    for (const nozzle of nozzles) {
+      const row = nozzleGroup.insertRow();
+      rowHeading(row,nozzle.code);
+      if (branch===result?.limiting && nozzle===nozzles.at(-1)) row.className = 'limiting';
+      reportValue(row,nozzle.pressure,4,true);
+      reportValue(row,nozzle.flow,3,true);
+      reportValue(row,nozzle.flowAt3,3);
+      cell(row,Number.isFinite(nozzle.flowAt3)?(nozzle.measured?'วัดจริง':'อ้างอิง'):'—');
+      reportValue(row,nozzle.position,1);
+    }
+    nozzleGroups.push(nozzleGroup);
+    allNozzles.push(...nozzles);
+  }
+  for (const [id,groups] of [['loss-table',lossGroups],['nozzle-table',nozzleGroups]]) {
+    const table = $(id);
+    Array.from(table.tBodies).forEach(body => body.remove());
+    table.append(...groups);
+  }
+  const measuredCount = allNozzles.filter(nozzle => nozzle.measured).length;
+  const referenceTotal = allNozzles.reduce((sum,nozzle) => sum+nozzle.flowAt3,0);
+  const count = allNozzles.length;
+  $('measurement-used').textContent = result ? 'ผลล่าสุดใช้ค่าที่วัดจริง '+measuredCount+' จาก '+count+' หัว' : '';
+  $('measurement-report').textContent = measurementIssue ?? (!count ? 'เลือกจำนวนหัวฉีดเพื่อแสดงตารางรายหัว'
+    : 'วัดจริง '+measuredCount+' จาก '+count+' หัว · Q รวมที่ 3 bar '+(Number.isFinite(referenceTotal)
+      ? number(referenceTotal,3)+' L/min'+(measuredCount<count?' รวมค่าอ้างอิง':'') : 'รอข้อมูลพิกัดหัวฉีด'));
+  $('report-await').hidden = Boolean(result);
+  $('loss-basis').textContent = result?.operating ? 'ณ จุดทำงานที่คาดของปั๊ม · '+number(result.flow)+' L/min ที่เฮด '+number(result.hydraulicHead)+' m'
+    : result ? 'ที่แรงดันต่ำสุดเป้าหมาย '+number(input.pressure)+' barG · รวม Loss ทางร่วมกับกิ่งที่ต้องการตรวจทีละกิ่ง'
+    : 'ขนาดท่อ ระยะ และค่า K แสดงตามรายการในผัง เรียงตามทิศทางน้ำไหล';
+}
+
 function renderReport(result,calculation) {
-  const {input,fluid,branches,limiting,flow,suction,common,pathLoss,pressureHead,staticHead,hydraulicHead,outletBar} = result;
+  const {input,fluid,branches,limiting,flow,common,pathLoss,pressureHead,staticHead,hydraulicHead,outletBar} = result;
   const actual = Boolean(result.operating);
   const fallback = calculation.mode==='operating' && !actual;
   $('results-title').textContent = actual?'ผลที่จุดทำงานของปั๊ม':'จุดที่ระบบต้องการ';
@@ -1080,28 +1478,17 @@ function renderReport(result,calculation) {
     : hydraulicHead <= 0
     ? 'เฮดสุทธิที่คำนวณได้ไม่เกิน 0 m ระดับถังให้แรงดันเพียงพอที่อัตราการไหลนี้ ให้ตรวจการควบคุมแรงดันสำหรับระบบจ่ายด้วยแรงโน้มถ่วง'
     : 'จุดอ้างอิงบนกราฟปั๊ม '+number(flow)+' L/min @ '+number(hydraulicHead)+' m  •  เกจทางจ่ายประมาณ '+number(outletBar)+' barG';
-  const geometry = branches.filter(({side,z}) => input.commonBigL+input.commonL+input[side.id+'FeedL']+1e-7 < Math.abs(z));
-  $('geometry-warning').hidden = geometry.length === 0;
-  $('geometry-warning').textContent = geometry.length ? 'ตรวจความยาวเดินท่อ'+geometry.map(x => x.side.name).join('และ')+
-    ' ช่วงจากปั๊มถึงรางสั้นกว่าความต่างระดับที่กรอก ผลนี้ยังยึดตัวเลขที่กรอก' : '';
-  const table = $('loss-table');
-  Array.from(table.tBodies).forEach(body => body.remove());
-  table.append(tableGroup('ท่อทางดูดและท่อร่วม',[suction,...common],fluid.headToBar));
-  branches.forEach(branch => {
-    table.append(tableGroup(branch.side.name+' · '+number(branch.flow)+' L/min',branch.segments,fluid.headToBar));
+  const geometry = branches.filter(({side,z,feedSegments}) => {
+    const length = [...common,...feedSegments].reduce((sum,row) =>
+      sum+row.length+(fittingLength(row.part,input) ?? 0), (input[teeInletField[0]] ?? 0)/1000);
+    return length+.001 < Math.abs(z);
   });
-
-  $('nozzle-rows').replaceChildren();
+  $('geometry-warning').hidden = geometry.length === 0;
+  $('geometry-warning').textContent = geometry.length ? 'ความยาวที่กรอกจากปั๊มถึงราง'+geometry.map(x => x.side.name).join('และ')+
+    ' สั้นกว่าความสูงติดตั้ง ตรวจระยะท่อตรงและขนาดข้อต่อ' : '';
+  renderResultTables(result);
   $('coverage').replaceChildren();
-  let measuredCount = 0, referenceTotal = 0;
   for (const branch of branches) {
-    for (const nozzle of branch.nozzles) {
-      if (nozzle.measured) measuredCount++;
-      referenceTotal += nozzle.flowAt3;
-      const row = $('nozzle-rows').insertRow();
-      [nozzle.code,number(nozzle.flowAt3,3),nozzle.measured?'วัดจริง':'อ้างอิง',number(nozzle.pressure,4),
-        number(nozzle.flow,3),number(nozzle.position,0)].forEach(value => cell(row,value));
-    }
     const {spread,coveragePercent} = coverageGeometry(input,branch);
     const group = document.createElement('div');
     const title = document.createElement('dt');
@@ -1111,10 +1498,8 @@ function renderReport(result,calculation) {
     group.append(title,description);
     $('coverage').append(group);
   }
-  const activeCount = input.upperCount+input.lowerCount;
-  $('measurement-used').textContent = 'ผลล่าสุดใช้ค่าที่วัดจริง '+measuredCount+' จาก '+activeCount+' หัว';
-  $('measurement-report').textContent = 'วัดจริง '+measuredCount+'/'+activeCount+' หัว · Q รวมเทียบที่ 3 bar เท่ากับ '+
-    number(referenceTotal,3)+' L/min'+(measuredCount<activeCount?' (รวมค่าอ้างอิงของหัวที่เว้นว่าง)':'');
+  for (const id of ['field-check','pump-check','field-check-jump','spray-figure','spray-note']) $(id).hidden = false;
+  $('spray-await').hidden = true;
   updateNetworkInspector(result,calculation.pump);
   drawActiveView(result);
   renderPumpComparison(calculation);
@@ -1187,13 +1572,32 @@ function dimension(ctx,x1,y1,x2,y2,color) {
 let pumpChartState;
 let pumpZoomed = false;
 
+function updatePumpZoomButton() {
+  $('pump-zoom').setAttribute('aria-pressed',String(pumpZoomed));
+  $('pump-zoom').textContent = pumpZoomed?'ดูช่วงกราฟทั้งหมด':'ซูมใกล้จุดเป้าหมาย';
+}
+
 function renderPumpComparison(calculation) {
-  if (!calculation) return;
-  const {target:result,pump,comparison} = calculation;
-  $('pump-select').value = pump.id;
-  const min = pump.points[0][0], max = pump.points.at(-1)[0];
-  const {point,minPressure,reason,upperFlow} = comparison;
+  const {target:result,pump,comparison,error,systemIssue,draft=false,missingPipeLengths=0} = calculation;
   const summary = $('pump-assessment');
+  const previewNote = $('pump-preview-note');
+  const preview = missingPipeLengths>0;
+  previewNote.hidden = !pump || !result || !draft;
+  previewNote.textContent = preview
+    ? 'รอระยะท่อตรงอีก '+missingPipeLengths+' ช่วง ค่าประมาณนี้คิดแรงเสียดทานของท่อตรงจากช่วงที่มีระยะแล้ว'
+    : 'กดคำนวณระบบเพื่ออัปเดตผลในผังและตาราง';
+  $('pump-figure').classList.toggle('is-preview',preview);
+  for (const id of ['pump-figure','pump-stats','pump-curve-details']) $(id).hidden = !pump;
+  $('pump-graph-empty').hidden = Boolean(pump);
+  if (!pump) {
+    pumpChartState = undefined;
+    for (const id of ['pump-zoom','pump-source','pump-scaling-note']) $(id).hidden = true;
+    summary.classList.add('caution');
+    summary.textContent = error;
+    return;
+  }
+  const min = pump.points[0][0], max = pump.points.at(-1)[0];
+  const {point,minPressure,reason,upperFlow} = comparison ?? {};
   const digits = pump.scaled || pump.id==='custom' ? 2 : 0;
   $('pump-speed').textContent = number(pump.frequency,Number.isInteger(pump.frequency)?0:2)+' Hz'+
     (Number.isFinite(pump.speed)?' / '+(pump.measuredSpeed?'':'≈ ')+number(pump.speed,0)+' rpm':'');
@@ -1202,15 +1606,25 @@ function renderPumpComparison(calculation) {
   $('pump-range').textContent = number(min,digits)+'–'+number(max,digits)+' L/min';
   $('pump-min').textContent = number(min,digits)+' L/min';
   $('pump-shutoff').textContent = pump.shutoff===null?'ไม่มีข้อมูล':number(pump.shutoff,1)+' m';
-  $('pump-target').textContent = number(result.flow)+' L/min @ '+number(result.hydraulicHead)+' m';
+  $('pump-target-label').textContent = preview ? 'จุดที่ระบบต้องการโดยประมาณ' : 'จุดที่ระบบต้องการ';
+  $('pump-target').textContent = result ? number(result.flow)+' L/min @ '+number(result.hydraulicHead)+' m' : 'รอข้อมูลระบบ';
   const range = !pump.scaled && pump.hasOperatingRange ? 'ช่วงเดินแนะนำ' : 'ช่วงที่ใช้เทียบกราฟ';
-  $('pump-intersection').textContent = point ? number(point.flow)+' L/min @ '+number(point.hydraulicHead)+' m' : 'ไม่มีใน'+range;
-  $('pump-nozzle').textContent = point ? number(minPressure,2)+' barG' : 'คำนวณไม่ได้ในช่วง';
+  $('pump-intersection-label').textContent = preview ? 'จุดตัดเบื้องต้น' : 'จุดตัดที่คำนวณได้';
+  $('pump-intersection').textContent = point ? number(point.flow)+' L/min @ '+number(point.hydraulicHead)+' m'
+    : result ? 'ไม่มีใน'+range : '—';
+  $('pump-nozzle').textContent = point ? number(minPressure,2)+' barG' : '—';
+  $('system-legend').hidden = !result;
+  $('system-legend-label').textContent = preview ? 'กราฟระบบเบื้องต้น' : 'กราฟระบบ';
+  $('target-legend').hidden = !result;
   $('intersection-legend').hidden = !point;
+  $('intersection-legend-label').textContent = preview ? 'จุดตัดเบื้องต้น' : 'จุดตัด';
+  $('pump-caption').textContent = pump.shutoff===null ? 'เส้นทึบแสดงช่วง Q ที่มีข้อมูลสำหรับเทียบกับระบบ'
+    : 'เส้นประสีน้ำเงินเชื่อมเฮดชัตออฟ (Q = 0) กับต้นกราฟ การหาจุดตัดใช้ช่วงเส้นทึบของปั๊ม';
   const atTarget = point && Math.abs(minPressure-result.input.pressure)<=.01;
   const adequate = point && minPressure>=result.input.pressure-.01;
-  summary.classList.toggle('caution',!adequate || !atTarget);
-  const output = reason==='static' ? 'เฮดใน'+range+'ต่ำกว่าความสูงสุทธิที่ต้องยกน้ำ'
+  summary.classList.toggle('caution',Boolean(systemIssue || (result && !atTarget)));
+  const output = !result ? (systemIssue ?? 'ตรวจข้อมูลระบบเพื่อแสดงจุดที่ต้องการ')
+    : reason==='static' ? 'เฮดใน'+range+'ต่ำกว่าความสูงสุทธิที่ต้องยกน้ำ'
     : reason==='belowMin' ? 'ไม่มีจุดตัดใน'+range+' อัตราการไหลที่ระบบรับได้ต่ำกว่า Q ขั้นต่ำของกราฟ'+
       (upperFlow===undefined?'':' (ได้ไม่เกินประมาณ '+number(upperFlow)+' L/min เมื่อใช้เฮดสูงสุดในช่วง)')
     : reason==='aboveMax' ? 'ไม่มีจุดตัดใน'+range+' ที่ขอบบนของช่วง ปั๊มยังให้เฮดสูงกว่าเฮดที่ระบบต้องการ'
@@ -1218,7 +1632,7 @@ function renderPumpComparison(calculation) {
     : adequate ? 'แรงดันต่ำสุดที่จุดตัดสูงกว่าเป้าหมาย '+number(minPressure-result.input.pressure)+' bar ที่ '+pump.frequency+' Hz'
     : 'แรงดันต่ำสุดที่จุดตัดต่ำกว่าเป้าหมาย '+number(result.input.pressure-minPressure)+' bar ที่ '+pump.frequency+' Hz';
   const headLimit = Math.max(...pump.points.map(([,head]) => head));
-  summary.textContent = !point && headLimit < result.hydraulicHead
+  summary.textContent = result && !point && headLimit < result.hydraulicHead
     ? output+'. เฮดสูงสุดในช่วง '+number(headLimit,1)+' m ต่ำกว่าเฮดเป้าหมาย '+number(result.hydraulicHead)+' m'
     : output;
   $('pump-source').hidden = !pump.source;
@@ -1237,12 +1651,27 @@ function renderPumpComparison(calculation) {
     [number(q,digits),number(h,pump.scaled?2:1),q===0?'ชัตออฟ':q===min?'จุดเริ่มช่วง':q===max?'จุดปลายช่วง':range]
       .forEach(value => cell(row,value));
   }
-  $('pump-zoom').hidden = max < Math.max(1,result.flow)*4;
-  if ($('pump-zoom').hidden) pumpZoomed = false;
-  $('pump-zoom').setAttribute('aria-pressed',String(pumpZoomed));
-  $('pump-zoom').textContent = pumpZoomed?'ดูช่วงกราฟทั้งหมด':'ซูมใกล้จุดเป้าหมาย';
-  pumpChartState = {result,pump,comparison,min,max,range};
+  $('pump-zoom').hidden = !result || max < Math.max(1,result.flow)*4;
+  if ($('pump-zoom').hidden || pumpChartState?.pump.id!==pump.id) pumpZoomed = false;
+  updatePumpZoomButton();
+  pumpChartState = {result,pump,comparison,min,max,range,preview};
   drawPumpChart();
+}
+
+function renderDraftPumpComparison() {
+  const settings = readPumpSettings();
+  if (!settings.pump) {
+    renderPumpComparison(settings);
+    return;
+  }
+  const entered = readInputs({allowMissingPipeLengths:true});
+  if (entered.error) {
+    renderPumpComparison({...settings,systemIssue:entered.error});
+    return;
+  }
+  const target = solveSystem(entered.values);
+  const comparison = comparePump(target,settings.pump);
+  renderPumpComparison({...settings,target,comparison,draft:true,missingPipeLengths:entered.missingPipeLengths});
 }
 
 function chartStep(value) {
@@ -1251,19 +1680,21 @@ function chartStep(value) {
 }
 
 function drawPumpChart() {
-  if (!pumpChartState) return;
+  if (!pumpChartState || !$('pump-section').open) return;
   const canvas = $('pump-canvas');
   const surface = canvasContext(canvas);
   if (!surface) return;
   const {ctx,width,height} = surface;
-  const {result,pump,comparison,min,max,range} = pumpChartState;
-  const {model,input} = result;
-  const plot = {left:width<420?50:58,right:width-15,top:26,bottom:height-42};
-  const flowWanted = pumpZoomed ? Math.max(1,result.flow*1.8) : Math.max(max,result.flow);
+  const {result,pump,comparison,min,max,range,preview} = pumpChartState;
+  const targetFlow = result?.flow ?? 0;
+  const plot = {left:width<420?48:58,right:width-24,top:26,bottom:height-42};
+  const fieldPoint = activeDuty(pump);
+  $('measured-legend').hidden = !fieldPoint;
+  const flowWanted = pumpZoomed ? Math.max(1,targetFlow*1.8,fieldPoint?.flow??0) : Math.max(max,targetFlow,fieldPoint?.flow??0);
   const xStep = chartStep(flowWanted/(width<420?4:6));
   const xMax = Math.ceil(flowWanted/xStep)*xStep;
-  const headLow = Math.min(0,model.firstElevation-input.tankZ);
-  const headHigh = Math.max(pump.shutoff??0,result.hydraulicHead,1,...pump.points.map(([,head]) => head));
+  const headLow = result ? Math.min(0,result.model.firstElevation-result.input.tankZ) : 0;
+  const headHigh = Math.max(fieldPoint?.head??0,pump.shutoff??0,result?.hydraulicHead??0,1,...pump.points.map(([,head]) => head));
   const yStep = chartStep((headHigh-headLow)/6);
   const yMin = Math.floor(headLow/yStep)*yStep;
   const yMax = Math.ceil(headHigh/yStep)*yStep;
@@ -1278,12 +1709,12 @@ function drawPumpChart() {
   for (let i=0;i<=Math.round(xMax/xStep);i++) {
     const flow = i*xStep;
     line(ctx,x(flow),plot.top,x(flow),plot.bottom,diagramColors.grid);
-    label(ctx,number(flow,labelDigits(xStep)),x(flow),plot.bottom+13,{align:'center',size:10,color:diagramColors.muted});
+    label(ctx,number(flow,labelDigits(xStep)),x(flow),plot.bottom+15,{align:'center',size:11,color:diagramColors.muted});
   }
   for (let i=0;i<=Math.round((yMax-yMin)/yStep);i++) {
     const head = yMin+i*yStep;
     line(ctx,plot.left,y(head),plot.right,y(head),diagramColors.grid);
-    label(ctx,number(head,labelDigits(yStep)),plot.left-8,y(head),{align:'right',size:10,color:diagramColors.muted});
+    label(ctx,number(head,labelDigits(yStep)),plot.left-8,y(head)+4,{align:'right',size:11,color:diagramColors.muted});
   }
   line(ctx,plot.left,plot.top,plot.left,plot.bottom,diagramColors.pipe);
   line(ctx,plot.left,plot.bottom,plot.right,plot.bottom,diagramColors.pipe);
@@ -1306,31 +1737,43 @@ function drawPumpChart() {
     ctx.stroke();
     ctx.setLineDash([]);
   };
-  const splitStart = model.firstElevation;
-  const splitUpper = Math.max(splitStart,yMax+input.tankZ);
-  const splitEnd = bisectIncreasing(splitStart,splitUpper,split => {
-    const network = model.atSplit(split);
-    return network.flow>=xMax || network.hydraulicHead>=yMax;
-  });
-  const systemPoints = Array.from({length:49},(_,i) => {
-    const sample = model.atSplit(splitStart+(splitEnd-splitStart)*i/48);
-    return [sample.flow,sample.hydraulicHead];
-  });
-  systemPoints.push([result.flow,result.hydraulicHead]);
-  systemPoints.sort((a,b) => a[0]-b[0]);
-  drawCurve(systemPoints,diagramColors.lower);
+  if (result) {
+    const {model,input} = result;
+    const splitStart = model.firstElevation;
+    const splitUpper = Math.max(splitStart,yMax+input.tankZ);
+    const splitEnd = bisectIncreasing(splitStart,splitUpper,split => {
+      const network = model.atSplit(split);
+      return network.flow>=xMax || network.hydraulicHead>=yMax;
+    });
+    const systemPoints = Array.from({length:49},(_,i) => {
+      const sample = model.atSplit(splitStart+(splitEnd-splitStart)*i/48);
+      return [sample.flow,sample.hydraulicHead];
+    });
+    systemPoints.push([result.flow,result.hydraulicHead]);
+    systemPoints.sort((a,b) => a[0]-b[0]);
+    drawCurve(systemPoints,diagramColors.lower,preview?[5,4]:[]);
+  }
   if (pump.shutoff!==null) drawCurve([[0,pump.shutoff],pump.points[0]],'#7195b8',[5,4]);
   drawCurve(pump.points,diagramColors.upper);
   for (const [flow,head] of pump.points) {
-    if (flow<xMax) dot(ctx,x(flow),y(head),2.2,'#fff',diagramColors.upper);
+    if (flow<=xMax) dot(ctx,x(flow),y(head),2.2,'#fff',diagramColors.upper);
   }
-  dot(ctx,x(result.flow),y(result.hydraulicHead),5,'#fff','#9b570e');
-  if (comparison.point) dot(ctx,x(comparison.point.flow),y(comparison.point.hydraulicHead),4.5,diagramColors.lower,'#fff');
+  if (result) dot(ctx,x(result.flow),y(result.hydraulicHead),5,'#fff','#9b570e');
+  if (comparison?.point) dot(ctx,x(comparison.point.flow),y(comparison.point.hydraulicHead),4.5,diagramColors.lower,'#fff');
+  if (fieldPoint) {
+    ctx.save();
+    ctx.translate(x(fieldPoint.flow),y(fieldPoint.head));
+    ctx.rotate(Math.PI/4);
+    ctx.fillStyle='#863d91';
+    ctx.fillRect(-4,-4,8,8);
+    ctx.restore();
+  }
   ctx.restore();
 
+  const target = result ? ' '+$('pump-target-label').textContent+' '+number(result.flow)+' ลิตรต่อนาที ที่เฮด '+number(result.hydraulicHead)+' เมตร' : '';
   canvas.setAttribute('aria-label','กราฟ '+pump.name+' '+pump.frequency+' เฮิรตซ์ '+range+' '+
-    number(min)+' ถึง '+number(max)+' ลิตรต่อนาที จุดที่ระบบต้องการ '+number(result.flow)+' ลิตรต่อนาที ที่เฮด '+
-    number(result.hydraulicHead)+' เมตร '+$('pump-assessment').textContent);
+    number(min)+' ถึง '+number(max)+' ลิตรต่อนาที'+target+' '+$('pump-assessment').textContent+
+    (fieldPoint?' จุดวัดจริง '+number(fieldPoint.flow)+' L/min ที่ '+number(fieldPoint.head)+' m':''));
 }
 
 let networkItems = new Map();
@@ -1339,78 +1782,115 @@ let networkSegments = [];
 const pointButtons = new Map();
 
 function updateNetworkInspector(result,pump) {
-  const {input,fluid,branches,flow,suction,common,commonLoss,limiting,hydraulicHead,outletBar,splitHead} = result;
-  const flowText = q => number(q,3)+' L/min';
-  const headText = h => number(h,3)+' m';
-  const lossBar = h => number(h*fluid.headToBar,5)+' bar';
+  const input = result?.input ?? {};
+  const get = key => result ? input[key] : controls.get(key).valueAsNumber;
+  const shown = (value,digits,unit) => Number.isFinite(value) ? number(value,digits)+(unit?' '+unit:'') : '—';
+  const flowText = q => shown(q,3,'L/min');
+  const headText = h => shown(h,3,'m');
+  const lossBar = h => shown(h*(result?.fluid.headToBar ?? 0),5,'bar');
   const items = [];
-  const add = (id,title,group,values,note) => items.push({id,title,group,values,note});
+  const add = (id,title,group,values,note,edit) => items.push({id,title,group,values,note,edit});
   const equipment = 'อุปกรณ์';
-  const piping = 'ช่วงท่อ';
-  const addPipe = (id,pipe,title=pipe.name) => add(id,title,piping,[
-    ['อัตราการไหลผ่านท่อ',flowText(pipe.flow)],
-    ['แรงดันสูญเสีย ΔP',lossBar(pipe.loss)],
-    ['เส้นผ่านศูนย์กลางภายใน',number(pipe.id,2)+' mm'],
-    ['ความยาว',headText(pipe.length)],
-    ['ความเร็วเฉลี่ยในท่อ',number(pipe.velocity,3)+' m/s'],
-    ['Reynolds number',number(pipe.re,0)],
-    ['ตัวประกอบแรงเสียดทาน f',number(pipe.friction,4)],
-    ['ค่าสูญเสียข้อต่อ K',number(pipe.k,2)],
-    ['Loss ท่อตรง / ข้อต่อ',number(pipe.straight,5)+' / '+number(pipe.fitting,5)+' m']
-  ],'ΔP ของช่วงนี้รวมแรงเสียดทานในท่อและข้อต่อ');
+  const shared = 'ทางดูดและท่อร่วม';
+  const branches = result?.branches ?? [];
+  const rows = result ? [result.suction,...result.common,...branches.flatMap(branch => branch.segments)] : [];
+  const rowsByPart = new Map(rows.map(row => [row.part.id,row]));
+  const addPipe = (part,group) => {
+    const row = rowsByPart.get(part.id);
+    const values = [
+      ['อัตราการไหลผ่านช่วงนี้',flowText(row?.flow)],
+      ['แรงดันสูญเสีย ΔP',lossBar(row?.loss)],
+      ['เฮดสูญเสีย',shown(row?.loss,5,'m')],
+      ['ID ที่ใช้คิดความเร็ว',shown(get(part.diameter),2,'mm')],
+      ['ความเร็วเฉลี่ย',shown(row?.velocity,3,'m/s')]
+    ];
+    if (part.length) {
+      const inRail = part.kind==='rail';
+      values.push(['ความยาวท่อตรง',shown(get(part.length),inRail?0:3,inRail?'mm':'m')],
+        ['Reynolds number',shown(row?.re,0,'')],['ตัวประกอบแรงเสียดทาน f',shown(row?.friction,4,'')]);
+    }
+    if (part.coefficient) values.push(['ค่าสูญเสีย K',shown(get(part.coefficient),2,'')]);
+    if (part.radius) {
+      const radius = get(part.radius);
+      values.push(['รัศมีแนวกลาง R',shown(radius,1,'mm')],
+        ['ความยาวแนวโค้ง 90°',shown(Number.isFinite(radius)?Math.PI*radius/2:NaN,1,'mm')]);
+    }
+    if (part.face) values.push(['ระยะตัวข้อต่อ',shown(get(part.face),1,'mm')]);
+    const note = !result ? 'กรอกข้อมูลแล้วกดคำนวณระบบเพื่อดูค่า Q และ ΔP'
+      : part===suctionPart ? 'รวมแรงเสียดทานในท่อดูดและ K ทางเข้าในถัง'
+      : part.kind==='rail' ? 'Q ในช่วงนี้เป็นผลรวมของหัวที่รับน้ำต่อจากช่วงนี้'
+      : part.length ? 'คำนวณแรงเสียดทานของท่อตรงด้วย Darcy–Weisbach'
+      : 'คำนวณ Loss จาก K และความเร็วด้านออกของข้อต่อ';
+    add(part.id,part.title,group,values,note,part.length ?? part.coefficient);
+  };
 
   add('tank','ถังเปิด',equipment,[
-    ['ระดับผิวน้ำต่ำสุดเทียบปั๊ม',headText(input.tankZ)],
+    ['ระดับผิวน้ำต่ำสุดเทียบปั๊ม',headText(get('tankZ'))],
     ['แรงดันที่ผิวน้ำ','0 barG'],
-    ['อัตราการไหลออกจากถัง',flowText(flow)],
-    ['อุณหภูมิน้ำ',number(input.temperature,1)+' °C'],
-    ['ความหนาแน่นน้ำ',number(fluid.density,1)+' kg/m³'],
-    ['แรงดันสูญเสียท่อดูด',lossBar(suction.loss)]
-  ],'ระดับผิวน้ำต่ำสุดเป็นระดับอ้างอิงสำหรับคำนวณความสูงสุทธิถึงหัวฉีด');
+    ['อัตราการไหลออกจากถัง',flowText(result?.flow)],
+    ['อุณหภูมิน้ำ',shown(get('temperature'),1,'°C')],
+    ['ความหนาแน่นน้ำ',shown(result?.fluid.density,1,'kg/m³')],
+    ['แรงดันสูญเสียท่อดูด',lossBar(result?.suction.loss)]
+  ],'ระดับผิวน้ำต่ำสุดเป็นระดับอ้างอิงสำหรับคำนวณความสูงสุทธิถึงหัวฉีด','tankZ');
   add('pump','ปั๊ม',equipment,[
-    [result.operating?'อัตราการไหลที่คาด':'อัตราการไหลที่ระบบต้องการ',flowText(flow)],
-    [result.operating?'เฮดที่จุดทำงาน':'เฮดที่ระบบต้องการ',headText(hydraulicHead)],
-    ['เกจทางจ่ายโดยประมาณ',number(outletBar,3)+' barG'],
-    ['เกจทางดูดโดยประมาณ',number((input.tankZ-suction.loss)*fluid.headToBar,3)+' barG'],
-    ['กำลังที่ส่งให้น้ำ',number(fluid.density*GRAVITY*flow/LPM_PER_M3S*Math.max(0,hydraulicHead),1)+' W'],
-    ['รุ่นและความถี่ที่ใช้เทียบ',pump.name+' · '+pump.frequency+' Hz']
-  ],hydraulicHead>0
-    ? result.operating?'ค่าที่คาดจากจุดตัดของกราฟปั๊มและกราฟระบบ':'ค่าที่จุดเป้าหมายของระบบ ใช้กราฟ H–Q ด้านล่างดูจุดทำงานของรุ่นปั๊ม'
-    : 'เฮดสุทธิไม่เกิน 0 m ที่อัตราการไหลเป้าหมาย');
-  add('tee','จุดแยกบน–ล่าง',equipment,[
-    ['อัตราการไหลเข้าจุดแยก',flowText(flow)],
-    ...branches.map(branch => ['อัตราการไหล '+branch.side.name,flowText(branch.flow)]),
-    ['เฮดแรงดันรวมระดับที่จุดแยก',headText(splitHead)]
-  ],'เฮดที่จุดแยกอ้างอิงระดับปั๊มและใช้ร่วมกันสำหรับกิ่งบนและล่าง');
-  addPipe('suction',suction);
-  common.forEach((pipe,index) => addPipe('common-'+index,pipe));
-  for (const branch of branches) {
-    const {side,z,nozzles,segments} = branch;
-    let cumulative = suction.loss+commonLoss+segments[0].loss;
-    addPipe(side.id+'-feed',segments[0],'ท่อเข้าราง'+side.name);
-    nozzles.forEach((nozzle,index) => {
-      const segment = segments[index+1];
-      cumulative += segment.loss;
-      addPipe(side.id+'-rail-'+index,segment,side.name+' · '+segment.name);
-      const critical = branch===limiting && index===nozzles.length-1;
-      add('nozzle-'+nozzle.code,'หัวฉีด '+nozzle.code,side.name,[
-        ['แรงดันที่หัวฉีด',number(nozzle.pressure,4)+' barG'],
-        ['อัตราการไหลออกจากหัว',flowText(nozzle.flow)],
-        ['Q เทียบที่ 3 barG',flowText(nozzle.flowAt3)],
-        ['ตำแหน่งจากต้นราง',number(nozzle.position,0)+' mm'],
-        ['ความสูงจากผิวน้ำต่ำสุด',headText(z-input.tankZ)],
+    [result?.operating?'อัตราการไหลที่คาด':'อัตราการไหลที่ระบบต้องการ',flowText(result?.flow)],
+    [result?.operating?'เฮดที่จุดทำงาน':'เฮดที่ระบบต้องการ',headText(result?.hydraulicHead)],
+    ['เกจทางจ่ายโดยประมาณ',shown(result?.outletBar,3,'barG')],
+    ['เกจทางดูดโดยประมาณ',shown(result ? (input.tankZ-result.suction.loss)*result.fluid.headToBar : NaN,3,'barG')],
+    ['กำลังที่ส่งให้น้ำ',shown(result ? result.fluid.density*GRAVITY*result.flow/LPM_PER_M3S*Math.max(0,result.hydraulicHead) : NaN,1,'W')],
+    ['รุ่นและความถี่ที่ใช้เทียบ',pump ? pump.name+' · '+pump.frequency+' Hz' : $('pump-model').selectedOptions[0].textContent]
+  ],result?.operating ? 'ค่าที่คาดจากจุดตัดของกราฟปั๊มกับกราฟระบบ'
+    : 'ใช้กราฟ H–Q หลังคำนวณเพื่อเทียบจุดที่ต้องการกับปั๊มที่เลือก','pump-model');
+  const layouts = branchLayouts.filter(({side}) => result ?
+    input[side.id+'Count']>0 : activeHeadCount(side)>0);
+  add('tee','สามทางแยกบน–ล่าง',equipment,[
+    ['อัตราการไหลเข้าจุดแยก',flowText(result?.flow)],
+    ...layouts.flatMap(({side,tee}) => [
+      ['Q '+side.name,flowText(rowsByPart.get(tee.id)?.flow)],
+      ['K / ΔP '+side.name,shown(get(tee.coefficient),2,'')+' / '+lossBar(rowsByPart.get(tee.id)?.loss)]
+    ]),
+    ['เฮดแรงดันรวมระดับที่จุดแยก',headText(result?.splitHead)]
+  ],'สามทาง 1 ตัว แต่ละทางออกใช้ค่า K และอัตราการไหลของกิ่งนั้น',layouts[0]?.tee.coefficient);
+  [suctionPart,...commonParts].forEach(part => addPipe(part,shared));
+  for (const {side,tee,feed,rail,gaps} of layouts) {
+    const branch = branches.find(item => item.side===side);
+    const count = result ? input[side.id+'Count'] : activeHeadCount(side);
+    let cumulative = result ? result.suction.loss+result.commonLoss+branch.feedSegments.reduce((sum,row) => sum+row.loss,0) : NaN;
+    let position = 0;
+    [tee,...feed].forEach(part => addPipe(part,side.name));
+    add(rail.id,rail.title,side.name,[
+      ['ความยาวราง',headText(get(rail.length))],
+      ['ขนาดภายในราง',shown(get(rail.diameter),2,'mm')],
+      ['อัตราการไหลเข้าราง',flowText(branch?.flow)],
+      ['เฮดสูญเสียรวมในราง',shown(branch?.railSegments.reduce((sum,row) => sum+row.loss,0),5,'m')],
+      ['จำนวนหัว',count+' หัว']
+    ],'หลังหัวสุดท้ายเป็นปลายรางปิด จึงไม่มีอัตราการไหลผ่านช่วงปลายนั้น',rail.length);
+    gaps.slice(0,count).forEach((gap,index) => {
+      const nozzle = branch?.nozzles[index];
+      position += get(gap.length);
+      if (nozzle) cumulative += branch.railSegments[index].loss;
+      addPipe(gap,side.name);
+      const critical = result && branch===result.limiting && index===count-1;
+      add('nozzle-'+gap.code,'หัวฉีด '+gap.code,side.name,[
+        ['แรงดันที่หัวฉีด',shown(nozzle?.pressure,4,'barG')],
+        ['อัตราการไหลออกจากหัว',flowText(nozzle?.flow)],
+        ['Q เทียบที่ 3 barG',flowText(nozzle?.flowAt3)],
+        ['ตำแหน่งจากต้นราง',shown(position,1,'mm')],
+        ['ความสูงจากผิวน้ำต่ำสุด',headText(get(side.id+'Z')-get('tankZ'))],
         ['แรงดันสูญเสียสะสม',lossBar(cumulative)]
-      ],(critical?'หัวปลายรางที่กำหนดเฮดของระบบ · ':'')+'พิกัดที่ 3 barG '+(nozzle.measured?'ใช้ผลวัดจริงที่กรอก':'ใช้ค่าอ้างอิง'));
+      ],nozzle ? (critical?'หัวที่กำหนดเฮดของระบบ · ':'')+'พิกัดที่ 3 barG '+
+        (nozzle.measured?'ใช้ผลวัดจริงที่กรอก':'ใช้ค่าอ้างอิง') : 'ตั้งระยะจากหัวก่อนหน้าหรือจากต้นราง แล้วกดคำนวณระบบ',gap.length);
     });
   }
 
   networkItems = new Map(items.map(item => [item.id,item]));
   if (!networkItems.has(selectedNetworkItem)) {
-    selectedNetworkItem = 'nozzle-'+branches[0].nozzles[0].code;
+    selectedNetworkItem = result && branches.length ? 'nozzle-'+branches[0].nozzles[0].code
+      : layouts[0]?.feed[0].id ?? 'pump';
   }
   const select = $('network-select');
   select.replaceChildren();
-  for (const label of [...branches.map(b => b.side.name),equipment,piping]) {
+  for (const label of [equipment,shared,...layouts.map(({side}) => side.name)]) {
     const group = document.createElement('optgroup');
     group.label = label;
     for (const item of items.filter(item => item.group===label)) {
@@ -1428,9 +1908,15 @@ function renderNetworkSelection(announce=false) {
   const item = networkItems.get(selectedNetworkItem);
   if (!item) return;
   $('network-select').value = item.id;
-  $('inspection-title').textContent = item.title;
+  $('inspection-title').textContent = item.group.startsWith('ชุด') && !item.title.includes(item.group)
+    ? item.group+' · '+item.title : item.title;
   $('inspection-note').textContent = item.note;
-  $('inspection-pump-link').hidden = item.id!=='pump';
+  const link = $('inspection-edit-link');
+  link.hidden = !item.edit;
+  if (item.edit) {
+    link.href = '#'+item.edit;
+    link.textContent = item.id==='pump' ? 'แก้รุ่นและรอบปั๊ม' : item.id.startsWith('nozzle-') ? 'แก้ระยะถึงหัวนี้' : 'แก้ข้อมูลช่วงนี้';
+  }
   const list = $('inspection-values');
   list.replaceChildren();
   for (const [label,value] of item.values) {
@@ -1473,8 +1959,9 @@ function positionNetworkButtons(points) {
       $('network-points').append(button);
       pointButtons.set(id,button);
     }
-    const name = networkItems.get(id).title;
-    button.setAttribute('aria-label','ดูข้อมูล '+name);
+    const {title,group} = networkItems.get(id);
+    button.title = group.startsWith('ชุด') && !title.includes(group) ? group+' · '+title : title;
+    button.setAttribute('aria-label','ดูข้อมูล '+button.title);
     button.setAttribute('aria-pressed',String(id===selectedNetworkItem));
     Object.assign(button.style,{left:x+'px',top:y+'px',width:w+'px',height:h+'px'});
   }
@@ -1516,15 +2003,16 @@ function drawNetwork(result) {
   const surface = canvasContext(canvas);
   if (!surface) return;
   const {ctx,width,height} = surface;
-  const {input,flow,branches} = result;
-  const compact = width < 430;
+  const input = result?.input;
+  const compact = width < 500;
   const centerY = height/2;
-  const tankX = compact ? 14 : 27;
-  const tankW = compact ? 41 : 66;
-  const pumpX = width*(compact ? .29 : .26);
-  const teeX = width*(compact ? .405 : .41);
-  const railStart = width*(compact ? .465 : .47);
-  const railEnd = width-24;
+  const tankW = compact ? 38 : 54;
+  const tankX = width-tankW-22;
+  const pumpX = width*.67;
+  const teeX = 22;
+  const reducerX = (teeX+pumpX)/2;
+  const railStart = width-24;
+  const railEnd = teeX;
   const points = [];
   networkSegments = [];
   const pipeLine = (id,x1,y1,x2,y2,color) => {
@@ -1534,69 +2022,111 @@ function drawNetwork(result) {
   };
   const point = (id,x,y,w,h) => {
     points.push({id,x,y,w,h});
-    if (id===selectedNetworkItem) dot(ctx,x,y,Math.min(w,h)/2-2,'#e3f2ff','#3679b5');
   };
   grid(ctx,width,height);
 
-  point('tank',tankX+tankW/2,centerY-7,tankW+8,52);
-  point('pump',pumpX,centerY,compact?35:43,40);
-  point('tee',teeX,centerY,compact?23:35,34);
-  line(ctx,tankX,centerY-29,tankX,centerY+17,diagramColors.pipe,2);
-  line(ctx,tankX+tankW,centerY-29,tankX+tankW,centerY+17,diagramColors.pipe,2);
-  line(ctx,tankX,centerY+17,tankX+tankW,centerY+17,diagramColors.pipe,2);
+  point('tank',tankX+tankW/2,centerY-5,tankW+8,48);
+  point('pump',pumpX,centerY,38,38);
+  point('tee',teeX,centerY,32,32);
+  point('reducer',reducerX,centerY,33,34);
+  pipeLine('suction',pumpX+14,centerY,tankX,centerY,diagramColors.pipe);
+  pipeLine(beforeReducer.id,reducerX,centerY,pumpX-14,centerY,diagramColors.pipe);
+  pipeLine(afterReducer.id,teeX,centerY,reducerX,centerY,diagramColors.pipe);
+  line(ctx,tankX,centerY-23,tankX,centerY+14,diagramColors.pipe,2);
+  line(ctx,tankX+tankW,centerY-23,tankX+tankW,centerY+14,diagramColors.pipe,2);
+  line(ctx,tankX,centerY+14,tankX+tankW,centerY+14,diagramColors.pipe,2);
   ctx.fillStyle='#d1e8ff';
-  ctx.fillRect(tankX+1,centerY-14,tankW-2,30);
+  ctx.fillRect(tankX+1,centerY-14,tankW-2,27);
   line(ctx,tankX+1,centerY-14,tankX+tankW-1,centerY-14,diagramColors.upper,1.3);
-  pipeLine('suction',tankX+tankW,centerY,pumpX-14,centerY,diagramColors.pipe);
-  const sharedSpan = teeX-(pumpX+14);
-  const sections = Math.max(1,result.common.length);
-  for (let i=0;i<sections;i++) {
-    const left = pumpX+14+sharedSpan*i/sections;
-    pipeLine('common-'+i,left,centerY,left+sharedSpan/sections,centerY,diagramColors.pipe);
-  }
-  dot(ctx,pumpX,centerY,14,'#fff',diagramColors.upper);
-  ctx.beginPath();ctx.moveTo(pumpX-4,centerY-5);ctx.lineTo(pumpX+6,centerY);
-  ctx.lineTo(pumpX-4,centerY+5);ctx.closePath();ctx.fillStyle=diagramColors.upper;ctx.fill();
-  arrow(ctx,teeX-8,centerY,0,diagramColors.ink);
-  dot(ctx,teeX,centerY,3,diagramColors.ink);
-  label(ctx,'ถังเปิด',tankX+tankW/2,centerY+33,{align:'center'});
-  label(ctx,'ปั๊ม',pumpX,centerY+32,{align:'center'});
-  label(ctx,number(flow)+' L/min',pumpX,centerY-29,{align:'center',size:compact?11:13,color:diagramColors.upper,weight:750});
-  label(ctx,'ผิวน้ำ '+number(input.tankZ)+' m',tankX,centerY+51,{size:compact?10:11,color:diagramColors.muted});
+  dot(ctx,pumpX,centerY,14,selectedNetworkItem==='pump'?'#dbeeff':'#fff',diagramColors.upper);
+  ctx.beginPath();
+  ctx.moveTo(pumpX+4,centerY-5);
+  ctx.lineTo(pumpX-6,centerY);
+  ctx.lineTo(pumpX+4,centerY+5);
+  ctx.closePath();
+  ctx.fillStyle=diagramColors.upper;
+  ctx.fill();
+  ctx.fillStyle=selectedNetworkItem==='reducer'?'#dbeeff':'#fff';
+  ctx.fillRect(reducerX-8,centerY-7,16,14);
+  line(ctx,reducerX-8,centerY-3,reducerX+8,centerY-7,diagramColors.pipe,1.5);
+  line(ctx,reducerX-8,centerY+3,reducerX+8,centerY+7,diagramColors.pipe,1.5);
+  arrow(ctx,teeX+38,centerY,Math.PI,diagramColors.ink);
+  label(ctx,'ถังเปิด',tankX+tankW/2,centerY+31,{align:'center'});
+  label(ctx,'ปั๊ม',pumpX,centerY+30,{align:'center'});
+  label(ctx,'ข้อลด',reducerX,centerY+30,{align:'center',size:11});
+  label(ctx,'สามทาง',teeX+16,centerY+20,{align:'left',size:11});
+  if (result) label(ctx,number(result.flow)+' L/min',pumpX,centerY-25,
+    {align:'center',size:compact?11:13,color:diagramColors.upper,weight:750});
+  if (selectedNetworkItem==='tank') dot(ctx,tankX+tankW/2,centerY-3,6,'#eff8ff',diagramColors.upper);
 
-  for (const branch of branches) {
-    const isTop = branch.side.id === 'upper';
-    const railY = isTop ? 72 : height-72;
+  for (const {side,feed,rail,gaps,tee} of branchLayouts) {
+    const count = input ? input[side.id+'Count'] : activeHeadCount(side);
+    if (!count) continue;
+    const branch = result?.branches.find(item => item.side===side);
+    const isTop = side.id==='upper';
+    const dy = isTop ? 1 : -1;
+    const railY = isTop ? 52 : height-52;
+    const feedY = centerY-dy*61;
     const color = isTop ? diagramColors.upper : diagramColors.lower;
-    const last = branch.nozzles.at(-1);
-    pipeLine(branch.side.id+'-feed',teeX,centerY,teeX,railY,color);
-    pipeLine(branch.side.id+'-feed',teeX,railY,railStart,railY,color);
-    label(ctx,branch.side.name + '  ' + number(branch.flow)+' L/min',railStart,railY+(isTop?-35:20),{color,size:compact?12:14,weight:750});
-    label(ctx,'ปลายราง '+number(last.pressure,3)+' barG',railStart,railY+(isTop?-17:38),{color:diagramColors.muted,size:compact?10:12});
-    const left = railStart+11, right = railEnd-6;
-    const spacing = (right-left)/Math.max(1,branch.nozzles.length-1);
-    let previous = railStart;
-    branch.nozzles.forEach((nozzle,i) => {
-      const x = branch.nozzles.length === 1 ? (left+right)/2 : left+(right-left)*i/(branch.nozzles.length-1);
-      const dy = isTop ? 1 : -1;
-      pipeLine(branch.side.id+'-rail-'+i,previous,railY,x,railY,color);
+    pipeLine(tee.id,teeX,centerY,teeX,feedY,color);
+    const run = (railStart-teeX)/feed.length;
+    feed.forEach((part,i) => {
+      const left = teeX+i*run;
+      const x = left+run/2;
+      const isElbow = part.kind==='elbow';
+      pipeLine(part.id,left,feedY,left+run,feedY,color);
+      point(part.id,x,feedY,Math.min(run-3,42),36);
+      const highlighted = selectedNetworkItem===part.id;
+      ctx.fillStyle = highlighted?'#dbeeff':'#fff';
+      ctx.strokeStyle = color;
+      ctx.lineWidth = highlighted?2:1;
+      ctx.beginPath();
+      ctx.roundRect(x-(isElbow?18:14),feedY-11,isElbow?36:28,22,isElbow?8:3);
+      ctx.fill();
+      ctx.stroke();
+      if (isElbow) {
+        line(ctx,x-12,feedY-4,x-6,feedY-4,color,1.5);
+        line(ctx,x-6,feedY-4,x-6,feedY+4,color,1.5);
+      }
+      label(ctx,part.mark,x+(isElbow?6:0),feedY+4,{align:'center',size:11,color,weight:750});
+    });
+    pipeLine(feed.at(-1).id,railStart,feedY,railStart,railY,color);
+    arrow(ctx,Math.min(railStart-10,teeX+run),feedY,0,color);
+    const summary = side.name+(branch ? '   '+number(branch.flow)+' L/min' : '');
+    const summaryY = railY-dy*25+(isTop?0:4);
+    label(ctx,summary,teeX,summaryY,{color,size:compact?12:14,weight:750});
+    if (branch) label(ctx,'ปลายราง '+number(branch.nozzles.at(-1).pressure,3)+' barG',railStart,summaryY,
+      {align:'right',color:diagramColors.muted,size:compact?10:12});
+    point(rail.id,teeX+42,summaryY-4,84,24);
+    const railLength = (input ? input[rail.length] : controls.get(rail.length).valueAsNumber)*1000;
+    const span = railStart-railEnd;
+    const reserved = Math.min(25,.65*span/(count+1));
+    let previous = railStart, position = 0;
+    gaps.slice(0,count).forEach((gap,i) => {
+      position += input ? input[gap.length] : controls.get(gap.length).valueAsNumber;
+      const proportional = position>=0 && railLength>0 ? Math.min(1,position/railLength) : (i+1)/(count+1);
+      const x = Math.min(previous-2,railStart-reserved*(i+1)-(span-reserved*(count+1))*proportional);
+      pipeLine(gap.id,previous,railY,x,railY,color);
       previous = x;
       line(ctx,x,railY,x,railY+dy*8,color,2);
-      const id = 'nozzle-'+nozzle.code;
-      points.push({id,x,y:railY+dy*16,w:Math.min(40,spacing),h:26});
+      const id = 'nozzle-'+gap.code;
+      point(id,x,railY+dy*16,Math.min(36,reserved),27);
       if (id===selectedNetworkItem) dot(ctx,x,railY+dy*9,8,'#e3f2ff',color);
-      const critical = branch === result.limiting && i === branch.nozzles.length-1;
+      const critical = branch && branch===result.limiting && i===count-1;
       dot(ctx,x,railY+dy*9,3.5,critical?color:'#fff',color);
-      if (branch.nozzles.length <= (compact?6:9) || i===0 || i===branch.nozzles.length-1) {
-        label(ctx,nozzle.code,x,railY+dy*20,{align:'center',size:compact?9:10,color});
+      if (reserved>=18 || i===0 || i===count-1 || i%2===0) {
+        label(ctx,gap.code,x,railY+dy*23,{align:'center',size:compact?9:10,color});
       }
     });
-    line(ctx,previous,railY,railEnd,railY,color,3);
-    arrow(ctx,railStart,railY,0,color);
+    pipeLine(rail.id,previous,railY,railEnd,railY,color);
+    line(ctx,railEnd,railY-4,railEnd,railY+4,color,2);
+    arrow(ctx,railStart-7,railY,Math.PI,color);
   }
+  dot(ctx,teeX,centerY,selectedNetworkItem==='tee'?6:4,selectedNetworkItem==='tee'?'#ccE6ff':diagramColors.ink,diagramColors.ink);
   positionNetworkButtons(points);
-  canvas.setAttribute('aria-label','ถังเปิด → ปั๊ม '+number(flow)+' ลิตรต่อนาที → '+branches.map(b =>
-    b.side.name+' '+number(b.flow)+' ลิตรต่อนาที แรงดันปลายราง '+number(b.nozzles.at(-1).pressure,3)+' บาร์เกจ').join(' และ '));
+  canvas.setAttribute('aria-label',result ? 'ถังเปิด → ปั๊ม '+number(result.flow)+' ลิตรต่อนาที → '+result.branches.map(b =>
+    b.side.name+' '+number(b.flow)+' ลิตรต่อนาที แรงดันปลายราง '+number(b.nozzles.at(-1).pressure,3)+' บาร์เกจ').join(' และ ')
+    : 'ถังเปิด → ปั๊ม → ข้อลด → สามทาง → ท่อตรงและข้องอบนและล่าง → หัวฉีด');
 }
 
 function drawSpray(result) {
@@ -1662,9 +2192,8 @@ let currentResult;
 let currentCalculation;
 let activeView = 'network';
 function drawActiveView(result) {
-  if (!result) return;
   if (activeView === 'network') drawNetwork(result);
-  else drawSpray(result);
+  else if (result) drawSpray(result);
 }
 
 function showView(name, focus = false) {
@@ -1699,25 +2228,70 @@ if ('ResizeObserver' in window) {
     drawPumpChart();
   });
 }
-$('pump-select').addEventListener('change',event => {
-  $('pump-model').value = event.target.value;
-  updatePumpFields();
-  pumpZoomed = false;
-  if ($('pump-model').value!=='custom' && $('pump-freshness').hidden) {
-    calculate(false);
-  } else {
-    $('pump-select').value = currentCalculation.pump.id;
-    $('pump-setup').open = true;
-    $('pump-model').focus();
-    setStatus('ตรวจข้อมูลปั๊มแล้วกดคำนวณระบบเพื่อใช้รุ่นที่เลือก','dirty');
-  }
-});
 $('pump-zoom').addEventListener('click',() => {
   pumpZoomed = !pumpZoomed;
-  renderPumpComparison(currentCalculation);
+  updatePumpZoomButton();
+  drawPumpChart();
 });
-$('inspection-pump-link').addEventListener('click',() => {
-  $('pump-setup').open = true;
+$('pump-section').addEventListener('toggle',() => {
+  if ($('pump-section').open) drawPumpChart();
+});
+$('pump-graph-link').addEventListener('click',() => {
+  $('pump-section').open=true;
+  $('pump-section').querySelector('summary').focus();
+});
+function focusInput(control) {
+  for (let parent=control.parentElement; parent; parent=parent.parentElement) {
+    if (parent.tagName==='DETAILS') parent.open = true;
+  }
+  control.focus();
+}
+
+$('inspection-edit-link').addEventListener('click',event => {
+  const item = networkItems.get(selectedNetworkItem);
+  if (!item?.edit) return;
+  event.preventDefault();
+  const control = $(item.edit);
+  if (control.disabled) {
+    const side = SIDES.find(side => item.group===side.name);
+    if (side) focusInput(controls.get(side.id+'Count'));
+  } else {
+    focusInput(control);
+  }
+});
+$('pump-edit-link').addEventListener('click',event => {
+  event.preventDefault();
+  focusInput($($('pump-model').value==='custom'?'pump-curve-input':'pump-run-hz'));
+});
+$('pump-model-link').addEventListener('click',event => {
+  event.preventDefault();
+  focusInput($('pump-model'));
+});
+function jumpToPipeEntry(event) {
+  event.preventDefault();
+  const setup = $('pipe-setup');
+  setup.open = true;
+  focusInput(updatePipeEditor()[0] ?? setup.firstElementChild);
+}
+$('start-pipe-entry').addEventListener('click',jumpToPipeEntry);
+$('report-pipe-entry').addEventListener('click',jumpToPipeEntry);
+$('loss-jump').addEventListener('click',() => {
+  $('loss-section').open = true;
+});
+$('nozzle-jump').addEventListener('click',event => {
+  event.preventDefault();
+  $('loss-section').open = true;
+  const nozzles = $('nozzle-details');
+  nozzles.open = true;
+  nozzles.firstElementChild.focus();
+});
+$('field-check-jump').addEventListener('click',() => {
+  $('field-check').open = true;
+});
+$('return-to-network').addEventListener('click',event => {
+  event.preventDefault();
+  showView('network',true);
+  $('network-tab').scrollIntoView({block:'nearest'});
 });
 
 const fieldCheckRows = [
@@ -1807,7 +2381,13 @@ function renderPumpCheck() {
   if (!currentCalculation) return;
   const {pump,target,comparison:{point}} = currentCalculation;
   const oldPoint = checkedPumpInputs && checkedPumpInputs.key!==pumpCheckKey(currentCalculation);
-  const checked = checkedPumpInputs && !oldPoint ? checkedPumpInputs.values : {};
+  const manual = checkedPumpInputs && !oldPoint ? checkedPumpInputs.values : {};
+  const vendor = vendorAtFlow(pump,point?.flow);
+  const checked = {...manual};
+  if (vendor) {
+    checked['check-pump-power'] ??= vendor.power;
+    checked['check-npshr'] ??= vendor.npshr;
+  }
   const atmosphere = checkedPumpInputs?.values['check-atmosphere'] ?? 1.01325;
   const status = $('pump-check-status');
   const write = (id,value,digits,unit) => {
@@ -1889,7 +2469,7 @@ $('pump-check-form').addEventListener('submit',event => {
       $('pump-check-status').textContent = 'ตรวจค่า '+label+' ให้อยู่ในช่วง '+field.min+' ถึง '+field.max;
       $('pump-check-status').classList.add('error');
       field.setAttribute('aria-invalid','true');
-      field.focus();
+      focusInput(field);
       return;
     }
     field.removeAttribute('aria-invalid');
@@ -1904,32 +2484,94 @@ function setStatus(message,state = 'calculated') {
   const status = $('form-status');
   status.textContent = message;
   status.classList.toggle('error',state === 'error');
-  $('result-state').textContent = state === 'calculated' ? 'ผลคำนวณ' : 'ผลจากค่าก่อนแก้';
-  $('result-state').classList.toggle('stale',state !== 'calculated');
-  $('pump-freshness').hidden = state === 'calculated';
-  $('pump-freshness').classList.toggle('stale',state !== 'calculated');
-  $('field-check-stale').hidden = state === 'calculated';
-  $('pump-check-stale').hidden = state === 'calculated';
+  $('pipe-status').textContent = message;
+  $('pipe-status').classList.toggle('error',state === 'error');
+  const stale = Boolean(currentResult) && state!=='calculated';
+  $('result-state').textContent = stale ? 'ผลจากค่าก่อนแก้' : currentResult ? 'ผลคำนวณ' : 'รอข้อมูล';
+  $('result-state').classList.toggle('stale',stale);
+  $('loss-state').textContent = stale ? 'ผลจากค่าก่อนแก้' : currentResult ? 'ผลคำนวณ' : 'รอผลคำนวณ';
+  $('loss-state').classList.toggle('stale',stale);
+  $('pump-freshness').hidden = !stale;
+  const applied = $('pump-applied-name');
+  applied.hidden = !stale || currentCalculation?.pump.id===$('pump-model').value;
+  applied.textContent = applied.hidden ? '' : 'กราฟจากผลล่าสุด · '+currentCalculation.pump.name;
+  $('field-check-stale').hidden = !stale;
+  $('pump-check-stale').hidden = !stale;
+  syncVendor();
   renderFieldCheck();
   renderPumpCheck();
+  renderTrial();
+  if (stale && dutyObservation) drawPumpChart();
+}
+
+function renderDraft() {
+  $('results-title').textContent = 'จุดที่ระบบต้องการ';
+  $('duty-description').textContent = 'กรอกระยะในผังแล้วคำนวณเพื่อดู Q รวม เฮดปั๊ม และ Loss';
+  for (const id of ['metric-head','metric-flow','metric-loss','budget-pressure','budget-static','budget-loss']) $(id).textContent = '—';
+  for (const id of ['metric-path','metric-hour','metric-loss-m','result-pump','measurement-used']) $(id).textContent = '';
+  for (const id of ['spray-figure','spray-note','geometry-warning']) $(id).hidden = true;
+  $('pump-check').hidden=false;
+  $('pump-check-submit').disabled=true;
+  $('pump-check-point').textContent='กรอกข้อมูลผู้ผลิตได้ก่อนคำนวณระบบ';
+  $('pump-check-status').textContent='รอจุดทำงานที่คำนวณจากระยะท่อครบ';
+  for(const id of ['power-hyd','power-shaft','power-load','npsh-available','npsh-required-output','npsh-margin-output'])$(id).textContent='—';
+  for(const id of ['npsh-note','power-note'])$(id).textContent='';
+  $('field-check').hidden = false;
+  $('field-check-jump').hidden = false;
+  $('field-check-basis').textContent = 'กรอกผลวัดของรอบนี้ได้ก่อนคำนวณระบบ';
+  for (const row of fieldCheckRows) {
+    row.input.disabled=false;
+    row.calculated.textContent='—';
+    row.delta.textContent='—';
+    row.percent.textContent='';
+  }
+  $('result-pump').classList.remove('warning');
+  $('spray-await').hidden = false;
+  $('coverage').replaceChildren();
+  renderResultTables();
+  renderDraftPumpComparison();
+  updateNetworkInspector();
+  drawActiveView();
+}
+
+let invalidSystemControl;
+
+function clearSystemError() {
+  if (!invalidSystemControl) return;
+  invalidSystemControl.removeAttribute('aria-invalid');
+  invalidSystemControl.removeAttribute('aria-describedby');
+  $('system-input-error')?.remove();
+  invalidSystemControl = undefined;
+}
+
+function showSystemError(control,message) {
+  invalidSystemControl = control;
+  control.setAttribute('aria-invalid','true');
+  const field = control.closest('.field');
+  if (!field) return;
+  const error = document.createElement('small');
+  error.id = 'system-input-error';
+  error.className = 'input-error';
+  error.textContent = message;
+  field.append(error);
+  control.setAttribute('aria-describedby',error.id);
 }
 
 function calculate(focusError) {
-  $('system-form').querySelectorAll('[aria-invalid]').forEach(control => {
-    control.removeAttribute('aria-invalid');
-    control.removeAttribute('aria-describedby');
-  });
+  clearSystemError();
+  const missing = updatePipeEditor();
   const entered = readInputs();
   const settings = entered.error ? null : readPumpSettings();
   const issue = entered.error ? entered : settings;
   if (issue.error) {
     const control = $(issue.key);
-    control.setAttribute('aria-invalid','true');
-    setStatus(issue.error,'error');
-    if (focusError) {
-      control.closest('details').open = true;
-      control.setAttribute('aria-describedby','form-status');
-      control.focus();
+    if (!currentResult) renderDraft();
+    if (focusError || currentResult || !missing.length) {
+      showSystemError(control,issue.error);
+      setStatus(issue.error,'error');
+      if (focusError) focusInput(control);
+    } else {
+      setStatus('กรอกระยะท่อตรงที่เหลือ '+missing.length+' ช่วง แล้วกดคำนวณระบบ','pending');
     }
     return;
   }
@@ -1943,8 +2585,9 @@ function calculate(focusError) {
   currentResult = settings.mode==='operating' && comparison.point ? operatingResult(target,comparison.point) : target;
   renderReport(currentResult,currentCalculation);
   setStatus('อัปเดตผลคำนวณแล้ว');
-  if (focusError && window.matchMedia('(max-width:820px)').matches) {
+  if (focusError) {
     $('results-title').focus();
+    $('results-title').scrollIntoView({block:'nearest'});
   }
 }
 
@@ -1952,22 +2595,643 @@ $('system-form').addEventListener('submit',event => {
   event.preventDefault();
   calculate(true);
 });
-$('system-form').addEventListener('input',event => {
-  event.target.removeAttribute('aria-invalid');
-  event.target.removeAttribute('aria-describedby');
+document.addEventListener('input',event => {
+  if (event.target.form!==$('system-form')) return;
+  clearSystemError();
   if (['measurement-mode','upperCount','lowerCount'].includes(event.target.id)) updateMeasurementFields();
-  if (event.target.id==='pump-model') {
-    pumpZoomed = false;
+  const modelChanged = event.target.id==='pump-model';
+  if (modelChanged) {
     updatePumpFields();
+    const settings = readPumpSettings();
+    if (currentResult && $('pump-freshness').hidden && !settings.error) {
+      calculate(false);
+      return;
+    }
+    if ($('pump-model').value==='custom' && settings.error) focusInput($(settings.key));
   }
-  setStatus('แก้ข้อมูลแล้ว กดคำนวณระบบเพื่ออัปเดตผล','dirty');
+  const missing = updatePipeEditor();
+  if (!currentResult) {
+    renderResultTables();
+    renderDraftPumpComparison();
+    updateNetworkInspector();
+    drawActiveView();
+  }
+  setStatus(missing.length && !currentResult
+    ? 'กรอกระยะท่อตรงที่เหลือ '+missing.length+' ช่วง แล้วกดคำนวณระบบ'
+    : 'แก้ข้อมูลแล้ว กดคำนวณระบบเพื่ออัปเดตผล','dirty');
 });
 $('restore-defaults').addEventListener('click',() => {
   $('system-form').reset();
+  currentResult = undefined;
+  currentCalculation = undefined;
+  pumpChartState = undefined;
+  selectedNetworkItem = '';
   pumpZoomed = false;
   updatePumpFields();
   updateMeasurementFields();
   calculate(false);
+});
+const trialSpec = new Map();
+function trialFields(container, specs) {
+  for (const [id,title,unit,kind='number',options] of specs) {
+    trialSpec.set(id,{title,unit});
+    if (kind==='number') {
+      makeFields($(container),[[id,title,unit,'',options?.[0]??0,options?.[1]??1e9,options?.[2]??'any',false]]);
+      continue;
+    }
+    const label=document.createElement('label');
+    label.className='field';
+    const caption=document.createElement('span');
+    caption.textContent=title;
+    const field=document.createElement(kind==='select'?'select':kind==='area'?'textarea':'input');
+    field.id=id;
+    if (kind==='select') {
+      for (const [value,name] of options) field.add(new Option(name,value));
+    } else if (kind==='area') {
+      field.rows=3;
+      field.maxLength=4000;
+      label.classList.add('wide');
+    } else {
+      field.type=kind;
+      field.maxLength=120;
+    }
+    label.append(caption,field);
+    $(container).append(label);
+  }
+}
+trialFields('criteria-fields',[
+  ['rm-name','ชนิด / เกรด RM','','text'],['rm-lot','ล็อต / เลขทดลอง','','text'],
+  ['run-date','วันและเวลาทดลอง','','datetime-local'],
+  ['pressure-role','ความหมายแรงดันเป้าหมาย','','select',[['minimum','แรงดันขั้นต่ำ'],['setpoint','ค่าควบคุม ± ค่าคลาดเคลื่อน']]],
+  ['pressure-tol','ค่าคลาดเคลื่อนรอบค่าควบคุม','bar'],['pressure-cap','แรงดันสูงสุดที่ยอมรับ','barG'],
+  ['glaze-unit','เกณฑ์ปริมาณเคลือบ','','select',[['percent','%Glaze'],['surface','L/m² ตามฐานพื้นที่ที่เลือก'],['piece','mL/ชิ้น']]],
+  ['glaze-min','ปริมาณเคลือบต่ำสุด (หน่วยตามเกณฑ์)',''],['glaze-max','ปริมาณเคลือบสูงสุด (หน่วยตามเกณฑ์)',''],
+  ['cv-limit','CV สูงสุดของถาดในแต่ละราง','%']
+]);
+trialFields('sample-fields',[
+  ['sample-n','จำนวนชิ้นในตัวอย่าง','ชิ้น','number',[1,1000000,1]],
+  ['mass-before','น้ำหนักก่อนพ่นทั้งชุด','g'],['mass-after','น้ำหนักหลังพ่นทั้งชุด','g'],
+  ['drain','เวลาสะเด็ดน้ำก่อนชั่ง','s'],
+  ['glaze-base','ฐานน้ำหนักของ %Glaze','','select',[['after','น้ำหนักหลังเคลือบ'],['before','น้ำหนักก่อนเคลือบ']]],
+  ['area-mode','ฐานพื้นที่ตัวอย่าง','','select',[['whole','ผิวทั้งชิ้น วัดพื้นที่รวม'],['projected','พื้นที่ฉายด้านบน วัดพื้นที่รวม'],['box','ประมาณผิวทั้งชิ้นจากทรงกล่อง']]],
+  ['sample-area','พื้นที่รวมทุกชิ้น','cm²'],['box-l','ยาวเฉลี่ยต่อชิ้น','mm'],['box-w','กว้างเฉลี่ยต่อชิ้น','mm'],['box-h','หนาเฉลี่ยต่อชิ้น','mm']
+]);
+trialFields('line-fields',[
+  ['belt-speed','ความเร็วสายพาน','m/min'],['rate-mode','วิธีกรอกกำลังผลิต RM ก่อนพ่น','','select',[['pieces','จำนวนชิ้นต่อนาที'],['kg','น้ำหนักต่อชั่วโมง']]],
+  ['line-pieces','จำนวนชิ้นผ่านจริง','ชิ้น/min'],['line-kg','กำลังผลิตก่อนพ่น','kg/h'],
+  ['rm-temp','อุณหภูมิผิว RM ก่อนพ่น','°C','number',[-100,100]],
+  ['arrangement','การวางชิ้นงาน','','select',[['','เลือกสภาพหน้างาน'],['single','ชั้นเดียว'],['overlap','มีชิ้นซ้อน']]],
+  ['water-basis','Q สำหรับคำนวณการใช้น้ำ','','select',[['field','Q รวมที่วัดจริง'],['model','Q คาด ณ จุดทำงานปั๊ม']]]
+]);
+trialFields('tray-fields',[
+  ['tray-time','เวลารับน้ำต่อการทดสอบ','s'],
+  ['tray-upper','ชุดบน · mL ต่อถาดจากซ้ายไปขวา','','area'],
+  ['tray-lower','ชุดล่าง · mL ต่อถาดจากซ้ายไปขวา','','area']
+]);
+trialFields('gauge-fields',[
+  ['gauge-s','แรงดันเกจดูด','barG','number',[-1,100]],['gauge-z','ระดับเกจจ่าย ลบ ระดับเกจดูด','m','number',[-50,50]],
+  ['gauge-di','ID ณ เกจดูด','mm'],['gauge-do','ID ณ เกจจ่าย','mm'],
+  ['gauge-s-z','ระดับเกจดูดเทียบศูนย์ปั๊ม (ใช้หา NPSHa)','m','number',[-50,50]]
+]);
+trialFields('vendor-fields',[
+  ['vendor-source','เอกสาร / ฉบับ / หน้า','','text'],['vendor-min','Q เดินต่อเนื่องต่ำสุด','L/min'],
+  ['vendor-max','Q เดินต่อเนื่องสูงสุด','L/min'],['vendor-curve','Q (L/min), กำลังเพลา (kW), NPSHr (m)','','area']
+]);
+const valueOf = id => {
+  const field=$(id);
+  return field && !field.disabled && field.validity.valid && Number.isFinite(field.valueAsNumber) ? field.valueAsNumber : null;
+};
+const positive = id => valueOf(id)>0 ? valueOf(id) : null;
+const shown = (v,d=2) => Number.isFinite(v)?number(v,d):'—';
+function showField(id,enable) {
+  $(id).closest('label').hidden=!enable;
+  $(id).disabled=!enable;
+}
+function pumpSignature(pump) {
+  return pump ? JSON.stringify([pump.id,pump.name,pump.frequency,pump.speed,pump.points]) : '';
+}
+function parseNumbers(line) {
+  const fields=line.trim().split(/[\s,;]+/);
+  if (fields.some(t=>!t || !/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(t))) return null;
+  const nums=fields.map(Number);
+  return nums.every(Number.isFinite)?nums:null;
+}
+const vendorPrefix='ivqf.glazing.catalog.v1:';
+const trialPrefix='ivqf.glazing.trial.v1:';
+const vendorCache=new Map();
+let vendorShown, dutyObservation;
+const equipmentChecks=new Map();
+function loadVendor(key) {
+  if (!vendorCache.has(key)) {
+    let data;
+    try {data=JSON.parse(localStorage.getItem(vendorPrefix+key));} catch {}
+    vendorCache.set(key,data);
+  }
+  return vendorCache.get(key);
+}
+function vendorAtFlow(pump,q) {
+  const rows=loadVendor(pumpSignature(pump))?.rows;
+  if (!rows?.length || !Number.isFinite(q) || q<rows[0][0] || q>rows.at(-1)[0]) return null;
+  const index=rows.findIndex(row=>row[0]>=q);
+  const [q1,p1,n1]=rows[index];
+  if (q1===q) return {power:p1,npshr:n1};
+  const [q0,p0,n0]=rows[index-1];
+  const weight=(q-q0)/(q1-q0);
+  return {power:p0+weight*(p1-p0),npshr:n0+weight*(n1-n0)};
+}
+function syncVendor() {
+  const key=pumpSignature(readPumpSettings().pump);
+  if (key===vendorShown) return;
+  if (vendorShown!==undefined) {
+    const ids=['check-motor-rated','check-efficiency','check-pump-power','check-npshr','check-npsh-margin'];
+    equipmentChecks.set(vendorShown,Object.fromEntries(ids.map(id=>[id,$(id).value])));
+    for(const id of ids)$(id).value=equipmentChecks.get(key)?.[id]??'';
+  }
+  vendorShown=key;
+  const data=loadVendor(key);
+  $('vendor-source').value=data?.source??'';
+  $('vendor-min').value=data?.min??'';
+  $('vendor-max').value=data?.max??'';
+  $('vendor-curve').value=data?.rows?.map(row=>row.join(', ')).join('\n')??'';
+  $('vendor-status').textContent=data?'ใช้ข้อมูลจาก '+data.source:'กรอกเฉพาะข้อมูลที่มีเอกสารรองรับสำหรับรุ่นและรอบนี้';
+}
+$('vendor-apply').onclick=()=>{
+  const pump=readPumpSettings().pump;
+  const key=pumpSignature(pump);
+  const source=$('vendor-source').value.trim(), min=positive('vendor-min'), max=positive('vendor-max');
+  const rows=$('vendor-curve').value.trim().split(/\n/).filter(row=>row.trim()).map(parseNumbers);
+  const status=$('vendor-status');
+  if (!key || !source || !min || !(max>min) || rows.length<2 ||
+      rows.some((row,i)=>row?.length!==3 || row[1]<=0 || (i && row[0]<=rows[i-1][0]))) {
+    status.textContent='ตรวจเอกสาร ช่วง Q ต่อเนื่อง และกราฟอย่างน้อย 2 แถว กำลังเพลาต้องมากกว่า 0 และ Q ต้องเรียงเพิ่ม';return;
+  }
+  const data={source,min,max,rows};
+  vendorCache.set(key,data);
+  try {localStorage.setItem(vendorPrefix+key,JSON.stringify(data));status.textContent='บันทึกข้อมูล '+pump.name+' แล้ว';}
+  catch {status.textContent='ใช้ข้อมูลในครั้งนี้แล้ว เบราว์เซอร์เก็บข้อมูลถาวรไม่ได้';}
+  renderPumpCheck(); renderTrial();
+};
+function gaugeInputs() {
+  return ['field-measured-0','field-measured-1','gauge-s','gauge-z','gauge-di','gauge-do','temperature'].map(valueOf);
+}
+function activeDuty(pump) {
+  const atmosphere=positive('check-atmosphere');
+  if (atmosphere!==null && Math.min(valueOf('gauge-s'),valueOf('field-measured-1'))+atmosphere<=0) return null;
+  return dutyObservation && dutyObservation.key===pumpSignature(pump) && dutyObservation.key===pumpSignature(readPumpSettings().pump) && dutyObservation.inputs===JSON.stringify(gaugeInputs())?dutyObservation:null;
+}
+function measuredPumpCheck(t) {
+  if (!t.duty) return null;
+  const curve=vendorAtFlow(t.pump,t.duty.flow);
+  const d=positive('gauge-di'),z=valueOf('gauge-s-z'),atm=positive('check-atmosphere'),temp=valueOf('temperature');
+  const rated=positive('check-motor-rated'),requiredMargin=valueOf('check-npsh-margin');
+  const v=t.duty.flow/LPM_PER_M3S/(Math.PI*(d/1000)**2/4);
+  const available=z!==null && atm!==null ? ((atm+valueOf('gauge-s'))*PA_PER_BAR-saturationPressureOfWater(temp))/(waterProperties(temp).density*GRAVITY)+z+v*v/(2*GRAVITY):null;
+  const margin=curve && available!==null ? available-curve.npshr:null;
+  const hydraulicPower=t.duty.flow/LPM_PER_M3S*waterProperties(temp).density*GRAVITY*t.duty.head/1000;
+  const inconsistent=curve && curve.power<hydraulicPower-1e-8;
+  const motor=curve && rated && !inconsistent?100*curve.power/rated:null;
+  const motorStatus=inconsistent?'ตรวจกราฟกำลังเพลา':assess([motor],null,100);
+  const marginStatus=(available!==null && available<0) || (margin!==null && margin<0)?'นอกเกณฑ์':assess([margin],requiredMargin,null);
+  return {motorStatus,marginStatus,text:'ณ จุดวัดจริง · โหลดเพลาจากกราฟ '+shown(motor,1)+'% ('+motorStatus+') · NPSHa จากเกจ '+shown(available)+' m · ส่วนเผื่อเหนือ NPSHr '+shown(margin)+' m ('+marginStatus+')'};
+}
+$('capture-duty').onclick=()=>{
+  const pump=readPumpSettings().pump;
+  if (!$('pump-freshness').hidden) {
+    $('gauge-result').textContent='กดคำนวณระบบเพื่ออัปเดตกราฟก่อนยืนยันจุดวัดของรอบนี้';return;
+  }
+  const inputs=gaugeInputs();
+  const [flow,discharge,suction,dz,di,do_,temp]=inputs;
+  if (!pump || inputs.includes(null) || !flow || !di || !do_) {
+    $('gauge-result').textContent='กรอก Q รวม แรงดันดูด–จ่าย ระดับเกจ ID ทั้งสอง อุณหภูมิน้ำ และเลือกรุ่นปั๊มให้ครบ';return;
+  }
+  const atmosphere=positive('check-atmosphere');
+  if (atmosphere!==null && Math.min(discharge,suction)+atmosphere<=0) {
+    $('gauge-result').textContent='ตรวจแรงดันเกจและบรรยากาศ ความดันสัมบูรณ์ที่เกจต้องมากกว่า 0';return;
+  }
+  const velocity=d=>flow/LPM_PER_M3S/(Math.PI*(d/1000)**2/4);
+  const head=(discharge-suction)/waterProperties(temp).headToBar+dz+(velocity(do_)**2-velocity(di)**2)/(2*GRAVITY);
+  if (head<0) {$('gauge-result').textContent='เฮดติดลบ ตรวจด้านดูด–จ่ายและเครื่องหมายระดับเกจ';return;}
+  dutyObservation={key:pumpSignature(pump),inputs:JSON.stringify(inputs),flow,head};
+  renderTrial();drawPumpChart();
+};
+function trayResult(id) {
+  const raw=$(id).value.trim();
+  if (!raw) return {};
+  const volumes=parseNumbers(raw);
+  if (!volumes || volumes.length<2 || volumes.length>120) return {error:'กรอกปริมาตรของถาด 2–120 ใบเป็นจำนวนตั้งแต่ 0 ขึ้นไป'};
+  const mean=volumes.reduce((a,b)=>a+b,0)/volumes.length;
+  const cv=mean ? 100*Math.sqrt(volumes.reduce((sum,v)=>sum+(v-mean)**2,0)/volumes.length)/mean : null;
+  return {volumes,mean,cv};
+}
+function drawTrays(trays) {
+  const chart=$('tray-chart');chart.replaceChildren();
+  const top=Math.max(1,...trays.flatMap(t=>t.volumes??[]));
+  trays.forEach((t,index)=>{
+    if (!t.volumes) return;
+    const head=document.createElement('strong');
+    head.textContent=(index?'ชุดล่าง':'ชุดบน')+' · CV '+shown(t.cv,1)+'%';
+    chart.append(head);
+    t.volumes.forEach((v,i)=>{
+      const row=document.createElement('div');row.className='tray-row';
+      const meter=document.createElement('meter');meter.min=0;meter.max=top;meter.value=v;
+      meter.setAttribute('aria-label','ถาด '+(i+1)+' '+v+' mL');
+      row.append('ถาด '+(i+1),meter,number(v,1)+' mL');chart.append(row);
+    });
+  });
+}
+function assess(values,lo,hi) {
+  // Tolerate numerical inversion noise at an inclusive limit.
+  if (values.some(v=>Number.isFinite(v) && ((lo!==null && v<lo-1e-9) || (hi!==null && v>hi+1e-9)))) return 'นอกเกณฑ์';
+  return !values.length || values.some(v=>!Number.isFinite(v)) || (lo===null && hi===null)?'ข้อมูลยังไม่พอ':'ผ่าน';
+}
+function trialData() {
+  const errors=[];
+  const box=$('area-mode').value==='box', pieces=$('rate-mode').value==='pieces', setpoint=$('pressure-role').value==='setpoint';
+  showField('pressure-tol',setpoint);showField('sample-area',!box);
+  for (const id of ['box-l','box-w','box-h']) showField(id,box);
+  showField('line-pieces',pieces);showField('line-kg',!pieces);
+  for (const id of trialSpec.keys()) {
+    if (id.startsWith('vendor-') || $(id).disabled) continue;
+    if (!$(id).validity.valid) errors.push('ตรวจค่า '+trialSpec.get(id).title);
+  }
+  for (const row of fieldCheckRows) {
+    if (!row.input.disabled && !row.input.validity.valid)errors.push('ตรวจผลวัด '+row.input.getAttribute('aria-label'));
+  }
+  const atmosphere=positive('check-atmosphere');
+  if (atmosphere!==null && [valueOf('gauge-s'),valueOf('field-measured-1')].some(p=>p!==null && p+atmosphere<=0))errors.push('ความดันสัมบูรณ์ที่เกจต้องมากกว่า 0 ตรวจแรงดันบรรยากาศและผลวัด');
+  const n=positive('sample-n'), before=positive('mass-before'), after=valueOf('mass-after'), temp=valueOf('temperature');
+  if (valueOf('mass-before')===0) errors.push('น้ำหนักก่อนพ่นต้องมากกว่า 0');
+  if (before!==null && after!==null && after<before) errors.push('น้ำหนักหลังพ่นต่ำกว่าก่อนพ่น ตรวจตัวอย่างและวิธีสะเด็ดน้ำ');
+  const gain=before!==null && after!==null && after>=before ? after-before:null;
+  const volume=gain!==null && temp!==null ? gain/(waterProperties(temp).density/1000):null;
+  const perPiece=n && volume!==null ? volume/n:null;
+  let area=positive('sample-area')/1e4 || null;
+  if (box) {
+    const l=positive('box-l'),w=positive('box-w'),h=positive('box-h');
+    area=n && l && w && h ? n*2*(l*w+w*h+l*h)/1e6:null;
+  }
+  const surface=area && volume!==null?volume/1000/area:null;
+  const glaze=gain!==null ? 100*gain/($('glaze-base').value==='after'?after:before):null;
+  const measuredFlow=valueOf('field-measured-0');
+  const fresh=currentCalculation && $('pump-freshness').hidden ? currentCalculation:null;
+  const op=fresh?.comparison.point;
+  const modeled=$('water-basis').value==='model';
+  const flow=modeled?op?.flow??null:measuredFlow;
+  const meanMass=n && before?before/1000/n:null;
+  const items=pieces?positive('line-pieces'):(positive('line-kg') && meanMass?positive('line-kg')/60/meanMass:null);
+  const kg=pieces?(items && meanMass?items*meanMass:null):positive('line-kg')/60||null;
+  const retained=items && perPiece!==null?items*perPiece/1000:null;
+  const use=kg && flow!==null?flow/kg:null;
+  const retention=flow>0 && retained!==null?100*retained/flow:null;
+  if (retention>100 || (retained>0 && flow===0)) errors.push('น้ำที่ติด RM มากกว่าน้ำที่พ่น ตรวจ Q กำลังผลิตและผลชั่งของรอบเดียวกัน');
+  const trays=['tray-upper','tray-lower'].map(trayResult);
+  trays.forEach((t,i)=>{if(t.error)errors.push((i?'ชุดล่าง':'ชุดบน')+' · '+t.error);});
+  if(trays.every(t=>t.volumes) && trays[0].volumes.length!==trays[1].volumes.length) errors.push('ใช้จำนวนถาดเท่ากันสำหรับการเปรียบเทียบบน–ล่าง');
+  const target=positive('pressure'), tol=valueOf('pressure-tol'),cap=valueOf('pressure-cap');
+  const lo=target===null?null:setpoint?(tol===null?null:Math.max(0,target-tol)):target;
+  const hi=setpoint && tol!==null && target!==null?Math.min(cap??Infinity,target+tol):cap;
+  if (hi!==null && lo!==null && hi<lo) errors.push('แรงดันสูงสุดต่ำกว่าขอบล่างที่กำหนด');
+  const modelPressures=op?.branches.flatMap(b=>b.nozzles.map(p=>p.pressure))??[];
+  const measuredPressures=['upperCount','lowerCount'].flatMap((id,i)=>valueOf(id)>=4?[valueOf('field-measured-'+(i+2))]:[]);
+  const pump=readPumpSettings().pump, key=pumpSignature(pump);
+  const continuous=loadVendor(key);
+  const duty=activeDuty(pump);
+  const pumpCheck=measuredPumpCheck({pump,duty});
+  const glazeVal={percent:glaze,surface,piece:perPiece}[$('glaze-unit').value];
+  const gmin=valueOf('glaze-min'),gmax=valueOf('glaze-max');
+  if(gmin!==null && gmax!==null && gmin>gmax)errors.push('เกณฑ์เคลือบต่ำสุดสูงกว่าสูงสุด');
+  const checks={
+    'แรงดันทุกหัว ณ จุดตัด (คำนวณ)':lo===null || (hi!==null && lo>hi)?'ข้อมูลยังไม่พอ':assess(modelPressures,lo,hi),
+    'แรงดันเฉพาะตำแหน่ง U4/L4 (วัดจริง)':lo===null || (hi!==null && lo>hi)?'ข้อมูลยังไม่พอ':assess(measuredPressures,lo,hi),
+    'เคลือบตามเกณฑ์ RM จากการชั่ง':gmin!==null && gmax!==null && gmin<=gmax && valueOf('drain')!==null?assess([glazeVal],gmin,gmax):'ข้อมูลยังไม่พอ',
+    'การกระจายน้ำตามถาด':assess(trays.flatMap((t,i)=>valueOf(i?'lowerCount':'upperCount')>0?[t.mean===0?Infinity:t.cv]:[]),null,valueOf('cv-limit')),
+    'Q วัดเทียบช่วงเดินต่อเนื่องผู้ผลิต':continuous?assess([measuredFlow],continuous.min,continuous.max):'ข้อมูลยังไม่พอ',
+    'โหลดมอเตอร์ ณ จุดวัด':pumpCheck?.motorStatus??'ข้อมูลยังไม่พอ',
+    'ส่วนเผื่อ NPSH ณ จุดวัด':pumpCheck?.marginStatus??'ข้อมูลยังไม่พอ'
+  };
+  if (valueOf('cv-limit')!==null && trays.some((t,i)=>valueOf(i?'lowerCount':'upperCount')>0 && t.mean===0))checks['การกระจายน้ำตามถาด']='นอกเกณฑ์';
+  if (!positive('tray-time') || trays.some(t=>t.error))checks['การกระจายน้ำตามถาด']='ข้อมูลยังไม่พอ';
+  const source=modeled?'คำนวณจากจุดตัด':'วัดจริง';
+  const basis=$('area-mode').selectedOptions[0].textContent;
+  return {errors,n,area,items,perPiece,surface,glaze,retained,use,retention,flow,source,basis,trays,checks,pump,op,
+    duty,pumpCheck,missing:[...branchPipeLengths].filter(id=>!$(id).disabled && !$(id).value).length,
+    measuredCount:readMeasurements({upperCount:valueOf('upperCount'),lowerCount:valueOf('lowerCount')}).measured,
+    totalHeads:(valueOf('upperCount')??0)+(valueOf('lowerCount')??0)};
+}
+function trialMetrics(t) {
+  return [
+    ['Q พ่น · '+t.source,shown(t.flow)+' L/min'],
+    ['น้ำติด RM · จากผลชั่ง',shown(t.perPiece,2)+' mL/ชิ้น'],
+    ['น้ำต่อพื้นที่ · '+t.basis,shown(t.surface,3)+' L/m²'],
+    ['Glaze · ฐาน'+$('glaze-base').selectedOptions[0].textContent,shown(t.glaze)+' %'],
+    ['การใช้น้ำ · '+t.source,shown(t.use,3)+' L/kg RM'],
+    ['น้ำติดไปกับ RM · จากตัวอย่าง',shown(t.retained,3)+' L/min'],
+    ['สัดส่วนน้ำพ่นที่ติด RM · '+t.source,shown(t.retention,1)+' %'],
+    ['น้ำพ่นต่อพื้นที่สายพานต่อเที่ยว · '+t.source,shown(t.flow!==null && positive('belt-speed') && positive('belt')?t.flow/(positive('belt-speed')*positive('belt')/1000):null,3)+' L/m² สายพาน']
+  ];
+}
+function trialVerdict(t) {
+  const outcomes=Object.values(t.checks);
+  if(t.errors.length)return 'ตรวจข้อมูลที่กรอก';
+  if(outcomes.includes('นอกเกณฑ์'))return 'นอกเกณฑ์';
+  return outcomes.length && outcomes.every(v=>v==='ผ่าน')?'ผ่าน':'ข้อมูลยังไม่พอ';
+}
+function renderTrial() {
+  const t=trialData();
+  const result=$('rm-results');result.replaceChildren();
+  for (const [name,value] of trialMetrics(t)) {
+    const group=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');
+    dt.textContent=name;dd.textContent=value;group.append(dt,dd);result.append(group);
+  }
+  const m=Object.keys(t.measuredCount??{}).length;
+  $('rm-coverage').textContent='หัวที่วัด '+m+'/'+t.totalHeads+' · ระยะท่อที่ยังขาด '+t.missing+' ช่วง';
+  $('rm-headline').textContent=(t.flow!==null?'Q '+t.source+' '+shown(t.flow)+' L/min · ':'')+(t.perPiece===null && t.surface===null?'รอผลชั่ง RM':
+    [t.perPiece===null?'':shown(t.perPiece)+' mL/ชิ้น',t.surface===null?'':shown(t.surface,3)+' L/m²'].filter(Boolean).join(' · ')+' จากผลชั่ง');
+  $('trial-errors').textContent=t.errors.join('\n');
+  const overall=trialVerdict(t);
+  $('acceptance').textContent='ผลตามเกณฑ์ของรอบนี้ — '+overall+'\n'+Object.entries(t.checks).map(([name,out])=>name+' — '+out).join('\n');
+  drawTrays(t.trays);
+  $('gauge-result').textContent=t.duty?'จุดวัดจริง '+t.pump.name+' · '+shown(t.duty.flow)+' L/min @ '+shown(t.duty.head)+' m':dutyObservation?'เงื่อนไขหรือผลวัดเปลี่ยน ตรวจค่าก่อนใช้จุดวัดอีกครั้ง':'รอผลเกจและ Q ของรอบนี้';
+  $('measured-pump-check').textContent=t.pumpCheck?.text??'';
+  renderEstimate(t);
+}
+const historyRecords=new Map();
+let historyWarning='';
+function readHistory() {
+  try {
+    for (let i=0;i<localStorage.length;i++) {
+      const key=localStorage.key(i);
+      if (!key?.startsWith(trialPrefix)) continue;
+      try {
+        const record=JSON.parse(localStorage.getItem(key));
+        if (record?.version===1 && Array.isArray(record.metrics) && record.id && Array.isArray(record.settings)) historyRecords.set(record.id,record);
+        else historyWarning='บางบันทึกมีรูปแบบที่อ่านไม่ได้';
+      } catch {historyWarning='บางบันทึกมีรูปแบบที่อ่านไม่ได้';}
+    }
+  } catch {historyWarning='เบราว์เซอร์จำกัดการเก็บข้อมูล ใช้ปุ่มดาวน์โหลดรายงานเพื่อเก็บสำเนา';}
+}
+function settingRows() {
+  const result=[];
+  for (const f of document.querySelectorAll('input[id],select[id],textarea[id]')) {
+    if (!f.value.trim() || f.disabled || f.closest('#trial-history') || f.closest('[hidden]') || f.id.startsWith('vendor-')) continue;
+    const spec=trialSpec.get(f.id);
+    const wrap=f.closest('label');
+    const name=spec?.title??f.getAttribute('aria-label')??wrap?.querySelector('span')?.textContent??f.id;
+    const unit=spec?.unit??wrap?.querySelector('.unit')?.textContent??'';
+    let source='ค่าตั้ง / ข้อมูลที่กรอก';
+    if (/^(measured-|field-measured-|mass-|tray-upper|tray-lower|gauge-)/.test(f.id)) source='ผลวัดหน้างาน';
+    else if (f.matches('input[type=number]') && f.defaultValue && f.value===f.defaultValue) source='เท่ากับค่าเริ่มต้นในแบบ';
+    result.push([name,f.tagName==='SELECT'?f.selectedOptions[0].textContent:f.value,unit,f.id,source]);
+  }
+  return result;
+}
+function reportRows(record) {
+  return [
+    ['RM / ล็อต',record.rm+' / '+record.lot],['วันเวลาทดลอง',record.date],
+    ['ปั๊ม',record.pump],['สถานะข้อมูล',record.completeness],...record.metrics,
+    ...Object.entries(record.checks),...Object.entries(record.hydraulics??{}),
+    ...record.settings.map(([name,value,unit,id,source])=>[name+' ('+id+')',value+(unit?' '+unit:'')+(source?' · '+source:'')])
+  ];
+}
+function textTable(rows,heading) {
+  const table=document.createElement('table');table.className='validation-table';
+  const cap=table.createCaption();cap.textContent=heading;
+  for(const [name,val] of rows){const r=table.insertRow();rowHeading(r,name);cell(r,val);}
+  return table;
+}
+function openPrintReport(record) {
+  const win=window.open('','_blank');
+  if (!win) {
+    const message='อนุญาตหน้าต่างพิมพ์ของเว็บแอป แล้วกดพิมพ์อีกครั้ง';
+    if(record)$('history-status').textContent=message;
+    else window.alert(message);
+    return;
+  }
+  const doc=win.document;
+  const put=(parent,tag,content,cls)=>{
+    const node=doc.createElement(tag);
+    if(content!=null)node.textContent=content;
+    if(cls)node.className=cls;
+    parent.append(node);
+    return node;
+  };
+  doc.documentElement.lang='th';
+  doc.title=record?'IVQF Glazing - '+record.rm+' - '+record.lot+' - '+record.date:'IVQF Glazing - แบบจดหน้างาน';
+  const meta=doc.createElement('meta');meta.name='viewport';meta.content='width=device-width, initial-scale=1';doc.head.append(meta);
+  const style=put(doc.head,'style');
+  style.textContent=[
+    '@page{size:A4 portrait;margin:14mm 14mm 16mm;@bottom-left{content:"IVQF Engineering  /  Glazing";font:9pt Tahoma;color:#47596b}@bottom-right{content:counter(page)" / "counter(pages);font:9pt Tahoma;color:#47596b}}',
+    '*{box-sizing:border-box}body{margin:0;font:10pt/1.45 Tahoma,Arial,sans-serif;color:#162e43;background:#edf1f4}button{font:inherit;padding:8px 16px;cursor:pointer}',
+    'nav{position:sticky;top:0;background:#17364b;color:white;padding:10px;text-align:center}nav span{padding-left:10px}main{width:min(100%,210mm);margin:auto}',
+    'section{padding:14mm;margin:8mm 0;background:white;break-before:page}section:first-child{break-before:auto}header{border-bottom:2px solid #236670;margin-bottom:4mm;padding-bottom:3mm}',
+    'h1,h2,p{margin:0}h1{font-size:19pt;margin:1mm 0}h2{font-size:12pt;margin:4mm 0 1.5mm;break-after:avoid}p{margin:1mm 0 2mm}small{font-size:9pt;color:#365363}',
+    'table{border-collapse:collapse;width:100%;table-layout:fixed;margin:1.5mm 0 3mm}tr{break-inside:avoid}thead{display:table-header-group}th,td{text-align:left;vertical-align:middle;border:1px solid #a6b6bf;padding:1.2mm 2mm;white-space:pre-wrap;overflow-wrap:anywhere}th{background:#eaf1f3;font-weight:600}',
+    '.blank td{height:8mm}.fields td{height:12mm;vertical-align:top;color:#314f5e;font-size:9pt}.result td:last-child{font-weight:600}.idline{font-size:9pt;color:#3e5a69}.sign{margin-top:5mm;line-height:2.2}',
+    '@media print{body{background:white}nav{display:none}main{width:100%}section{margin:0;padding:0}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}'
+  ].join('\n');
+  const nav=put(doc.body,'nav'),action=put(nav,'button','พิมพ์ / บันทึกเป็น PDF');action.onclick=()=>win.print();
+  put(nav,'span','เลือก A4 และปลายทางบันทึกเป็น PDF');
+  const main=put(doc.body,'main');
+  function page(title,sub) {
+    const section=put(main,'section'),header=put(section,'header');
+    put(header,'small',record?'IVQF Engineering   /   รายงานจากรอบที่บันทึก':'IVQF Engineering   /   แบบบันทึกหน้างาน');
+    put(header,'h1',title);
+    put(header,'p',sub,'idline');
+    return section;
+  }
+  function table(section,heads,rows,cls='') {
+    const tbl=put(section,'table',null,cls);
+    if(heads){const tr=tbl.createTHead().insertRow();for(const h of heads)put(tr,'th',h);}
+    const body=tbl.createTBody();
+    for(const values of rows){const row=body.insertRow();for(const v of values)put(row,'td',v??'');}
+  }
+  const fields=(s,rows)=>table(s,null,rows,'fields');
+  const emptyRows=(n,k)=>Array.from({length:n},()=>Array(k).fill(''));
+  const manualId='รหัสรอบ _____________________     วันที่ _______________     ผู้บันทึก _____________________';
+  if (!record) {
+    const pipe=page('ท่อและระยะติดตั้ง',manualId);
+    fields(pipe,[['เครื่อง / ไลน์','ชนิด RM / ล็อต','ปั๊ม / รหัสเครื่อง'],['อุณหภูมิน้ำ (°C)','ผิวน้ำต่ำสุดเทียบปั๊ม (m)','ความขรุขระภายใน ε (mm)'],['ระดับหัวบนเทียบปั๊ม (m)','ระดับหัวล่างเทียบปั๊ม (m)','หน้ากว้างสายพาน (mm)']]);
+    put(pipe,'h2','ทางดูดและท่อร่วม');
+    table(pipe,['ช่วงตามทิศทางน้ำไหล','L ตรง (m)','ID (mm)','K / มิติข้อต่อ'],[['ถัง → ปั๊ม','','','K ทางเข้า'],['ปั๊ม → ก่อนข้อลด','','',''],['ข้อลด','','','K / ยาว (mm)'],['หลังข้อลด → สามทาง','','','']], 'blank');
+    put(pipe,'h2','จากสามทางถึงรางหัวฉีด');
+    put(pipe,'p','วัดท่อตรงจากหน้าต่อถึงหน้าต่อ กรอก R ของข้องอที่แนวกลาง และระบุฐานความเร็วของ K');
+    table(pipe,['ชิ้นส่วน','บน · L (m) / R (mm)','บน · ID / K','ล่าง · L (m) / R (mm)','ล่าง · ID / K'],[
+      ['สามทาง · K ทางออก','','','',''],['ท่อตรง 1','','','',''],['ข้องอ 90° 1','','','',''],['ท่อตรง 2','','','',''],['ข้องอ 90° 2','','','',''],['ท่อตรง 3','','','ไม่มี','ไม่มี'],['ข้องอ 90° 3','','','ไม่มี','ไม่มี'],['รางหัวฉีด','','','','']], 'blank');
+    fields(pipe,[['สามทาง · ศูนย์ถึงหน้าเข้า (mm)','ศูนย์ถึงหน้าออกบน (mm)','ศูนย์ถึงหน้าออกล่าง (mm)'],['แหล่งค่า K / ทิศทางสามทาง','วาล์ว กรอง หรือบายพาสที่พบ','ตำแหน่ง / หมายเหตุ']]);
+    const nozzle=page('หัวฉีดและแนวพ่น',manualId);
+    fields(nozzle,[['ยี่ห้อ / รุ่นหัวฉีด','Q อ้างอิง (L/min/หัว)','แรงดันอ้างอิง (barG)'],['เปิดจริง (หัวบน / หัวล่าง)','มุมพ่น (°)','เวลาเก็บต่อหัว (s)'],['ระยะหัวถึงผิว RM บน / ล่าง (mm)','แนวกึ่งกลางหัวบนเทียบสายพาน (mm)','แนวกึ่งกลางหัวล่างเทียบสายพาน (mm)']]);
+    put(nozzle,'h2','รองน้ำรายหัวที่แรงดันทางเข้าหัว 3 barG');
+    put(nozzle,'p','บันทึกเฉพาะหัวที่เปิด กรอก mL หรือ L/min ระยะช่วงแรกวัดจากต้นรางถึงหัวแรก ช่วงถัดไปวัดจากหัวก่อนหน้า');
+    table(nozzle,['หัวบน','ช่วง (mm)','รอง (mL)','Q (L/min)','หัวล่าง','ช่วง (mm)','รอง (mL)','Q (L/min)'],Array.from({length:MAX_NOZZLES},(_,i)=>['U'+(i+1),'','','','L'+(i+1),'','','']),'blank');
+    fields(nozzle,[['เกจ / ความละเอียด','เครื่องตวง / ความละเอียด','สภาพหัวฉีดและแนวพ่น']]);
+    const pump=page('ปั๊ม เกจ และจุดทำงาน',manualId);
+    fields(pump,[['รุ่น / ใบพัด / สเตจ','ความถี่กราฟ / เดินจริง (Hz)','รอบกราฟ / เดินจริง (rpm)'],['Q ต่อเนื่องต่ำสุด (L/min)','Q ต่อเนื่องสูงสุด (L/min)','เฮดเมื่อ Q = 0 (m)'],['กำลังมอเตอร์ P₂ (kW)','ประสิทธิภาพปั๊มที่จุดทำงาน (%)','เอกสารผู้ผลิต / หน้า']]);
+    put(pump,'h2','จุดจากกราฟผู้ผลิต ณ รอบเดียวกัน');
+    table(pump,['Q (L/min)','H (m)','กำลังเพลา (kW)','NPSHr (m)'],emptyRows(6,4),'blank');
+    put(pump,'h2','ผลวัดในสภาวะเดียวกัน');
+    fields(pump,[['Q รวม (L/min)','เกจดูด (barG)','เกจจ่าย (barG)'],['ID ที่เกจดูด (mm)','ID ที่เกจจ่าย (mm)','ระดับเกจจ่ายลบเกจดูด (m)'],['ระดับเกจดูดเทียบศูนย์ปั๊ม (m)','ความดันบรรยากาศ (bar abs)','ส่วนเผื่อ NPSH ขั้นต่ำ (m)'],['แรงดันใกล้ U4 (barG)','แรงดันใกล้ L4 (barG)','ระดับน้ำขณะวัดเทียบปั๊ม (m)'],['แรงดันเป้าหมาย (barG)','ขั้นต่ำ / ค่าควบคุม ± (bar)','แรงดันสูงสุดที่ยอมรับ (barG)']]);
+    const rm=page('ผลเคลือบและการเดินสายพาน',manualId);
+    fields(rm,[['ชนิด RM / เกรด','ล็อต / จุดเก็บตัวอย่าง','อุณหภูมิผิว RM (°C)'],['สายพาน (m/min)','กำลังผลิตก่อนพ่น (ชิ้น/min หรือ kg/h)','เรียงชั้นเดียว / ซ้อนกัน']]);
+    put(rm,'h2','ชั่งตัวอย่างชุดเดิมก่อนและหลังพ่น');
+    table(rm,['ชุด','จำนวนชิ้น','ก่อน (g)','หลัง (g)','สะเด็ด (s)','พื้นที่รวม (cm²)'],[1,2,3].map(n=>[n,'','','','','']),'blank');
+    fields(rm,[['ฐานพื้นที่ · ทั้งชิ้น / ฉายบน / ทรงกล่อง','ทรงกล่อง · ยาว × กว้าง × หนา (mm)'],['หน่วยเกณฑ์ · %Glaze / mL ต่อชิ้น / L ต่อ m²','ค่าต่ำสุด / สูงสุดที่ยอมรับ'],['ฐาน %Glaze · น้ำหนักหลัง / ก่อนพ่น','Q ใช้ประเมิน · วัดจริง / จุดตัดกราฟ']]);
+    put(rm,'h2','ถาดรับน้ำที่ระนาบผลิตภัณฑ์');
+    put(rm,'p','เรียงถาดขนาดเท่ากันจากซ้ายไปขวา กรอก 0 สำหรับถาดที่แห้ง ถ้ามีมากกว่า 8 ถาดใช้แผ่นต่อ');
+    table(rm,['ราง / ถาด','1','2','3','4','5','6','7','8'],['บน (mL)','ล่าง (mL)'].map(v=>[v,...Array(8).fill('')]),'blank');
+    fields(rm,[['เวลารับน้ำ (s)','CV สูงสุดที่ยอมรับ (%)'],['สิ่งที่พบ / การปรับเครื่อง','ผู้ทวนสอบ / เวลา']]);
+  } else {
+    const idLine=record.date.replace('T',' ')+'   ·   '+record.rm+'   ·   ล็อต '+record.lot;
+    const summary=page('สรุปผลทดลอง Glazing',idLine);
+    put(summary,'p',record.pump+'   ·   '+record.completeness);
+    put(summary,'small','รหัสบันทึก '+record.id);
+    put(summary,'h2','การพ่นและน้ำที่ติดผลิตภัณฑ์');
+    table(summary,['รายการและฐานคำนวณ','ผล ณ เวลาบันทึก'],record.metrics,'result');
+    put(summary,'h2','ผลตามเกณฑ์ของรอบ');
+    if (record.verdict) put(summary,'p','ผลรวม ณ เวลาบันทึก  ·  '+record.verdict);
+    table(summary,['รายการตรวจ','ผลประเมิน'],Object.entries(record.checks),'result');
+    put(summary,'p','ขีด (—) หมายถึงรอบนี้มีข้อมูลไม่ครบสำหรับค่านั้น');
+    const hydraulic=page('ระบบน้ำและผลวัดรายหัว',idLine);
+    const data=Object.entries(record.hydraulics??{});
+    const vendorKey='ข้อมูลผู้ผลิตตามรุ่นและรอบ';
+    table(hydraulic,['จุดทำงาน / ผลตรวจ','ค่าที่บันทึก'],data.filter(([k])=>k!==vendorKey && !/^[UL]\d+ ·/.test(k)));
+    const nozzles=data.filter(([k])=>/^[UL]\d+ ·/.test(k));
+    if(nozzles.length)table(hydraulic,['หัวฉีด','แรงดัน อัตราการไหล และที่มาของค่าพิกัด'],nozzles);
+    const fromVendor=data.find(([k])=>k===vendorKey)?.[1];
+    if(fromVendor && fromVendor!=='null') {
+      let vendor;
+      try {vendor=JSON.parse(fromVendor);} catch {}
+      if(vendor){put(hydraulic,'h2','ข้อมูลผู้ผลิตที่ใช้');put(hydraulic,'p',vendor.source+' · ช่วงเดินต่อเนื่อง '+vendor.min+'–'+vendor.max+' L/min');}
+    }
+    const pumpInputs=record.settings.filter(([, , ,id])=>/^(gauge-|field-measured-|check-|measured-|measurement-duration|temperature$|pressure$|pump-run-|upperCount|lowerCount)/.test(id));
+    const processInputs=record.settings.filter(([, , ,id])=>trialSpec.has(id) && !id.startsWith('gauge-') && !['rm-name','rm-lot','run-date'].includes(id));
+    for(const [title,rows] of [['เงื่อนไขปั๊มและหลักฐานการวัด',pumpInputs],['ข้อมูลตัวอย่าง RM และการเดินไลน์',processInputs]]) {
+      if(!rows.length) continue;
+      const evidence=page(title,idLine);
+      table(evidence,['รายการ','ค่า / หน่วย','ที่มา'],rows.map(([name,value,unit,,source])=>[name,[value,unit].filter(Boolean).join(' '),source??'ตามบันทึกเดิม']));
+      if(rows===processInputs)put(evidence,'p','ผู้ทบทวน ___________________________   วันที่ ____________________','sign');
+    }
+  }
+  win.focus();
+  win.requestAnimationFrame(()=>win.requestAnimationFrame(()=>win.print()));
+}
+$('print-worksheet').onclick=()=>openPrintReport(null);
+function exportTrial(record) {
+  const doc=document.implementation.createHTMLDocument('ผลทดลอง Glazing · '+record.rm);
+  doc.documentElement.lang='th';
+  const meta=doc.createElement('meta');meta.charset='utf-8';doc.head.prepend(meta);
+  const style=doc.createElement('style');style.textContent='body{font:15px/1.5 system-ui,sans-serif;max-width:900px;margin:2em auto;color:#17283e;padding:1em}table{width:100%;border-collapse:collapse}th,td{padding:.4em;text-align:left;border-bottom:1px solid #ccd8e2;overflow-wrap:anywhere;white-space:pre-wrap}caption{text-align:left;font-weight:bold}';doc.head.append(style);
+  const title=doc.createElement('h1');title.textContent='รายงานผลทดลอง Glazing';doc.body.append(title,textTable(reportRows(record),record.rm+' · '+record.date));
+  const url=URL.createObjectURL(new Blob(['<!doctype html>\n',doc.documentElement.outerHTML],{type:'text/html;charset=utf-8'}));
+  const a=document.createElement('a');a.href=url;a.download='IVQF-Glazing-'+record.id+'.html';a.click();setTimeout(()=>URL.revokeObjectURL(url),10000);
+}
+function renderEstimate(t) {
+  const target=$('estimate-note');
+  if(!target)return;
+  const base=historyRecords.get($('history-base').value);
+  if (!base || base.rm!==$('rm-name').value.trim() || base.basis!==t.basis || !(base.retention>=0) || base.retention===null ||
+      base.retention>100 || !t.items || !t.n || !t.area || t.flow===null) {target.textContent='';return;}
+  const areaRate=t.area/t.n*t.items;
+  target.textContent='ประมาณจากสัดส่วนติดผิวของรอบเทียบ '+shown(base.retention,1)+'% ได้ '+shown(t.flow*base.retention/100/areaRate,3)+' L/m² สำหรับรอบปัจจุบัน ใช้เมื่อขนาด การเรียง อุณหภูมิ และความเร็วใกล้เคียงกัน';
+}
+function renderHistory() {
+  const list=$('history-list'),prev=$('history-view')?.value,oldBase=$('history-base')?.value;
+  list.replaceChildren();
+  const records=[...historyRecords.values()].sort((a,b)=>b.saved-a.saved);
+  if(!records.length){list.textContent='ยังไม่มีรอบที่บันทึก';return;}
+  const fields=document.createElement('div');fields.className='trial-fields';
+  for (const [id,title] of [['history-view','ดูรอบที่บันทึก'],['history-base','เปรียบเทียบกับรอบ']]) {
+    const label=document.createElement('label');label.className='field';
+    const caption=document.createElement('span');caption.textContent=title;
+    const s=document.createElement('select');s.id=id;
+    if(id==='history-base')s.add(new Option('เลือกรอบเทียบ',''));
+    for(const r of records)s.add(new Option(r.date.replace('T',' ')+' · '+r.rm+' · '+r.lot+' · '+r.id.slice(-5),r.id));
+    if (id==='history-view' && historyRecords.has(prev))s.value=prev;
+    if (id==='history-base' && historyRecords.has(oldBase))s.value=oldBase;
+    label.append(caption,s);fields.append(label);
+  }
+  const results=document.createElement('div');results.className='table-scroll';
+  const details=document.createElement('details'),summary=document.createElement('summary'),info=document.createElement('div');
+  summary.textContent='ค่าตั้ง ผลวัด และเกณฑ์ของรอบที่เลือก';info.className='table-scroll';details.append(summary,info);
+  const button=document.createElement('button');button.className='btn';button.type='button';button.textContent='ดาวน์โหลดรายงานรอบที่เลือก';
+  const print=document.createElement('button');print.className='btn primary';print.type='button';print.id='print-saved-trial';print.textContent='พิมพ์ PDF สรุปรอบที่เลือก';
+  const reuse=document.createElement('button');reuse.className='btn';reuse.type='button';reuse.textContent='ใช้เกณฑ์ RM ของรอบที่เลือก';
+  const actions=document.createElement('div');actions.className='trial-results';actions.append(print,reuse,button);
+  const note=document.createElement('p');note.className='trial-msg';note.id='estimate-note';
+  list.className='trial-body';list.append(fields,results,details,actions,note);
+  const update=()=>{
+    const r=historyRecords.get($('history-view').value), b=historyRecords.get($('history-base').value);
+    const table=document.createElement('table');table.className='validation-table';
+    const header=table.createTHead().insertRow();
+    ['ผลรอบทดลอง','รอบที่เลือก',...(b?['รอบเทียบ']:[])].forEach(title=>rowHeading(header,title,'col'));
+    const body=table.createTBody();
+    r.metrics.forEach(([title,val],i)=>{
+      const row=body.insertRow();rowHeading(row,title);cell(row,val);
+      if(b){const entry=b.metrics[i];cell(row,entry?(entry[0]===title?'':entry[0]+' · ')+entry[1]:'—');}
+    });
+    results.replaceChildren(table);info.replaceChildren(textTable(reportRows(r),'ข้อมูล ณ เวลาบันทึก'));
+    button.onclick=()=>exportTrial(r);
+    print.onclick=()=>openPrintReport(r);
+    reuse.onclick=()=>{
+      const recipe=r.recipe;
+      if (!recipe) return;
+      for(const [id,value] of Object.entries(recipe)) if($(id))$(id).value=value;
+      $('pressure').dispatchEvent(new Event('input',{bubbles:true}));
+      $('trial').open=true;
+      focusInput($('rm-name'));
+      $('history-status').textContent='นำเกณฑ์ของ '+r.rm+' มาใช้แล้ว ตรวจค่าก่อนบันทึกรอบใหม่';
+    };
+    reuse.disabled=!r.recipe;
+    renderEstimate(trialData());
+  };
+  fields.addEventListener('change',update);update();
+}
+$('save-trial').onclick=()=>{
+  const t=trialData(),status=$('history-status');
+  const rm=$('rm-name').value.trim(),lot=$('rm-lot').value.trim(),date=$('run-date').value;
+  if (!rm || !lot || !date || t.errors.length || !(t.perPiece!==null || t.surface!==null || t.flow!==null || t.trays.some(v=>v.volumes))) {
+    status.textContent='ระบุชนิด RM ล็อต วันเวลา และผลทดลองอย่างน้อยหนึ่งรายการ พร้อมแก้ค่าที่แจ้งเตือน';return;
+  }
+  const id=crypto.randomUUID?.()??Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);
+  const actual=t.duty;
+  const hydraulics={
+    'จุดวัด Q–H':actual?shown(actual.flow)+' L/min @ '+shown(actual.head)+' m':'ยังไม่มีจุดวัดยืนยัน',
+    'ผลตรวจที่จุดวัดจริง':t.pumpCheck?.text||'รอจุดวัด',
+    'จุดตัดกราฟที่คำนวณ':t.op?shown(t.op.flow)+' L/min @ '+shown(t.op.hydraulicHead)+' m':'รอยืนยันข้อมูล',
+    'อุณหภูมิน้ำที่ใช้':shown(valueOf('temperature'),1)+' °C',
+    'ข้อมูลผู้ผลิตตามรุ่นและรอบ':JSON.stringify(loadVendor(pumpSignature(t.pump))??null),
+    'ผลตรวจโหลดมอเตอร์':t.op && !pumpCheckEdited?$('power-load').textContent:'รอผลยืนยัน',
+    'ส่วนเผื่อ NPSH':t.op && !pumpCheckEdited?$('npsh-margin-output').textContent:'รอผลยืนยัน'
+  };
+  if (currentResult && $('pump-freshness').hidden) {
+    const target=currentCalculation.target;
+    hydraulics['จุดออกแบบของระบบ']=shown(target.flow)+' L/min @ '+shown(target.hydraulicHead)+' m';
+    hydraulics['ฐานของผลรายหัว']=currentResult.operating?'จุดทำงานที่คาดของปั๊ม':'แรงดันเป้าหมาย';
+    hydraulics['Loss เส้นทางกำหนดเฮด']=shown(currentResult.pathLoss,4)+' m';
+    for(const branch of currentResult.branches) for(const nozzle of branch.nozzles) {
+      hydraulics[nozzle.code+' · ผลคำนวณ']=shown(nozzle.pressure,3)+' barG · '+shown(nozzle.flow,3)+' L/min · Q ที่ 3 bar จาก'+(nozzle.measured?'ผลวัด':'ค่าอ้างอิง');
+    }
+  }
+  for(const [i,v] of t.trays.entries()) if(v.volumes)hydraulics['CV ถาด'+(i?'ล่าง':'บน')]=shown(v.cv,2)+' %';
+  const recipe=Object.fromEntries(['rm-name','pressure','pressure-role','pressure-tol','pressure-cap','glaze-unit','glaze-min','glaze-max','glaze-base','area-mode','cv-limit'].map(id=>[id,$(id).value]));
+  const record={version:1,id,saved:Date.now(),rm,lot,date,recipe,verdict:trialVerdict(t),settings:settingRows(),metrics:trialMetrics(t),checks:t.checks,hydraulics,
+    retention:t.retention,basis:t.basis,completeness:$('rm-coverage').textContent,pump:t.pump?t.pump.name+' · '+t.pump.frequency+' Hz · '+shown(t.pump.speed,0)+' rpm':'ยังไม่มีกราฟ'};
+  let saved=true;
+  try {localStorage.setItem(trialPrefix+id,JSON.stringify(record));}catch{saved=false;}
+  historyRecords.set(id,record);renderHistory();$('history-view').value=id;$('history-view').dispatchEvent(new Event('change',{bubbles:true}));
+  status.textContent=saved?'บันทึกรอบ '+date.replace('T',' ')+' แล้ว':'เก็บได้เฉพาะครั้งนี้ กรุณาดาวน์โหลดรายงานเพื่อเก็บสำเนา';
+};
+$('trial-link').onclick=()=>{$('trial').open=true;};
+$('trial-field-link').onclick=()=>{$('field-check').open=true;};
+const nowLocal=new Date();
+$('run-date').value=new Date(nowLocal.getTime()-nowLocal.getTimezoneOffset()*60000).toISOString().slice(0,16);
+readHistory();renderHistory();$('history-status').textContent=historyWarning;
+document.addEventListener('input',event=>{
+  const id=event.target.id;
+  if (event.target.form===$('system-form') || id.startsWith('vendor-')) return;
+  if(trialSpec.has(id) || id.startsWith('field-measured-') || id.startsWith('check-')) {
+    renderTrial();
+    if(id.startsWith('field-measured-') || id.startsWith('gauge-') || id==='check-atmosphere') drawPumpChart();
+  }
 });
 updatePumpFields();
 updateMeasurementFields();

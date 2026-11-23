@@ -60,10 +60,10 @@ test('every available deep link loads the intended file/section and has correct 
   }
 });
 test('spray glazing calculator is above the manual and loads through its deep link', async () => {
-  assert.ok(html.indexOf('href="IVQF_Glazing_Hydraulics.html#pump-section"') < html.indexOf('href="IVQF_Capacity_Flow_Simulator_User_Manual_TH.pdf"'));
+  assert.ok(html.indexOf('href="IVQF_Glazing_Hydraulics.html"') < html.indexOf('href="IVQF_Capacity_Flow_Simulator_User_Manual_TH.pdf"'));
   const app = setup(); app.click('spray-glazing-calculator'); await settle(); app.complete();
   assert.equal(app.location.hash, '#spray-glazing-calculator');
-  assert.equal(app.nodes.get('embed-frame').src, 'IVQF_Glazing_Hydraulics.html#pump-section');
+  assert.equal(app.nodes.get('embed-frame').src, 'IVQF_Glazing_Hydraulics.html');
   assert.equal(app.nodes.get('embed-title').textContent, 'Spray Glazing calculator');
   assert.equal(app.links.find(l => l.dataset.route === 'spray-glazing-calculator').getAttribute('aria-current'), 'page');
 });
