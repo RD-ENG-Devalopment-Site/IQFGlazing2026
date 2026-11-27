@@ -122,7 +122,7 @@ test('pending reports have readable status, no href and no embed handler', () =>
     }
   }
   const pendingKeys = tags(documents.get('index.html')).map(tag => tag.attrs['data-pending']).filter(Boolean);
-  assert.deepEqual(pendingKeys, ['glazing-plan', 'glazing-experiment', 'experiment-1', 'experiment-2', 'experiment-3']);
+  assert.deepEqual(pendingKeys, ['glazing-plan', 'glazing-experiment', 'experiment-1', 'experiment-2', 'experiment-3', 'conveyor-speed']);
   const main = documents.get('index.html');
   assert.ok(main.indexOf('href="ivqf_experiment_6_summary.html"') > main.indexOf('href="ivqf_experiment_5_summary.html"'));
 });

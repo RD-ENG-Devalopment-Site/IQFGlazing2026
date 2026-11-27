@@ -106,7 +106,7 @@ test('trial 7 click and refresh load the supplied report with active navigation'
   assert.equal(fresh.nodes.get('embed-retry').hidden, true);
 });
 test('pending and malformed URLs never load a fake report', async () => {
-  for (const key of ['experiment-1', 'experiment-2', 'experiment-3', 'glazing-plan', 'glazing-experiment', 'unknown', '%E0%A4%A']) {
+  for (const key of ['experiment-1', 'experiment-2', 'experiment-3', 'glazing-plan', 'glazing-experiment', 'conveyor-speed', 'unknown', '%E0%A4%A']) {
     const app = setup('#' + key); await settle();
     assert.equal(app.requests.length, 0); assert.equal(app.nodes.get('embed-frame').src, undefined);
     assert.equal(app.nodes.get('embed-frame').hidden, true);
