@@ -51,7 +51,7 @@ function setup(hash = '', fetchMock) {
 }
 
 test('every available deep link loads the intended file/section and has correct active navigation', async () => {
-  for (const key of ['order-dashboard', 'order-top5', 'order-chart', 'order-table', 'glazing-standard', 'experiment-4', 'experiment-5', 'experiment-6', 'experiment-7', 'experiment-8', 'capacity-flow', 'spray-glazing-calculator']) {
+  for (const key of ['order-dashboard', 'order-top5', 'order-chart', 'order-table', 'glazing-standard', 'experiment-4', 'experiment-5', 'experiment-6', 'experiment-7', 'experiment-8', 'capacity-flow', 'spray-glazing-calculator', 'conveyor-speed']) {
     const app = setup('#' + key); await settle(); app.complete();
     assert.equal(app.nodes.get('embed-frame').hidden, false, key);
     assert.equal(app.nodes.get('embed-retry').hidden, true, key);
@@ -106,7 +106,7 @@ test('trial 7 click and refresh load the supplied report with active navigation'
   assert.equal(fresh.nodes.get('embed-retry').hidden, true);
 });
 test('pending and malformed URLs never load a fake report', async () => {
-  for (const key of ['experiment-1', 'experiment-2', 'experiment-3', 'glazing-plan', 'glazing-experiment', 'conveyor-speed', 'unknown', '%E0%A4%A']) {
+  for (const key of ['experiment-1', 'experiment-2', 'experiment-3', 'glazing-plan', 'glazing-experiment', 'unknown', '%E0%A4%A']) {
     const app = setup('#' + key); await settle();
     assert.equal(app.requests.length, 0); assert.equal(app.nodes.get('embed-frame').src, undefined);
     assert.equal(app.nodes.get('embed-frame').hidden, true);

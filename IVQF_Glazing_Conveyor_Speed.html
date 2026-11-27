@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>คำนวณความเร็วสายพาน Glazing | IVQF</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --page: #f3f4f6;
+      --surface: #fff;
+      --ink: #172033;
+      --muted: #556373;
+      --line: #dfe3e8;
+      --blue: #185fa5;
+      --stage: #102232;
+      --front-ink: #00696a;
+      --rear-ink: #854504;
+      --front-light: #59f4dd;
+      --rear-light: #ffd08b;
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--page); color: var(--ink); font: 15px/1.55 "Leelawadee UI", Tahoma, "Segoe UI", sans-serif; }
+    [hidden] { display: none !important; }
+    button, input, select { font: inherit; }
+    button, select, input[type="range"] { cursor: pointer; }
+    :focus-visible { outline: 3px solid #3589cd; outline-offset: 3px; }
+    h1, h2, p, figure { margin: 0; }
+    h1 { font-size: 1.9rem; line-height: 1.25; letter-spacing: -.025em; text-wrap: balance; }
+    h2 { font-size: 1.0625rem; line-height: 1.35; }
+    .shell { width: min(100%, 1250px); padding: 26px clamp(14px, 3vw, 38px) 32px; margin-inline: auto; }
+    .intro { margin-bottom: 18px; }
+    .intro p, .section-note, .reference p { color: var(--muted); }
+    .intro p { margin-top: 5px; }
+    .workspace {
+      display: grid; grid-template-columns: minmax(305px, .75fr) minmax(0, 1.85fr);
+      grid-template-areas: "settings viewer" "spray-time viewer"; grid-template-rows: auto 1fr;
+      gap: 16px; align-items: start;
+    }
+    .settings, .viewer, .spray-time, .reference { min-width: 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+    .settings { grid-area: settings; }
+    .viewer { grid-area: viewer; }
+    .spray-time { grid-area: spray-time; }
+    .section-head { padding: 16px 18px; border-bottom: 1px solid var(--line); }
+    .section-note { margin-top: 3px; font-size: .84rem; }
+    .control-button, select {
+      min-height: 42px; padding: 7px 11px; border: 1px solid #b9c4d0; border-radius: 7px;
+      background: var(--surface); color: var(--ink); font-weight: 650;
+    }
+    .control-button:hover, select:hover { border-color: var(--blue); color: var(--blue); }
+    .belt-setting { padding: 14px 18px 17px; --belt: var(--front-ink); }
+    .belt-setting.rear { border-top: 1px solid var(--line); --belt: var(--rear-ink); }
+    .belt-setting label { display: inline-flex; align-items: center; gap: 8px; color: var(--belt); font-weight: 750; }
+    .dot { display: inline-block; width: 9px; height: 9px; flex: 0 0 9px; border-radius: 50%; background: currentColor; }
+    .frequency { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .unit-input { display: inline-flex; position: relative; align-items: center; }
+    .unit-input span { position: absolute; right: 11px; color: var(--muted); pointer-events: none; font-size: .83rem; }
+    input[type="number"] {
+      width: 106px; min-height: 43px; padding: 8px 38px 8px 11px; border: 1px solid #b9c4d0;
+      border-radius: 7px; color: var(--ink); background: var(--surface); font-weight: 700; font-variant-numeric: tabular-nums;
+      appearance: textfield;
+    }
+    input[type="number"]::-webkit-inner-spin-button { appearance: none; }
+    input[aria-invalid="true"] { border-color: #b54532; }
+    input[type="range"] { display: block; width: 100%; height: 31px; margin: 6px 0 0; accent-color: var(--belt); }
+    .range-labels { display: flex; justify-content: space-between; color: var(--muted); font-size: .75rem; }
+    .field-error { margin-top: 5px; color: #9e3828; font-size: .83rem; }
+    .result { display: flex; align-items: baseline; gap: 4px 14px; flex-wrap: wrap; margin-top: 12px; font-variant-numeric: tabular-nums; }
+    .result span { min-width: 0; color: var(--muted); font-size: .86rem; overflow-wrap: anywhere; }
+    .result strong { color: var(--belt); font-size: 1.65rem; line-height: 1; letter-spacing: -.025em; }
+    .result b { color: var(--ink); font-weight: 650; }
+    .source-label {
+      display: inline-block; min-width: 0; padding: 3px 7px; border-radius: 6px; background: #edf2f6;
+      color: #40566b; font-size: .73rem; font-weight: 700; overflow-wrap: anywhere;
+    }
+    .source-label[data-source="reference"] { background: #e6f2ed; color: #24614c; }
+    .source-label[data-source="extrapolated"] { background: #fdf0d8; color: #74430b; }
+    .result .source-label { margin-left: auto; }
+    .spray-body { padding: 12px 18px 15px; }
+    .spray-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+    .spray-fields > div { min-width: 0; }
+    .spray-fields label { display: block; margin-bottom: 4px; color: var(--muted); font-size: .86rem; font-weight: 650; }
+    .spray-fields select, .spray-fields .unit-input, .spray-fields input { width: 100%; font-size: .89rem; }
+    .spray-fields input { padding-right: 28px; }
+    .time-result { display: block; margin-top: 13px; font-variant-numeric: tabular-nums; }
+    .time-value { display: flex; align-items: baseline; flex-wrap: wrap; gap: 5px 10px; }
+    .time-value span, .time-note { color: var(--muted); font-size: .84rem; }
+    .time-value strong { color: var(--blue); font-size: 1.42rem; line-height: 1.2; }
+    .time-note { display: block; margin-top: 4px; }
+    .time-result .source-label { margin-top: 5px; }
+    .viewer .section-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 9px 16px; }
+    .viewer-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .playback { min-width: 110px; background: #174e82; border-color: #174e82; color: white; }
+    .playback:hover { background: #123d66; border-color: #123d66; color: white; }
+    .stage { position: relative; aspect-ratio: 1000 / 560; overflow: hidden; background: var(--stage); }
+    .stage img, .stage canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+    .legend { display: flex; justify-content: space-between; align-items: center; gap: 6px 21px; flex-wrap: wrap; padding: 10px 15px 0; background: var(--stage); color: #e9f3fc; font-size: .87rem; }
+    .legend > span, .legend-items { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 16px; }
+    .legend-key { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
+    .legend .front { color: var(--front-light); }
+    .legend .rear { color: var(--rear-light); }
+    .legend .arrow { font: 700 1.12rem/1 system-ui, sans-serif; }
+    .viewer figcaption { padding: 12px 17px; color: var(--muted); font-size: .82rem; overflow-wrap: anywhere; }
+    .reference { margin-top: 16px; padding: 13px 18px; }
+    .reference summary { width: fit-content; color: var(--ink); cursor: pointer; font-weight: 700; }
+    .reference[open] summary { margin-bottom: 11px; }
+    .reference p { margin-top: 9px; font-size: .84rem; }
+    .reference code { font-size: .92em; overflow-wrap: anywhere; }
+    .reference table { width: 100%; max-width: 590px; border-collapse: collapse; font-size: .875rem; font-variant-numeric: tabular-nums; }
+    .reference th, .reference td { padding: 8px 6px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+    .reference thead th { background: #f1f5f9; }
+    .reference td span { display: inline-block; }
+    @media (max-width: 800px) {
+      .workspace {
+        grid-template-columns: minmax(0, 1fr); grid-template-rows: auto;
+        grid-template-areas: "settings" "viewer" "spray-time";
+      }
+      .settings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .belt-setting.rear { border-top: 0; border-left: 1px solid var(--line); }
+    }
+    @media (max-width: 550px) {
+      h1 { font-size: 1.5rem; }
+      .shell { padding-top: 18px; }
+      .settings { display: block; }
+      .belt-setting.rear { border-left: 0; border-top: 1px solid var(--line); }
+      .belt-setting { padding-block: 12px; }
+      .legend { justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="intro">
+      <h1>คำนวณความเร็วสายพาน Glazing</h1>
+      <p>IVQF Spray Conveyor · ตั้งความถี่แยกได้ตั้งแต่ 5&nbsp;Hz</p>
+    </header>
+    <div class="workspace">
+      <section class="settings" aria-label="ตั้งความถี่สายพาน">
+        <div class="belt-setting">
+          <div class="frequency">
+            <label for="front-hz"><i class="dot" aria-hidden="true"></i>สายพานหน้า · ขาเข้า</label>
+            <div class="unit-input"><input id="front-hz" type="number" min="5" step="any" value="50" required aria-errormessage="front-error"><span aria-hidden="true">Hz</span></div>
+          </div>
+          <input id="front-range" type="range" min="5" max="50" step="0.1" value="50" aria-label="ปรับความถี่สายพานหน้า (Hz)">
+          <div class="range-labels" aria-hidden="true"><span>5 Hz</span><span id="front-range-max">50 Hz</span></div>
+          <p class="field-error" id="front-error" hidden>กรอกความถี่ตั้งแต่ 5 Hz ขึ้นไป</p>
+          <output class="result" id="front-speed" for="front-hz front-range">
+            <span><strong>32.20</strong> m/min</span><span><b>0.536</b> m/s</span>
+            <small class="source-label" data-source="reference">ค่าอ้างอิงจากการวัด</small>
+          </output>
+        </div>
+        <div class="belt-setting rear">
+          <div class="frequency">
+            <label for="rear-hz"><i class="dot" aria-hidden="true"></i>สายพานท้าย · ขาออก</label>
+            <div class="unit-input"><input id="rear-hz" type="number" min="5" step="any" value="50" required aria-errormessage="rear-error"><span aria-hidden="true">Hz</span></div>
+          </div>
+          <input id="rear-range" type="range" min="5" max="50" step="0.1" value="50" aria-label="ปรับความถี่สายพานท้าย (Hz)">
+          <div class="range-labels" aria-hidden="true"><span>5 Hz</span><span id="rear-range-max">50 Hz</span></div>
+          <p class="field-error" id="rear-error" hidden>กรอกความถี่ตั้งแต่ 5 Hz ขึ้นไป</p>
+          <output class="result" id="rear-speed" for="rear-hz rear-range">
+            <span><strong>18.55</strong> m/min</span><span><b>0.309</b> m/s</span>
+            <small class="source-label" data-source="reference">ค่าอ้างอิงจากการวัด</small>
+          </output>
+        </div>
+      </section>
+      <section class="viewer" aria-labelledby="viewer-title">
+        <header class="section-head">
+          <div>
+            <h2 id="viewer-title">จำลองการเดินสายพาน</h2>
+            <p class="section-note">ลูกศรและลายตะแกรงเคลื่อนตามความเร็วที่คำนวณได้</p>
+          </div>
+          <div class="viewer-actions">
+            <label>
+              <select id="playback-rate" aria-label="อัตราเล่นภาพจำลอง">
+                <option value="0.5">0.5×</option>
+                <option value="1" selected>1×</option>
+                <option value="2">2×</option>
+              </select>
+            </label>
+            <button class="control-button playback" id="playback" type="button">หยุดภาพ</button>
+          </div>
+        </header>
+        <figure>
+          <div class="legend">
+            <span class="legend-items">
+              <span class="legend-key rear"><i class="dot" aria-hidden="true"></i>ขาออก · สายพานท้าย</span>
+              <span class="legend-key front"><i class="dot" aria-hidden="true"></i>ขาเข้า · สายพานหน้า</span>
+            </span>
+            <span><b class="arrow" aria-hidden="true">←</b>ทิศทางจากขวาไปซ้าย</span>
+          </div>
+          <div class="stage">
+            <img src="ivqf_report_assets/glazing-conveyor-step.webp" width="1000" height="560"
+                 alt="ภาพเครื่อง Glazing จาก STEP สายพานหน้าเริ่มจากขาเข้าฝั่งขวาและผ่านช่วงพ่นตรงกลางไปยังสายพานท้ายฝั่งซ้าย">
+            <canvas id="belt-motion" aria-hidden="true"></canvas>
+            <img src="ivqf_report_assets/glazing-conveyor-spray-pipe.webp" width="1000" height="560" alt="" aria-hidden="true">
+          </div>
+          <figcaption>สายพานหน้าเดินจากขาเข้าฝั่งขวาผ่านช่วงพ่นกลางเครื่องจนถึงจุดส่งต่อให้สายพานท้ายฝั่งซ้าย ภาพอ้างอิงจาก IVQF Glazing Conveyor (Spray).STEP</figcaption>
+        </figure>
+      </section>
+      <section class="spray-time" aria-labelledby="spray-time-title">
+        <header class="section-head">
+          <h2 id="spray-time-title">เวลาผ่านช่วงพ่น</h2>
+          <p class="section-note">วัดระยะตามแนวสายพาน แล้วเลือกความเร็วที่ใช้ในช่วงพ่น</p>
+        </header>
+        <div class="spray-body">
+          <div class="spray-fields">
+            <div>
+              <label for="spray-belt">ความเร็วจาก</label>
+              <select id="spray-belt">
+                <option value="front">สายพานหน้า</option>
+                <option value="rear">สายพานท้าย</option>
+              </select>
+            </div>
+            <div>
+              <label for="spray-length">ระยะพ่น</label>
+              <div class="unit-input">
+                <input id="spray-length" type="number" min="0" step="any" inputmode="decimal" placeholder="เช่น 1.2" aria-label="ระยะพ่นตามแนวสายพาน (เมตร)" aria-errormessage="spray-length-error">
+                <span aria-hidden="true">m</span>
+              </div>
+            </div>
+          </div>
+          <p class="field-error" id="spray-length-error" hidden>กรอกระยะพ่นมากกว่า 0 เมตร</p>
+          <output class="time-result" id="spray-time-result" for="spray-belt spray-length front-hz rear-hz">
+            <span class="time-value"><span>เวลาโดยประมาณ</span><strong id="spray-seconds">—</strong><span>วินาที</span></span>
+            <small class="time-note" id="spray-time-note">กรอกระยะพ่นเพื่อคำนวณเวลา</small>
+            <small class="source-label" id="spray-time-source" hidden></small>
+          </output>
+        </div>
+      </section>
+    </div>
+    <details class="reference">
+      <summary>ค่าอ้างอิงและสูตรคำนวณ</summary>
+      <table aria-label="ผลวัดความเร็วสายพานที่ 20 และ 50 เฮิรตซ์">
+        <thead><tr><th scope="col">ความถี่</th><th scope="col">สายพานหน้า</th><th scope="col">สายพานท้าย</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">20 Hz</th><td><span>12.57 m/min</span> <span>· 0.209 m/s</span></td><td><span>7.14 m/min</span> <span>· 0.119 m/s</span></td></tr>
+          <tr><th scope="row">50 Hz</th><td><span>32.20 m/min</span> <span>· 0.536 m/s</span></td><td><span>18.55 m/min</span> <span>· 0.309 m/s</span></td></tr>
+        </tbody>
+      </table>
+      <p>เทียบเชิงเส้นจากจุดวัดสองจุดแยกตามสายพาน โดย <code>v = v₂₀ + (Hz − 20) × (v₅₀ − v₂₀) ÷ 30</code> ค่าต่ำกว่า 20 Hz หรือสูงกว่า 50 Hz เป็นค่าประมาณนอกช่วงวัด</p>
+      <p>ใช้ m/min เป็นค่าหลัก แปลงเป็น m/s โดยหาร 60 แล้วตัดที่ทศนิยม 3 ตำแหน่งให้ตรงกับข้อมูลอ้างอิง ภาพจำลองและเวลาผ่านช่วงพ่นใช้ค่าก่อนตัดทศนิยม</p>
+      <p>เวลาผ่านช่วงพ่น (วินาที) = ระยะพ่นตามแนวสายพาน (m) ÷ ความเร็วสายพาน (m/s) โดยถือว่าความเร็วคงที่ตลอดช่วงพ่น</p>
+    </details>
+  </main>
+  <script>
+    'use strict';
+
+    const minHz = 5;
+    const referenceMinHz = 20;
+    const referenceMaxHz = 50;
+    const twoDecimals = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const speedSources = {
+      reference: 'ค่าอ้างอิงจากการวัด',
+      interpolated: 'ค่าประมาณในช่วงวัด',
+      extrapolated: 'ค่าประมาณนอกช่วงวัด'
+    };
+    const canvas = document.getElementById('belt-motion');
+    const context = canvas.getContext('2d');
+    const playButton = document.getElementById('playback');
+    const rateInput = document.getElementById('playback-rate');
+    const sprayBelt = document.getElementById('spray-belt');
+    const sprayLength = document.getElementById('spray-length');
+    const sprayError = document.getElementById('spray-length-error');
+    const spraySeconds = document.getElementById('spray-seconds');
+    const sprayNote = document.getElementById('spray-time-note');
+    const spraySource = document.getElementById('spray-time-source');
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    const rootStyle = getComputedStyle(document.documentElement);
+    const belts = [
+      // STEP surface centerlines in the direction of travel (mm).
+      {
+        id: 'front', at20: 1257, at50: 3220, halfWidth: 460, arrowPitch: 264,
+        points: [[1189, 204, -2], [873, 204, -2], [851, 174, 0], [-810, 193, 0]]
+      },
+      {
+        id: 'rear', at20: 714, at50: 1855, halfWidth: 425, arrowPitch: 168,
+        points: [[-925, 148, 0], [-1436, -40, 0]]
+      }
+    ].map(belt => {
+      const id = belt.id;
+      const speed = document.getElementById(id + '-speed');
+      const stations = [0];
+      const segments = belt.points.slice(1).map((end, i) => {
+        const start = belt.points[i];
+        const length = Math.hypot(...end.map((value, axis) => value - start[axis]));
+        stations.push(stations[i] + length);
+        return { start, end, length, from: stations[i], to: stations[i + 1] };
+      });
+      return {
+        ...belt,
+        segments,
+        stations,
+        length: stations[stations.length - 1],
+        edges: [
+          ...stations.map(distance => [distance, -belt.halfWidth]),
+          ...stations.slice().reverse().map(distance => [distance, belt.halfWidth])
+        ],
+        input: document.getElementById(id + '-hz'),
+        range: document.getElementById(id + '-range'),
+        rangeMax: document.getElementById(id + '-range-max'),
+        error: document.getElementById(id + '-error'),
+        minute: speed.querySelector('strong'),
+        second: speed.querySelector('b'),
+        sourceLabel: speed.querySelector('.source-label'),
+        paint: rootStyle.getPropertyValue('--' + id + '-light').trim(),
+        phase: 74,
+        speed: 0,
+        source: null
+      };
+    });
+
+    let playing = !reducedMotion.matches;
+    let previousTime = null;
+    let frame = null;
+    let width = 0;
+    let height = 0;
+
+    function getSpeedSource(hz) {
+      if (hz === referenceMinHz || hz === referenceMaxHz) return 'reference';
+      if (hz > referenceMinHz && hz < referenceMaxHz) return 'interpolated';
+      return 'extrapolated';
+    }
+
+    function showSpeedSource(label, source) {
+      label.hidden = !source;
+      if (!source) return;
+      label.dataset.source = source;
+      label.textContent = speedSources[source];
+    }
+
+    function updateBelt(belt) {
+      const hz = belt.input.valueAsNumber;
+      const valid = Number.isFinite(hz) && hz >= minHz;
+      belt.input.setAttribute('aria-invalid', String(!valid));
+      belt.error.hidden = valid;
+      belt.source = valid ? getSpeedSource(hz) : null;
+      showSpeedSource(belt.sourceLabel, belt.source);
+      if (!valid) {
+        belt.speed = 0;
+        belt.minute.textContent = '—';
+        belt.second.textContent = '—';
+        return;
+      }
+      const referenceFraction = (hz - referenceMinHz) / (referenceMaxHz - referenceMinHz);
+      const metersPerMinute = belt.at20 / 100 + referenceFraction * ((belt.at50 - belt.at20) / 100);
+      belt.speed = metersPerMinute / 60;
+      if (hz > Number(belt.range.max)) {
+        belt.range.max = Math.ceil(hz);
+        belt.rangeMax.textContent = belt.range.max + ' Hz';
+      }
+      belt.range.value = hz;
+      // Remove binary round-off before formatting values that fall on decimal boundaries.
+      belt.minute.textContent = metersPerMinute < 1e21
+        ? twoDecimals.format(metersPerMinute.toPrecision(15))
+        : metersPerMinute.toExponential(2);
+      belt.second.textContent = belt.speed < 1e21
+        ? (Math.floor(belt.speed * 1000 + 1e-9) / 1000).toFixed(3)
+        : belt.speed.toExponential(2);
+    }
+
+    function updateSprayTime() {
+      const belt = belts.find(item => item.id === sprayBelt.value);
+      const distance = sprayLength.valueAsNumber;
+      const validDistance = Number.isFinite(distance) && distance > 0;
+      const hasInvalidDistance = !validDistance && (sprayLength.value !== '' || sprayLength.validity.badInput);
+      sprayLength.setAttribute('aria-invalid', String(hasInvalidDistance));
+      sprayError.hidden = !hasInvalidDistance;
+
+      const seconds = belt.speed > 0 ? distance / belt.speed : NaN;
+      const hasTime = validDistance && Number.isFinite(seconds);
+      spraySeconds.textContent = '—';
+      sprayNote.hidden = hasTime || hasInvalidDistance;
+      showSpeedSource(spraySource, hasTime ? belt.source : null);
+      if (hasTime) {
+        if (seconds < 0.01) spraySeconds.textContent = '< 0.01';
+        else if (seconds < 1e21) spraySeconds.textContent = twoDecimals.format(seconds);
+        else spraySeconds.textContent = seconds.toExponential(2);
+      } else if (!validDistance) {
+        sprayNote.textContent = 'กรอกระยะพ่นเพื่อคำนวณเวลา';
+      } else if (!belt.speed) {
+        sprayNote.textContent = 'ตรวจความถี่ของสายพานที่เลือก';
+      } else {
+        sprayNote.textContent = 'เวลาสูงเกินช่วงที่คำนวณได้';
+      }
+    }
+
+    function refresh() {
+      belts.forEach(updateBelt);
+      updateSprayTime();
+      drawScene();
+    }
+
+    function project([x, y, z]) {
+      // Orthographic camera used to render the STEP image.
+      return [519 + .94 * (.287 * x + .116 * z), 245 + .94 * (-.066 * x - .253 * y + .139 * z)];
+    }
+
+    function worldPoint(belt, distance, across = 0) {
+      const segment = belt.segments.find(section => distance <= section.to) ?? belt.segments[belt.segments.length - 1];
+      const { start, end, from, length } = segment;
+      const t = (distance - from) / length;
+      return [
+        start[0] + (end[0] - start[0]) * t,
+        start[1] + (end[1] - start[1]) * t,
+        start[2] + (end[2] - start[2]) * t + across
+      ];
+    }
+
+    function trace(belt, points) {
+      const [[firstDistance, firstAcross], ...rest] = points;
+      context.moveTo(...project(worldPoint(belt, firstDistance, firstAcross)));
+      for (const [distance, across] of rest) context.lineTo(...project(worldPoint(belt, distance, across)));
+    }
+
+    const meshPitch = 24;
+    function drawBelt(belt) {
+      const { length, halfWidth, arrowPitch, edges, stations } = belt;
+      context.save();
+      context.beginPath();
+      trace(belt, edges);
+      context.closePath();
+      context.clip();
+      context.fillStyle = belt.paint;
+      context.globalAlpha = .32;
+      context.fill();
+      context.strokeStyle = belt.paint;
+      context.lineWidth = 1.25;
+      context.globalAlpha = .52;
+      context.beginPath();
+      for (let d = belt.phase % meshPitch; d < length; d += meshPitch) {
+        trace(belt, [[d, -halfWidth], [d, halfWidth]]);
+      }
+      for (let z = -halfWidth + 22; z < halfWidth; z += 22) {
+        trace(belt, stations.map(distance => [distance, z]));
+      }
+      context.stroke();
+      context.globalAlpha = belt.speed ? 1 : .5;
+      context.lineCap = 'round';
+      context.lineJoin = 'round';
+      context.beginPath();
+      for (let d = belt.phase - arrowPitch; d < length + 60; d += arrowPitch) {
+        trace(belt, [[d - 52, 0], [d + 51, 0], [d + 12, -52]]);
+        trace(belt, [[d + 51, 0], [d + 12, 52]]);
+      }
+      context.strokeStyle = '#11222f';
+      context.lineWidth = 9;
+      context.stroke();
+      context.strokeStyle = belt.paint;
+      context.lineWidth = 4.5;
+      context.stroke();
+      context.restore();
+    }
+
+    function drawScene() {
+      if (!context || !width || !height) return;
+      context.setTransform(width / 1000, 0, 0, height / 560, 0, 0);
+      context.clearRect(0, 0, 1000, 560);
+      belts.forEach(drawBelt);
+    }
+
+    function tick(time) {
+      frame = null;
+      const seconds = previousTime === null ? 0 : (time - previousTime) / 1000;
+      previousTime = time;
+      const rate = Number(rateInput.value);
+      for (const belt of belts) {
+        const arrowPitch = belt.arrowPitch;
+        const distance = (belt.speed * rate * seconds) % (arrowPitch / 1000);
+        belt.phase = (belt.phase + distance * 1000) % arrowPitch;
+      }
+      drawScene();
+      startFrame();
+    }
+
+    function startFrame() {
+      if (playing && context && !document.hidden && frame === null) frame = requestAnimationFrame(tick);
+    }
+
+    function syncPlayback() {
+      if (frame !== null) cancelAnimationFrame(frame);
+      frame = null;
+      previousTime = null;
+      playButton.textContent = playing ? 'หยุดภาพ' : 'เล่นภาพ';
+      startFrame();
+    }
+
+    for (const belt of belts) {
+      belt.input.addEventListener('input', refresh);
+      belt.range.addEventListener('input', () => {
+        belt.input.value = belt.range.value;
+        refresh();
+      });
+    }
+    sprayBelt.addEventListener('change', updateSprayTime);
+    sprayLength.addEventListener('input', updateSprayTime);
+    playButton.addEventListener('click', () => {
+      playing = !playing;
+      syncPlayback();
+    });
+    reducedMotion.addEventListener('change', event => {
+      playing = !event.matches;
+      syncPlayback();
+    });
+    document.addEventListener('visibilitychange', syncPlayback);
+    if (context) {
+      new ResizeObserver(() => {
+        const box = canvas.getBoundingClientRect();
+        const ratio = Math.min(devicePixelRatio || 1, 2);
+        width = canvas.width = Math.round(box.width * ratio);
+        height = canvas.height = Math.round(box.height * ratio);
+        drawScene();
+      }).observe(canvas);
+    } else {
+      playButton.disabled = true;
+      rateInput.disabled = true;
+      playing = false;
+    }
+    refresh();
+    syncPlayback();
+  </script>
+</body>
+</html>

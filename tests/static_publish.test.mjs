@@ -13,7 +13,7 @@ const pages = [
   'ivqf_experiment_4_summary.html', 'ivqf_experiment_5_summary.html', 'ivqf_experiment_6_summary.html',
   'ivqf_experiment_7_summary.html', 'ivqf_experiment_8_summary.html',
   'ivqf_capacity_flow_simulator.html', 'IVQF_Glazing_Hydraulics.html', 'line_balancing_simulator.html',
-  'line_balancing_simulator_manual.html',
+  'line_balancing_simulator_manual.html', 'IVQF_Glazing_Conveyor_Speed.html',
 ];
 const assets = new Map([
   ['ivqf_report_assets/image1.png', '8a38d88b969164d0e63b6939b06a3da1b7701b08fa8072ac46e4f79a76b2f344'],
@@ -22,6 +22,7 @@ const assets = new Map([
   ['ivqf_report_assets/image14.webp', '869b6e81f13b5d36887be7db0fe5844b2b701c257e95ba959921e972dfcc9016'],
 ]);
 const support = new Set(['main_focus_data.js', 'IVQF_Capacity_Flow_Simulator_User_Manual_TH.pdf',
+  'ivqf_report_assets/glazing-conveyor-step.webp', 'ivqf_report_assets/glazing-conveyor-spray-pipe.webp',
   ...['blk', 'blth', 'drumstick', 'fillet', 'mw35', 'mwboneless', 'sbb-op1', 'sbb-op2'].map(name => `ivqf_report_assets/trial8/${name}.jpg`)]);
 const candidate = new Set([...pages, ...assets.keys(), ...support]);
 const documents = new Map(pages.map(name => [name, fs.readFileSync(path.join(root, name), 'utf8')]));
@@ -101,7 +102,7 @@ test('candidate files exist in exact-case Git inventory; no conditional reports 
   }
 });
 
-test('all twelve candidate HTML documents start in standards mode without terminal pollution', () => {
+test('all candidate HTML documents start in standards mode without terminal pollution', () => {
   for (const [name, source] of documents) assert.deepEqual(documentErrors(source), [], name);
 });
 
@@ -122,7 +123,7 @@ test('pending reports have readable status, no href and no embed handler', () =>
     }
   }
   const pendingKeys = tags(documents.get('index.html')).map(tag => tag.attrs['data-pending']).filter(Boolean);
-  assert.deepEqual(pendingKeys, ['glazing-plan', 'glazing-experiment', 'experiment-1', 'experiment-2', 'experiment-3', 'conveyor-speed']);
+  assert.deepEqual(pendingKeys, ['glazing-plan', 'glazing-experiment', 'experiment-1', 'experiment-2', 'experiment-3']);
   const main = documents.get('index.html');
   assert.ok(main.indexOf('href="ivqf_experiment_6_summary.html"') > main.indexOf('href="ivqf_experiment_5_summary.html"'));
 });

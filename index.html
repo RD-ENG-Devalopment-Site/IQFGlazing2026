@@ -98,7 +98,7 @@
           <div class="dashboard-submenu">
             <a href="ivqf_capacity_flow_simulator.html" data-route="capacity-flow" data-embed data-view-title="IVQF Capacity Flow Simulator"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 19h16M7 16V9m5 7V5m5 11v-4"/></svg></span>IVQF Capacity Flow Simulator</a>
             <a href="IVQF_Glazing_Hydraulics.html" data-route="spray-glazing-calculator" data-embed data-view-title="Spray Glazing calculator"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 5h16M7 5v5m5-5v5m5-5v5"/><path d="M5.5 14.5 4 19m5-4.5L8.5 19m3.5-4.5V19m3-4.5.5 4.5m3-4.5L20 19"/></svg></span>Spray Glazing calculator</a>
-            <span class="nav-pending" aria-disabled="true" data-pending="conveyor-speed"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="8" width="18" height="8" rx="4"/><circle cx="7" cy="12" r="1"/><circle cx="17" cy="12" r="1"/><path d="M7 19h10m-9-3v3m8-3v3"/></svg></span><span>คำนวณความเร็วสายพาน<small>เตรียมข้อมูล</small></span></span>
+            <a href="IVQF_Glazing_Conveyor_Speed.html" data-route="conveyor-speed" data-embed data-view-title="คำนวณความเร็วสายพาน"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="8" width="18" height="8" rx="4"/><circle cx="7" cy="12" r="1"/><circle cx="17" cy="12" r="1"/><path d="M7 19h10m-9-3v3m8-3v3"/></svg></span>คำนวณความเร็วสายพาน</a>
             <a href="IVQF_Capacity_Flow_Simulator_User_Manual_TH.pdf" type="application/pdf" target="_blank" rel="noopener" aria-label="คู่มือการใช้งาน IVQF Capacity Simulator (เปิด PDF ในแท็บใหม่)" data-view-title="คู่มือการใช้งาน IVQF Capacity Simulator"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4.5h11a3 3 0 0 1 3 3v12H8a3 3 0 0 0-3 1.5z"/><path d="M8 7.5h7M8 11h7M8 14.5h5"/></svg></span>คู่มือการใช้งาน IVQF Capacity Simulator</a>
           </div>
         </details>
@@ -222,6 +222,7 @@
         'experiment-8': { title: 'การทดลองครั้งที่ 8', file: 'ivqf_experiment_8_summary.html', marker: 'สรุปผลการทดลอง IVQF ครั้งที่ 8' },
         'capacity-flow': { title: 'IVQF Capacity Flow Simulator', file: 'ivqf_capacity_flow_simulator.html', marker: 'IVQF Capacity Flow Simulator' },
         'spray-glazing-calculator': { title: 'Spray Glazing calculator', file: 'IVQF_Glazing_Hydraulics.html', marker: 'คำนวณระบบพ่นน้ำ Glazing' },
+        'conveyor-speed': { title: 'คำนวณความเร็วสายพาน', file: 'IVQF_Glazing_Conveyor_Speed.html', marker: 'คำนวณความเร็วสายพาน Glazing' },
         'manual': { title: 'คู่มือการใช้งาน IVQF Capacity Simulator', file: 'IVQF_Capacity_Flow_Simulator_User_Manual_TH.pdf', kind: 'pdf' }
       };
       const pending = Object.fromEntries([...document.querySelectorAll('[data-pending]')].map(node => [node.dataset.pending, node.textContent.replace('เตรียมข้อมูล', '').trim()]));
